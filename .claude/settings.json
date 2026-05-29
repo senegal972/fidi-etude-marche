@@ -1,0 +1,79 @@
+{
+  "model": "claude-sonnet-4-6",
+  "skillListingBudget": 0.04,
+  "customInstructions": "Tu travailles sur FIDI · Étude de Marché Immobilier, une SPA + Netlify Functions analysant les données immobilières françaises publiques (DVF, DPE, Géorisques, BAN). Utilise toujours le format ESM pour les fichiers .mjs. Teste les fonctions API avec des adresses réelles françaises. Ne casse jamais les fonctions existantes. Coordonne les agents spécialisés selon la configuration .agents/config.toml.",
+  "env": {
+    "RUFLO_PROJECT": "fidi-etude-marche",
+    "RUFLO_VERSION": "3.6",
+    "NODE_ENV": "development"
+  },
+  "features": {
+    "agentTeams": true,
+    "claudeFlowV3": false,
+    "experimentalAgents": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(npm:*)",
+      "Bash(node:*)",
+      "Bash(npx netlify:*)",
+      "Bash(npx netlify-cli:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git log:*)",
+      "Bash(git checkout:*)",
+      "Bash(git branch:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(curl:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const cmd=process.env.CLAUDE_TOOL_INPUT||''; if(cmd.includes('rm -rf')||cmd.includes('--force')){process.exit(1);}\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[ruflo] Fichier modifié : '$(date '+%H:%M:%S') >> /tmp/fidi-changes.log 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[ruflo] Session FIDI démarrée — '$(date) && echo 'Branche: '$(git -C \"$PWD\" branch --show-current 2>/dev/null || echo 'inconnue')"
+          }
+        ]
+      }
+    ]
+  },
+  "mcpServers": {},
+  "attribution": "Co-Assisted-By: ruflo <ruv@ruv.net> · FIDI Étude de Marché"
+}
