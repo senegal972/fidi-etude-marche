@@ -208,6 +208,21 @@ body{background:#f0f2f5;font-family:'Segoe UI',system-ui,sans-serif;color:#21252
   #map,.leaflet-container{display:none!important;}
   #pdfMapNote{display:flex!important;}
 }
+
+/* ─ Réglementation urbanistique / PLU ──────────────────────────────────── */
+.plu-zone-badge{display:inline-block;padding:.3rem 1rem;border-radius:20px;font-size:.95rem;font-weight:700;letter-spacing:.5px;}
+.plu-info-row{display:flex;gap:.5rem;align-items:baseline;margin-bottom:.35rem;font-size:.84rem;}
+.plu-info-key{min-width:150px;flex-shrink:0;font-weight:600;color:#495057;}
+.plu-info-val{color:#212529;}
+
+/* ─ Rapport / mentions légales (print + PDF) ───────────────────────────── */
+.rapport-header{display:none;}
+@media print{
+  .rapport-header{display:block;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #1a3a6e;}
+  .rapport-footer{display:block!important;}
+  #urbanismeSection{display:block!important;}
+}
+.rapport-footer{display:none;margin-top:2rem;padding-top:1rem;border-top:1px solid #dee2e6;font-size:.7rem;color:#6c757d;}
 </style>
 </head>
 <body>
@@ -318,6 +333,14 @@ body{background:#f0f2f5;font-family:'Segoe UI',system-ui,sans-serif;color:#21252
               </label>
             </div>
 
+            <div class="form-check form-check-inline" data-bs-toggle="tooltip"
+                 title="Zonage PLU (Plan Local d'Urbanisme) via le Géoportail national de l'Urbanisme — IGN/DGALN.">
+              <input class="form-check-input" type="checkbox" id="optUrbanisme" checked/>
+              <label class="form-check-label" for="optUrbanisme">
+                Réglementation PLU
+              </label>
+            </div>
+
             <!-- Champ SIREN affiché si Entreprise coché -->
             <div class="d-none ms-md-3" id="entrepriseQueryWrap" style="min-width:280px;">
               <input type="text" class="form-control form-control-sm" id="inputEntrepriseQ"
@@ -392,6 +415,24 @@ body{background:#f0f2f5;font-family:'Segoe UI',system-ui,sans-serif;color:#21252
 
   <!-- Résultats -->
   <div id="results-panel" class="d-none">
+
+    <!-- En-tête rapport (visible uniquement à l'impression / PDF) -->
+    <div class="rapport-header">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <div style="font-size:1.4rem;font-weight:900;color:#1a3a6e;">FIDI · Étude de Marché Immobilier</div>
+          <div style="font-size:.8rem;color:#6c757d;margin-top:.15rem;">Rapport généré automatiquement à partir des données publiques françaises (data.gouv.fr)</div>
+        </div>
+        <div style="font-size:.75rem;color:#6c757d;text-align:right;">
+          <div id="rapport-adresse-print"></div>
+          <div id="rapport-date-print"></div>
+        </div>
+      </div>
+      <div style="font-size:.7rem;color:#dc3545;margin-top:.5rem;font-style:italic;">
+        Ce document est établi à titre indicatif sur la base de données publiques. Il ne constitue pas une expertise immobilière au sens légal et ne saurait engager la responsabilité de FIDI Conseil.
+        Toute décision d'acquisition doit faire l'objet d'une vérification auprès des services compétents (notaire, géomètre-expert, mairie).
+      </div>
+    </div>
 
     <!-- Bandeau localisation -->
     <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
@@ -740,6 +781,21 @@ body{background:#f0f2f5;font-family:'Segoe UI',system-ui,sans-serif;color:#21252
       </div>
     </div>
 
+    <!-- Réglementation urbanistique — Zone PLU (GPU/IGN) ──────────────────── -->
+    <div class="card shadow-sm mb-3 d-none" id="urbanismeSection">
+      <div class="card-header bg-white d-flex align-items-center flex-wrap gap-2">
+        <i class="bi bi-map-fill me-2 text-primary"></i>
+        <strong>Réglementation urbanistique — Zone PLU</strong>
+        <span class="badge bg-secondary ms-2" id="urbanismeBadge">—</span>
+        <small class="text-muted ms-auto">Source : Géoportail de l'Urbanisme (GPU / IGN)</small>
+      </div>
+      <div class="card-body" id="urbanismeBody">
+        <div class="text-center text-muted py-3">
+          <div class="spinner-border spinner-border-sm me-2"></div>Chargement du zonage PLU…
+        </div>
+      </div>
+    </div>
+
     <!-- Permis & logements neufs (option) ─────────────────────────────────── -->
     <div class="card shadow-sm mb-3 d-none" id="permisSection">
       <div class="card-header bg-white d-flex align-items-center">
@@ -788,12 +844,33 @@ body{background:#f0f2f5;font-family:'Segoe UI',system-ui,sans-serif;color:#21252
       </div>
     </div>
 
+    <!-- Pied de page légal (visible à l'impression / PDF) -->
+    <div class="rapport-footer">
+      <div class="row g-3">
+        <div class="col-md-8">
+          <strong>Mentions légales et avertissement</strong><br>
+          Ce rapport est établi à titre indicatif à partir de données publiques librement accessibles (DVF/DGFiP, ADEME, BAN, Géorisques, GPU/IGN, INSEE).
+          Il ne constitue pas une expertise immobilière, une évaluation certifiée, ni un avis juridique. Les données de prix sont des médianes statistiques et peuvent
+          ne pas refléter la valeur réelle du bien concerné. La zone PLU indiquée est fournie par le Géoportail de l'Urbanisme ; consultez le service urbanisme de la
+          mairie pour toute démarche officielle (permis de construire, certificat d'urbanisme). FIDI Conseil décline toute responsabilité quant à l'utilisation
+          de ce document à des fins décisionnelles sans vérification préalable par un professionnel qualifié (notaire, expert immobilier, géomètre-expert).
+        </div>
+        <div class="col-md-4 text-md-end">
+          <strong>FIDI Conseil</strong><br>
+          contact@fidiconseil.com<br>
+          <span id="rapport-footer-date"></span><br>
+          Sources : DVF · ADEME · BAN · GPU/IGN · Géorisques · INSEE
+        </div>
+      </div>
+    </div>
+
     <!-- Sources -->
     <div class="sources-bar text-center mb-3">
       <i class="bi bi-info-circle me-1"></i>
       Sources : <strong>DVF</strong> Caisse des Dépôts · <strong>VALORIS</strong> (données DGFiP) ·
       <strong>ADEME</strong> DPE logements · <strong>BAN</strong> Géocodage ·
       <strong>Géorisques</strong> BRGM · <strong>GéoAPI</strong> INSEE ·
+      <strong>GPU/IGN</strong> PLU ·
       <strong>Recherche Entreprises</strong> (RNE/INPI) ·
       <strong>BDNB / DPE V2</strong> ADEME
       – Données publiques data.gouv.fr
@@ -1078,6 +1155,24 @@ async function lancerAnalyse(){
     } else {
       document.getElementById('permisSection').classList.add('d-none');
     }
+
+    // Réglementation PLU (option, cochée par défaut)
+    if(document.getElementById('optUrbanisme').checked){
+      loadUrbanismeAsync(data.localisation || {});
+    } else {
+      document.getElementById('urbanismeSection').classList.add('d-none');
+    }
+
+    // Métadonnées du rapport PDF
+    const loc = data.localisation || {};
+    const rapportAdresse = loc.label || loc.city || '';
+    const rapportDate    = 'Analyse du ' + (data.generated_at || new Date().toLocaleDateString('fr-FR'));
+    const el1 = document.getElementById('rapport-adresse-print');
+    const el2 = document.getElementById('rapport-date-print');
+    const el3 = document.getElementById('rapport-footer-date');
+    if(el1) el1.textContent = rapportAdresse;
+    if(el2) el2.textContent = rapportDate;
+    if(el3) el3.textContent = rapportDate;
 
   }catch(err){
     clearTimeout(stepTimer);
@@ -1971,6 +2066,99 @@ async function loadPermisAsync(loc){
     cnt.textContent='0';
     body.innerHTML = `<div class="text-muted text-center py-3">Indisponible (${e.message})</div>`;
   }
+}
+
+// ─── Réglementation urbanistique — Zone PLU (GPU/IGN) ─────────────────────────
+async function loadUrbanismeAsync(loc){
+  const sec  = document.getElementById('urbanismeSection');
+  const body = document.getElementById('urbanismeBody');
+  const badge= document.getElementById('urbanismeBadge');
+  if(!loc.lat || !loc.lon){ sec.classList.add('d-none'); return; }
+  sec.classList.remove('d-none');
+  badge.textContent = '…';
+  body.innerHTML = `<div class="text-center text-muted py-3">
+    <div class="spinner-border spinner-border-sm me-2"></div>Chargement du zonage PLU…</div>`;
+  try{
+    const r = await fetch('/api/urbanisme',{method:'POST',headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({lat: loc.lat, lon: loc.lon, code_insee: loc.citycode||''})});
+    if(!r.ok) throw new Error('Indisponible');
+    const d = await r.json();
+    badge.textContent = String((d.zones||[]).length);
+    renderUrbanisme(d);
+  }catch(e){
+    badge.textContent = '—';
+    body.innerHTML = `<div class="text-muted text-center py-3">
+      <i class="bi bi-info-circle me-1"></i>
+      Données PLU non disponibles pour ce secteur — la commune n'a peut-être pas encore versé son PLU sur le Géoportail de l'Urbanisme.
+    </div>`;
+  }
+}
+
+function renderUrbanisme(data){
+  const body  = document.getElementById('urbanismeBody');
+  const zones = data.zones || [];
+
+  if(!zones.length){
+    body.innerHTML = `
+      <div class="alert alert-light mb-0">
+        <i class="bi bi-exclamation-circle me-1"></i>
+        Aucune zone PLU trouvée à cette adresse via le Géoportail de l'Urbanisme (GPU).
+        Cela peut signifier que la commune n'a pas encore numérisé son document d'urbanisme ou que les données ne sont pas encore publiées.
+        <br><a href="${data.source||'https://www.geoportail-urbanisme.gouv.fr/'}" target="_blank" rel="noopener" class="mt-1 d-inline-block">
+          Vérifier sur le Géoportail de l'Urbanisme ↗</a>
+      </div>`;
+    return;
+  }
+
+  const doc = data.document_plu;
+  const docHtml = doc ? `
+    <div class="card border-0 bg-light mb-3 p-3">
+      <div class="small fw-semibold mb-2 text-primary">
+        <i class="bi bi-file-earmark-text me-1"></i>Document d'urbanisme applicable
+      </div>
+      <div class="row g-1 small">
+        ${doc.type_doc  ? `<div class="col-6 col-md-3"><span class="text-muted">Type :</span> <strong>${doc.type_doc}</strong></div>` : ''}
+        ${doc.nom       ? `<div class="col-6 col-md-3"><span class="text-muted">Nom :</span> ${doc.nom}</div>` : ''}
+        ${doc.etat      ? `<div class="col-6 col-md-3"><span class="text-muted">État :</span> <span class="badge bg-success">${doc.etat}</span></div>` : ''}
+        ${doc.datappro  ? `<div class="col-6 col-md-3"><span class="text-muted">Approuvé le :</span> ${doc.datappro}</div>` : ''}
+        ${doc.urlfic    ? `<div class="col-12 mt-1"><a href="${doc.urlfic}" target="_blank" rel="noopener"><i class="bi bi-download me-1"></i>Télécharger le document</a></div>` : ''}
+      </div>
+    </div>` : '';
+
+  const zonesHtml = zones.map(z => `
+    <div class="card border-0 mb-2" style="background:#f8f9fa;">
+      <div class="card-body p-3">
+        <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+          <span class="plu-zone-badge" style="background:${z.zone_color};color:${z.zone_text};">
+            ${z.libelle || z.typezone || '?'}
+          </span>
+          <span class="fw-semibold">${z.zone_label}</span>
+          ${z.l_destdomi ? `<span class="badge bg-light text-dark border ms-1">${z.l_destdomi}</span>` : ''}
+          ${z.l_protect  ? `<span class="badge bg-warning text-dark ms-1"><i class="bi bi-shield-exclamation me-1"></i>${z.l_protect}</span>` : ''}
+        </div>
+        <p class="small text-secondary mb-2">${z.zone_desc}</p>
+        ${z.libelong && z.libelong !== z.libelle ? `<div class="small text-muted mb-1"><i class="bi bi-chevron-right me-1"></i>${z.libelong}</div>` : ''}
+        <div class="d-flex flex-wrap gap-3 small text-muted">
+          ${z.datappro  ? `<span><strong>Approuvé :</strong> ${z.datappro}</span>` : ''}
+          ${z.partition ? `<span><strong>Partition :</strong> ${z.partition}</span>` : ''}
+          ${z.idurba    ? `<span><strong>Réf. GPU :</strong> <code>${z.idurba}</code></span>` : ''}
+        </div>
+        ${z.urlfic ? `<div class="mt-2 small"><a href="${z.urlfic}" target="_blank" rel="noopener"><i class="bi bi-download me-1"></i>Télécharger le règlement de la zone</a></div>` : ''}
+      </div>
+    </div>`).join('');
+
+  body.innerHTML = `
+    ${docHtml}
+    <div class="mb-2 small fw-semibold text-secondary">
+      <i class="bi bi-geo-alt me-1 text-primary"></i>Zone(s) PLU identifiée(s) à l'adresse analysée
+    </div>
+    ${zonesHtml}
+    <div class="alert alert-light small mt-3 mb-0">
+      <i class="bi bi-info-circle me-1 text-primary"></i>
+      Données issues du <a href="${data.source||'https://www.geoportail-urbanisme.gouv.fr/'}" target="_blank" rel="noopener">Géoportail de l'Urbanisme (GPU/IGN)</a>.
+      <strong>Ces informations sont indicatives</strong> — pour toute démarche officielle (certificat d'urbanisme, permis de construire),
+      contactez le service urbanisme de la mairie. Les règles détaillées (COS, hauteur, emprise, retraits…) figurent dans le règlement écrit du PLU.
+    </div>`;
 }
 
 // ─── Santé financière Pappers ────────────────────────────────────────────────

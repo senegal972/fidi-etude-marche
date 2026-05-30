@@ -19,6 +19,9 @@
 [functions."permis"]
   timeout = 15
 
+[functions."urbanisme"]
+  timeout = 12
+
 # ── Redirections API → Netlify Functions ──────────────────────────────────────
 [[redirects]]
   from   = "/api/analyse"
@@ -53,6 +56,11 @@
 [[redirects]]
   from   = "/api/permis"
   to     = "/.netlify/functions/permis"
+  status = 200
+
+[[redirects]]
+  from   = "/api/urbanisme"
+  to     = "/.netlify/functions/urbanisme"
   status = 200
 
 # ── SPA fallback : toute URL non trouvée → index.html ─────────────────────────
