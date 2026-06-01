@@ -766,6 +766,22 @@ body{background:#f0f2f5;font-family:'Segoe UI',system-ui,sans-serif;color:#21252
       </div>
     </div>
 
+    <!-- Services de proximité (OpenStreetMap / Overpass) ──────────────────── -->
+    <div class="card shadow-sm mb-3" id="servicesSection">
+      <div class="card-header bg-white d-flex align-items-center flex-wrap gap-2">
+        <i class="bi bi-pin-map-fill me-2 text-info"></i>
+        <strong>Services de proximité</strong>
+        <span class="badge bg-info text-dark" id="servicesScore">…</span>
+        <small class="text-muted ms-auto">Source : OpenStreetMap (ODbL) · rayon 800 m</small>
+      </div>
+      <div class="card-body" id="servicesBody">
+        <div class="text-center text-muted py-3">
+          <div class="spinner-border spinner-border-sm me-2"></div>
+          Recherche des aménités proches…
+        </div>
+      </div>
+    </div>
+
     <!-- Permis & logements neufs (option) ─────────────────────────────────── -->
     <div class="card shadow-sm mb-3 d-none" id="permisSection">
       <div class="card-header bg-white d-flex align-items-center">
@@ -821,7 +837,8 @@ body{background:#f0f2f5;font-family:'Segoe UI',system-ui,sans-serif;color:#21252
       <strong>ADEME</strong> DPE logements · <strong>BAN</strong> Géocodage ·
       <strong>Géorisques</strong> BRGM · <strong>GéoAPI</strong> INSEE ·
       <strong>Recherche Entreprises</strong> (RNE/INPI) ·
-      <strong>BDNB / DPE V2</strong> ADEME
+      <strong>BDNB / DPE V2</strong> ADEME ·
+      <strong>OpenStreetMap</strong> (services de proximité, ODbL)
       – Données publiques data.gouv.fr
     </div>
 
@@ -1083,6 +1100,9 @@ async function lancerAnalyse(){
 
     // Caractéristiques bâti (chargement asynchrone systématique)
     loadBatimentAsync(data.localisation || {});
+
+    // Services de proximité (chargement asynchrone systématique)
+    loadServicesAsync(data.localisation || {});
 
     // Vérifications légales d'entreprise (option)
     if(document.getElementById('optEntreprise').checked){
@@ -1774,6 +1794,59 @@ function showTransSpinner(){
 
 // ─── Caractéristiques bâti (BDNB-like via ADEME DPE V2) ──────────────────────
 // DPE_COLORS déjà déclaré plus haut (ligne ~1167) — réutilise la même palette.
+
+async function loadServicesAsync(loc){
+  const sec   = document.getElementById('servicesSection');
+  const body  = document.getElementById('servicesBody');
+  const badge = document.getElementById('servicesScore');
+  if(!loc.lat || !loc.lon){ sec.classList.add('d-none'); return; }
+  badge.textContent = '…';
+  try{
+    const resp = await fetch(`/api/services?lat=${loc.lat}&lon=${loc.lon}&rayon=800`);
+    if(!resp.ok){ throw new Error('HTTP '+resp.status); }
+    const data = await resp.json();
+    renderServices(data);
+  }catch(e){
+    badge.textContent = '—';
+    body.innerHTML = `<div class="text-muted text-center py-3">
+      <i class="bi bi-info-circle me-1"></i>Services de proximité indisponibles (${e.message}).</div>`;
+  }
+}
+
+function renderServices(data){
+  const body  = document.getElementById('servicesBody');
+  const badge = document.getElementById('servicesScore');
+  const cats  = data.categories || [];
+  if(data.disponible === false || !cats.length){
+    badge.textContent = '—';
+    body.innerHTML = `<div class="text-muted text-center py-3">
+      <i class="bi bi-cloud-slash me-1"></i>Données OpenStreetMap momentanément indisponibles.</div>`;
+    return;
+  }
+  badge.textContent = (data.score != null ? data.score + '/100' : '—');
+  const maxCount = Math.max(1, ...cats.map(c => c.count || 0));
+  body.innerHTML = `
+    <div class="row g-3">
+      ${cats.map(c => {
+        const n = c.count != null ? c.count : '—';
+        const w = c.count ? Math.round((c.count / maxCount) * 100) : 0;
+        return `
+        <div class="col-6 col-md-4 col-lg">
+          <div class="text-center p-2">
+            <div style="font-size:1.6rem;color:var(--fidi-blue);"><i class="bi ${c.icon}"></i></div>
+            <div style="font-size:1.5rem;font-weight:800;color:#212529;">${n}</div>
+            <div class="text-muted" style="font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;">${c.label}</div>
+            <div class="mt-1" style="height:5px;background:#f0f2f5;border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:${w}%;background:#0dcaf0;border-radius:3px;"></div>
+            </div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="text-muted text-center mt-2" style="font-size:.7rem;">
+      ${data.total || 0} points d'intérêt recensés dans un rayon de ${(data.rayon_m||800)} m · ${data.source||''}
+    </div>`;
+}
 
 async function loadBatimentAsync(loc){
   const sec  = document.getElementById('batimentSection');

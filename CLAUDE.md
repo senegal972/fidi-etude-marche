@@ -43,6 +43,7 @@ fidi-etude-marche/
 | **RNE / INPI** | recherche-entreprises.api.gouv.fr | Données légales entreprises |
 | **Pappers** | api.pappers.fr | Santé financière (clé API requise) |
 | **SITADEL** | data.statistiques.developpement-durable.gouv.fr | Permis de construire |
+| **OpenStreetMap** | overpass-api.de | Services de proximité (écoles, commerces, santé, transports) |
 
 ## Fonctions API — Entrées / Sorties
 
@@ -75,6 +76,10 @@ Retourne : données RNE/INPI
 ### `GET /api/pappers`
 Paramètre : `siren` (9 chiffres)  
 Retourne : santé financière Pappers
+
+### `GET /api/services`
+Paramètres : `lat, lon, rayon` (100–2000 m, défaut 800)  
+Retourne : aménités OSM proches par catégorie + score services /100
 
 ## Score de potentiel — Axes de notation
 

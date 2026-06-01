@@ -1,0 +1,54 @@
+name: CI — FIDI Étude de Marché
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validation des Netlify Functions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Vérification syntaxe ESM (node --check)
+        run: |
+          for f in netlify/functions/*.mjs; do
+            echo "→ $f"
+            node --check "$f"
+          done
+
+      - name: Tests de conformité des fonctions
+        run: node --test tests/
+
+  smoke:
+    name: Smoke tests (deploy preview)
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Le smoke test s'auto-ignore si l'hôte est injoignable (exit 0),
+      # il ne bloque donc pas la CI quand le preview n'est pas encore prêt.
+      - name: Smoke tests contre le deploy preview
+        run: node tests/smoke.mjs
+        env:
+          BASE_URL: https://deploy-preview-${{ github.event.number }}--fidi-etude-marche.netlify.app
