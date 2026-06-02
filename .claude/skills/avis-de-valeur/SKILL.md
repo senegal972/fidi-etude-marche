@@ -86,6 +86,12 @@ GET /api/services
 GET /api/permis
   ?lat=&lon=&code_postal=&ville=
   → activité construction locale
+
+GET /api/loyers
+  ?code_insee=&prix_m2=
+  → loyer d'annonce €/m²/mois (appart, T1-T2, T3+, maison)
+    + rendement locatif brut implicite si prix_m2 fourni
+    (source : Carte des loyers DHUP 2025)
 ```
 
 ### Étape 2 — Construction du document
@@ -121,12 +127,18 @@ valeur_centrale = (fourchette_basse + fourchette_haute) / 2
 
 #### Méthode par capitalisation (biens locatifs)
 ```
+# Loyer de marché : ne plus saisir manuellement — appeler /api/loyers
+loyer_m2_mois = GET /api/loyers?code_insee=...  → appartement.loyer_m2 (ou maison)
+loyer_mensuel = loyer_m2_mois × surface
 revenu_locatif_annuel = loyer_mensuel × 12 × taux_occupation
 taux_capitalisation = 4% à 7% selon secteur (yield brut marché)
 valeur_rendement = revenu_locatif_annuel / taux_capitalisation
+
+# Astuce : /api/loyers?code_insee=...&prix_m2=<prix DVF/VALORIS>
+# renvoie directement le rendement_brut.taux_brut_pct, à comparer au taux de marché.
 ```
 
-Utiliser la **valeur par comparaison** comme référence principale. La valeur par rendement comme contrôle (écart < 15% = cohérent).
+Utiliser la **valeur par comparaison** comme référence principale. La valeur par rendement comme contrôle (écart < 15% = cohérent). Le loyer provient désormais de la **Carte des loyers DHUP 2025** (`/api/loyers`), plus besoin d'estimation manuelle. Vérifier le champ `fiabilite` : `indicative` = peu d'annonces locales, à pondérer.
 
 ---
 

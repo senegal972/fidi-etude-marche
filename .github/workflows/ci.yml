@@ -30,7 +30,7 @@ jobs:
           done
 
       - name: Tests de conformité des fonctions
-        run: node --test tests/
+        run: node --test tests/*.test.mjs
 
   smoke:
     name: Smoke tests (deploy preview)

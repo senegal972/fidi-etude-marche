@@ -68,6 +68,18 @@ async function testServices() {
   log("ok", "GET /api/services", `${(d.categories || []).length} catégories`);
 }
 
+async function testLoyers() {
+  // Nouveau endpoint additif (loyers de référence DHUP)
+  const r = await fetchT(`${BASE}/api/loyers?code_insee=37099&prix_m2=3200`);
+  if (r.status === 404) return log("skip", "GET /api/loyers", "endpoint absent (optionnel)");
+  if (!r.ok) return log("fail", "GET /api/loyers", `HTTP ${r.status}`);
+  const d = await r.json();
+  if (!d || typeof d !== "object") return log("fail", "GET /api/loyers", "réponse invalide");
+  if (d.disponible === false) return log("skip", "GET /api/loyers", "donnée indisponible (commune/API)");
+  const loyer = d.appartement && d.appartement.loyer_m2;
+  log("ok", "GET /api/loyers", loyer ? `${loyer} €/m²/mois` : "structure OK");
+}
+
 async function main() {
   console.log(`\n🔍 Smoke tests FIDI — cible : ${BASE}\n`);
   // Vérifie d'abord que l'hôte répond
@@ -82,6 +94,7 @@ async function main() {
   await testAutocomplete();
   await testAnalyse();
   await testServices();
+  await testLoyers();
 
   console.log(`\nRésultat : ${passed} ✅  ${failed} ❌  ${skipped} ⊘\n`);
   process.exit(failed > 0 ? 1 : 0);

@@ -44,6 +44,7 @@ fidi-etude-marche/
 | **Pappers** | api.pappers.fr | Santé financière (clé API requise) |
 | **SITADEL** | data.statistiques.developpement-durable.gouv.fr | Permis de construire |
 | **OpenStreetMap** | overpass-api.de | Services de proximité (écoles, commerces, santé, transports) |
+| **Carte des loyers** | tabular-api.data.gouv.fr | Loyers d'annonce au m² par commune (DHUP, millésime 2025) |
 
 ## Fonctions API — Entrées / Sorties
 
@@ -80,6 +81,10 @@ Retourne : santé financière Pappers
 ### `GET /api/services`
 Paramètres : `lat, lon, rayon` (100–2000 m, défaut 800)  
 Retourne : aménités OSM proches par catégorie + score services /100
+
+### `GET /api/loyers`
+Paramètres : `code_insee` (5 car.), `prix_m2` (optionnel, pour le rendement)  
+Retourne : loyer d'annonce €/m²/mois (appartement, T1-T2, T3+, maison) + rendement locatif brut si `prix_m2` fourni — source Carte des loyers DHUP 2025
 
 ## Score de potentiel — Axes de notation
 
