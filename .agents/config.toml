@@ -1,0 +1,130 @@
+# Configuration des agents ruflo — FIDI Étude de Marché
+# Orchestration multi-agents pour l'analyse immobilière française
+# ruflo v3.6 · senegal972/fidi-etude-marche
+
+[core]
+project       = "fidi-etude-marche"
+version       = "3.6"
+model_default = "claude-sonnet-4-6"
+approval      = "on-request"
+sandbox       = "workspace-write"
+
+[project]
+domain        = "immobilier-france"
+stack         = "SPA + Netlify Functions (Node.js ESM)"
+data_sources  = ["DVF", "DPE-ADEME", "Georisques", "BAN", "INSEE", "VALORIS", "SITADEL", "RNE"]
+
+# ── Agents spécialisés ─────────────────────────────────────────────────────────
+
+[agents.dvf-analyst]
+description   = "Analyse et optimisation des requêtes DVF (Demandes de Valeurs Foncières)"
+model         = "claude-sonnet-4-6"
+focus         = ["transactions", "prix_m2", "volumes", "sections_cadastrales"]
+files         = ["netlify/functions/transactions.mjs", "netlify/functions/analyse.mjs"]
+apis          = ["app.dvf.etalab.gouv.fr", "opendata.caissedesdepots.fr"]
+
+[agents.dpe-analyst]
+description   = "Traitement des données DPE et caractéristiques du bâti (ADEME)"
+model         = "claude-sonnet-4-6"
+focus         = ["etiquettes_energie", "batiment", "performance_thermique"]
+files         = ["netlify/functions/batiment.mjs", "netlify/functions/analyse.mjs"]
+apis          = ["data.ademe.fr"]
+
+[agents.risk-analyst]
+description   = "Interprétation des risques naturels et technologiques (Géorisques)"
+model         = "claude-sonnet-4-6"
+focus         = ["inondation", "seisme", "argiles", "score_risques"]
+files         = ["netlify/functions/analyse.mjs"]
+apis          = ["georisques.gouv.fr"]
+
+[agents.api-developer]
+description   = "Développement et maintenance des Netlify Functions"
+model         = "claude-sonnet-4-6"
+focus         = ["esm", "cors", "timeout", "cache", "netlify_functions"]
+files         = ["netlify/functions/*.mjs", "netlify.toml", "package.json"]
+conventions   = ["ESM uniquement", "fetchTimeout() obligatoire", "CORS sur toutes les réponses"]
+
+[agents.data-integrator]
+description   = "Intégration de nouvelles sources de données publiques françaises"
+model         = "claude-sonnet-4-6"
+focus         = ["open_data", "data_gouv_fr", "geojson", "api_publique"]
+files         = ["netlify/functions/", "netlify.toml"]
+sources_cibles = ["CLAMEUR loyers", "OSM commerces", "INSEEE emploi", "DREAL environnement"]
+
+[agents.frontend-developer]
+description   = "Développement de la SPA — HTML, CSS (Bootstrap 5), JS vanilla"
+model         = "claude-sonnet-4-6"
+focus         = ["spa", "bootstrap5", "leaflet", "chartjs", "pwa", "responsive"]
+files         = ["index.html", "manifest.webmanifest", "favicon.svg"]
+conventions   = ["Bootstrap 5.3", "Chart.js 4.4", "Leaflet 1.9", "Bootstrap Icons 1.11"]
+
+[agents.qa-tester]
+description   = "Tests et validation des endpoints API et du rendu SPA"
+model         = "claude-sonnet-4-6"
+focus         = ["test_api", "validation_donnees", "regression", "curl"]
+files         = ["netlify/functions/*.mjs"]
+test_adresses = [
+  "15 rue de la Paix, 75001 Paris",
+  "1 place Bellecour, 69002 Lyon",
+  "1 cours du Chapeau Rouge, 33000 Bordeaux",
+  "1 rue du Général de Gaulle, 67000 Strasbourg",
+]
+
+# ── Coordination ───────────────────────────────────────────────────────────────
+
+[coordination]
+topology     = "hierarchical"
+max_agents   = 4
+parallelism  = true
+
+[[coordination.pipelines]]
+name  = "nouvelle-fonctionnalite"
+steps = [
+  { agent = "api-developer",    role = "implementer" },
+  { agent = "qa-tester",        role = "valider" },
+  { agent = "frontend-developer", role = "afficher", condition = "si_ui_requise" },
+]
+
+[[coordination.pipelines]]
+name  = "analyse-marche"
+steps = [
+  { agents = ["dvf-analyst", "dpe-analyst", "risk-analyst"], role = "parallele" },
+  { agent  = "api-developer", role = "integrer_si_bug" },
+]
+
+[[coordination.pipelines]]
+name  = "integration-source"
+steps = [
+  { agent = "data-integrator",    role = "explorer_et_prototyper" },
+  { agent = "api-developer",      role = "implementer" },
+  { agent = "qa-tester",          role = "valider" },
+  { agent = "frontend-developer", role = "afficher" },
+]
+
+# ── Profils d'exécution ────────────────────────────────────────────────────────
+
+[profiles.dev]
+approval  = "on-request"
+sandbox   = "workspace-write"
+log_level = "info"
+
+[profiles.ci]
+approval  = "auto"
+sandbox   = "read-only"
+log_level = "warn"
+
+[profiles.safe]
+approval  = "always"
+sandbox   = "read-only"
+log_level = "debug"
+
+# ── Mémoire & Apprentissage ────────────────────────────────────────────────────
+
+[memory]
+backend       = "file"
+persist_path  = ".agents/memory/"
+namespaces    = ["dvf", "dpe", "risques", "api", "frontend"]
+
+[security]
+scan_secrets  = true
+deny_patterns = [".env", "*.key", "credentials*"]

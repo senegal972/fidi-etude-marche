@@ -766,6 +766,57 @@ body{background:#f0f2f5;font-family:'Segoe UI',system-ui,sans-serif;color:#21252
       </div>
     </div>
 
+    <!-- Services de proximité (OpenStreetMap / Overpass) ──────────────────── -->
+    <div class="card shadow-sm mb-3" id="servicesSection">
+      <div class="card-header bg-white d-flex align-items-center flex-wrap gap-2">
+        <i class="bi bi-pin-map-fill me-2 text-info"></i>
+        <strong>Services de proximité</strong>
+        <span class="badge bg-info text-dark" id="servicesScore">…</span>
+        <small class="text-muted ms-auto">Source : OpenStreetMap (ODbL) · rayon 800 m</small>
+      </div>
+      <div class="card-body" id="servicesBody">
+        <div class="text-center text-muted py-3">
+          <div class="spinner-border spinner-border-sm me-2"></div>
+          Recherche des aménités proches…
+        </div>
+      </div>
+    </div>
+
+    <!-- Marché locatif & revenus (loyers DHUP + INSEE Filosofi) ───────────── -->
+    <div class="card shadow-sm mb-3 d-none" id="loyersSection">
+      <div class="card-header bg-white d-flex align-items-center flex-wrap gap-2">
+        <i class="bi bi-cash-coin me-2 text-success"></i>
+        <strong>Marché locatif & revenus</strong>
+        <small class="text-muted ms-auto">Source : Carte des loyers DHUP 2025 · INSEE Filosofi 2021</small>
+      </div>
+      <div class="card-body" id="loyersBody">
+        <div class="text-center text-muted py-3">
+          <div class="spinner-border spinner-border-sm me-2"></div>
+          Chargement des loyers de référence…
+        </div>
+      </div>
+    </div>
+
+    <!-- Avis de valeur (génération automatique) ────────────────────────────── -->
+    <div class="card shadow-sm mb-3 d-none" id="avisSection">
+      <div class="card-header bg-white d-flex align-items-center flex-wrap gap-2">
+        <i class="bi bi-file-earmark-text me-2 text-primary"></i>
+        <strong>Avis de valeur</strong>
+        <small class="text-muted ms-auto">Comparaison directe + contrôle par capitalisation</small>
+      </div>
+      <div class="card-body" id="avisBody">
+        <p class="text-muted mb-2" style="font-size:.85rem;">
+          Génère un avis de valeur vénale à partir de l'analyse en cours
+          (comparables DVF, DPE, risques, services de proximité, loyers de référence).
+          Document indicatif — ne constitue pas une expertise certifiée.
+        </p>
+        <button class="btn btn-primary btn-sm" id="btnAvisQuick">
+          <i class="bi bi-magic me-1"></i>Générer l'avis de valeur (rapide)
+        </button>
+        <div id="avisResult" class="mt-3"></div>
+      </div>
+    </div>
+
     <!-- Permis & logements neufs (option) ─────────────────────────────────── -->
     <div class="card shadow-sm mb-3 d-none" id="permisSection">
       <div class="card-header bg-white d-flex align-items-center">
@@ -821,7 +872,8 @@ body{background:#f0f2f5;font-family:'Segoe UI',system-ui,sans-serif;color:#21252
       <strong>ADEME</strong> DPE logements · <strong>BAN</strong> Géocodage ·
       <strong>Géorisques</strong> BRGM · <strong>GéoAPI</strong> INSEE ·
       <strong>Recherche Entreprises</strong> (RNE/INPI) ·
-      <strong>BDNB / DPE V2</strong> ADEME
+      <strong>BDNB / DPE V2</strong> ADEME ·
+      <strong>OpenStreetMap</strong> (services de proximité, ODbL)
       – Données publiques data.gouv.fr
     </div>
 
@@ -912,6 +964,7 @@ document.getElementById('inputAdresse').addEventListener('keydown', e => {
   if(e.key === 'Enter'){ hideAC(); lancerAnalyse(); }
 });
 document.getElementById('btnAnalyse').addEventListener('click', lancerAnalyse);
+document.getElementById('btnAvisQuick').addEventListener('click', generateAvisDeValeur);
 
 // ─── Géolocalisation du navigateur → reverse geocode BAN ──────────────────────
 document.getElementById('btnGeoloc').addEventListener('click', async () => {
@@ -1078,11 +1131,38 @@ async function lancerAnalyse(){
     document.getElementById('btnPdf').classList.remove('d-none');
     document.getElementById('btnAvis').classList.remove('d-none');
     window.scrollTo({top: document.getElementById('results-panel').offsetTop - 20, behavior:'smooth'});
+    // État partagé pour la génération de l'avis de valeur (rempli au fil des appels async)
+    (function initAvisState(){
+      const loc = data.localisation || {};
+      const v = data.valoris || {};
+      const src = (typeBien === 'maison' ? (v.maison || v.tous) : (v.appartement || v.tous)) || {};
+      window.__avisState = {
+        adresse: adresse,
+        type_bien: typeBien,
+        surface: surface,
+        localisation: {
+          lat: loc.lat, lon: loc.lon,
+          code_insee: loc.citycode, ville: loc.city, code_postal: loc.postcode,
+        },
+        prix_m2_reference: src.prix_median_m2 || null,
+        risques: data.risques || {},
+        comparables: [], dpe: {}, services: {}, loyers: {}, revenus: {},
+      };
+      document.getElementById('avisSection').classList.remove('d-none');
+      document.getElementById('avisResult').innerHTML = '';
+    })();
+
     // Transactions chargées séparément (appel asynchrone indépendant)
     loadTransactionsAsync(data.localisation || {}, perimetre);
 
     // Caractéristiques bâti (chargement asynchrone systématique)
     loadBatimentAsync(data.localisation || {});
+
+    // Services de proximité (chargement asynchrone systématique)
+    loadServicesAsync(data.localisation || {});
+
+    // Loyers de référence + revenus territoriaux (chargement asynchrone)
+    loadLoyersAsync(data.localisation || {});
 
     // Vérifications légales d'entreprise (option)
     if(document.getElementById('optEntreprise').checked){
@@ -1775,6 +1855,184 @@ function showTransSpinner(){
 // ─── Caractéristiques bâti (BDNB-like via ADEME DPE V2) ──────────────────────
 // DPE_COLORS déjà déclaré plus haut (ligne ~1167) — réutilise la même palette.
 
+async function loadServicesAsync(loc){
+  const sec   = document.getElementById('servicesSection');
+  const body  = document.getElementById('servicesBody');
+  const badge = document.getElementById('servicesScore');
+  if(!loc.lat || !loc.lon){ sec.classList.add('d-none'); return; }
+  badge.textContent = '…';
+  try{
+    const resp = await fetch(`/api/services?lat=${loc.lat}&lon=${loc.lon}&rayon=800`);
+    if(!resp.ok){ throw new Error('HTTP '+resp.status); }
+    const data = await resp.json();
+    renderServices(data);
+  }catch(e){
+    badge.textContent = '—';
+    body.innerHTML = `<div class="text-muted text-center py-3">
+      <i class="bi bi-info-circle me-1"></i>Services de proximité indisponibles (${e.message}).</div>`;
+  }
+}
+
+function renderServices(data){
+  const body  = document.getElementById('servicesBody');
+  const badge = document.getElementById('servicesScore');
+  const cats  = data.categories || [];
+  if(data.disponible === false || !cats.length){
+    badge.textContent = '—';
+    body.innerHTML = `<div class="text-muted text-center py-3">
+      <i class="bi bi-cloud-slash me-1"></i>Données OpenStreetMap momentanément indisponibles.</div>`;
+    return;
+  }
+  badge.textContent = (data.score != null ? data.score + '/100' : '—');
+  if(window.__avisState) window.__avisState.services = { score: data.score };
+  const maxCount = Math.max(1, ...cats.map(c => c.count || 0));
+  body.innerHTML = `
+    <div class="row g-3">
+      ${cats.map(c => {
+        const n = c.count != null ? c.count : '—';
+        const w = c.count ? Math.round((c.count / maxCount) * 100) : 0;
+        return `
+        <div class="col-6 col-md-4 col-lg">
+          <div class="text-center p-2">
+            <div style="font-size:1.6rem;color:var(--fidi-blue);"><i class="bi ${c.icon}"></i></div>
+            <div style="font-size:1.5rem;font-weight:800;color:#212529;">${n}</div>
+            <div class="text-muted" style="font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;">${c.label}</div>
+            <div class="mt-1" style="height:5px;background:#f0f2f5;border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:${w}%;background:#0dcaf0;border-radius:3px;"></div>
+            </div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="text-muted text-center mt-2" style="font-size:.7rem;">
+      ${data.total || 0} points d'intérêt recensés dans un rayon de ${(data.rayon_m||800)} m · ${data.source||''}
+    </div>`;
+}
+
+// ─── Loyers de référence (DHUP) + revenus (INSEE Filosofi) ─────────────────────
+async function loadLoyersAsync(loc){
+  const sec  = document.getElementById('loyersSection');
+  const body = document.getElementById('loyersBody');
+  if(!loc.citycode){ sec.classList.add('d-none'); return; }
+  sec.classList.remove('d-none');
+  body.innerHTML = `<div class="text-center text-muted py-3">
+    <div class="spinner-border spinner-border-sm me-2"></div>Chargement des loyers de référence…</div>`;
+  // Loyers + revenus en parallèle
+  const prixM2 = (window.__avisState && window.__avisState.prix_m2_reference) || '';
+  const [loyers, revenus] = await Promise.all([
+    fetch(`/api/loyers?code_insee=${loc.citycode}${prixM2?`&prix_m2=${Math.round(prixM2)}`:''}`).then(r=>r.ok?r.json():null).catch(()=>null),
+    fetch(`/api/revenus?code_insee=${loc.citycode}`).then(r=>r.ok?r.json():null).catch(()=>null),
+  ]);
+  if(window.__avisState){
+    if(loyers)  window.__avisState.loyers  = loyers;
+    if(revenus) window.__avisState.revenus = revenus;
+  }
+  renderLoyers(loyers, revenus);
+}
+
+function renderLoyers(loyers, revenus){
+  const body = document.getElementById('loyersBody');
+  const cells = [];
+  const fmtL = (o) => (o && o.loyer_m2 != null) ? `${o.loyer_m2.toFixed(1).replace('.', ',')} €/m²/mois` : '—';
+
+  if(loyers && loyers.disponible !== false){
+    cells.push(`
+      <div class="col-6 col-md-3">
+        <div class="text-center p-2">
+          <div style="font-size:1.3rem;color:#198754;"><i class="bi bi-building"></i></div>
+          <div style="font-size:1.05rem;font-weight:800;">${fmtL(loyers.appartement)}</div>
+          <div class="text-muted" style="font-size:.7rem;text-transform:uppercase;">Appartement</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="text-center p-2">
+          <div style="font-size:1.3rem;color:#198754;"><i class="bi bi-house"></i></div>
+          <div style="font-size:1.05rem;font-weight:800;">${fmtL(loyers.maison)}</div>
+          <div class="text-muted" style="font-size:.7rem;text-transform:uppercase;">Maison</div>
+        </div>
+      </div>`);
+    if(loyers.rendement_brut && loyers.rendement_brut.appartement){
+      cells.push(`
+      <div class="col-6 col-md-3">
+        <div class="text-center p-2">
+          <div style="font-size:1.3rem;color:#0d6efd;"><i class="bi bi-graph-up-arrow"></i></div>
+          <div style="font-size:1.05rem;font-weight:800;">${loyers.rendement_brut.appartement.taux_brut_pct}&nbsp;%</div>
+          <div class="text-muted" style="font-size:.7rem;text-transform:uppercase;">Rendement brut</div>
+        </div>
+      </div>`);
+    }
+  }
+  if(revenus && revenus.disponible !== false && revenus.niveau_vie_median_annuel){
+    cells.push(`
+      <div class="col-6 col-md-3">
+        <div class="text-center p-2">
+          <div style="font-size:1.3rem;color:#6f42c1;"><i class="bi bi-wallet2"></i></div>
+          <div style="font-size:1.05rem;font-weight:800;">${fmt(revenus.niveau_vie_median_annuel)} €</div>
+          <div class="text-muted" style="font-size:.7rem;text-transform:uppercase;">Niveau de vie médian/an</div>
+        </div>
+      </div>`);
+  }
+  if(!cells.length){
+    body.innerHTML = `<div class="text-muted text-center py-3">
+      <i class="bi bi-info-circle me-1"></i>Loyers et revenus indisponibles pour cette commune.</div>`;
+    return;
+  }
+  body.innerHTML = `<div class="row g-2">${cells.join('')}</div>
+    <div class="text-muted text-center mt-2" style="font-size:.7rem;">
+      Loyers d'annonce charges comprises (DHUP 2025) · Niveau de vie médian disponible par UC (INSEE Filosofi 2021)
+    </div>`;
+}
+
+// ─── Génération de l'avis de valeur ────────────────────────────────────────────
+async function generateAvisDeValeur(){
+  const btn = document.getElementById('btnAvisQuick');
+  const out = document.getElementById('avisResult');
+  const st = window.__avisState;
+  if(!st){ out.innerHTML = '<div class="text-danger small">Lancez d\'abord une analyse.</div>'; return; }
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Génération…';
+  try{
+    const resp = await fetch('/api/avis-de-valeur', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(st),
+    });
+    const data = await resp.json();
+    if(!resp.ok){ throw new Error(data.detail || data.error || ('HTTP '+resp.status)); }
+    const v = data.valeur || {};
+    out.innerHTML = `
+      <div class="estimation-card mb-3">
+        <div class="text-uppercase" style="font-size:.7rem;letter-spacing:1px;opacity:.8;">Valeur vénale estimée</div>
+        <div class="val-main">${fmt(v.valeur_venale)} €</div>
+        <div class="val-range">Fourchette : ${fmt(v.fourchette_basse)} € — ${fmt(v.fourchette_haute)} €
+          · ${fmt(v.prix_m2_implicite)} €/m²</div>
+        ${v.capitalisation ? `<div class="val-range mt-1">Contrôle par capitalisation : ${fmt(v.capitalisation.valeur_rendement)} €
+          (écart ${v.capitalisation.ecart_pct} % · ${v.capitalisation.coherent?'cohérent':'à investiguer'})</div>` : ''}
+      </div>
+      <div class="d-flex gap-2 flex-wrap">
+        <button class="btn btn-outline-primary btn-sm" id="btnAvisDl"><i class="bi bi-download me-1"></i>Télécharger (.md)</button>
+        <button class="btn btn-outline-secondary btn-sm" id="btnAvisCopy"><i class="bi bi-clipboard me-1"></i>Copier le document</button>
+      </div>
+      <details class="mt-2"><summary class="small text-muted" style="cursor:pointer;">Aperçu du document</summary>
+        <pre class="mt-2 p-2 bg-light border rounded" style="white-space:pre-wrap;font-size:.72rem;max-height:340px;overflow:auto;">${(data.markdown||'').replace(/[<>]/g,s=>({'<':'&lt;','>':'&gt;'}[s]))}</pre>
+      </details>`;
+    const md = data.markdown || '';
+    const fname = `avis-de-valeur-${(st.localisation.code_insee||'bien')}-${data.genere_le||''}.md`;
+    document.getElementById('btnAvisDl').addEventListener('click', () => {
+      const blob = new Blob([md], {type:'text/markdown;charset=utf-8'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob); a.download = fname; a.click();
+      URL.revokeObjectURL(a.href);
+    });
+    document.getElementById('btnAvisCopy').addEventListener('click', async () => {
+      try{ await navigator.clipboard.writeText(md); document.getElementById('btnAvisCopy').innerHTML = '<i class="bi bi-check2 me-1"></i>Copié'; }catch(e){}
+    });
+  }catch(e){
+    out.innerHTML = `<div class="text-danger small"><i class="bi bi-exclamation-triangle me-1"></i>${e.message}</div>`;
+  }finally{
+    btn.disabled = false;
+    btn.innerHTML = '<i class="bi bi-magic me-1"></i>Régénérer l\'avis de valeur';
+  }
+}
+
 async function loadBatimentAsync(loc){
   const sec  = document.getElementById('batimentSection');
   const body = document.getElementById('batimentBody');
@@ -1801,6 +2059,12 @@ async function loadBatimentAsync(loc){
     }
     const data = await resp.json();
     cnt.textContent = String(data.count || 0);
+    if(window.__avisState){
+      const dist = (data.summary || {}).dpe_distribution || {};
+      const gesDist = (data.summary || {}).ges_distribution || {};
+      const mode = (d) => (Object.entries(d).sort((a,b)=>b[1]-a[1])[0] || [null])[0];
+      window.__avisState.dpe = { etiquette_energie: mode(dist), etiquette_ges: mode(gesDist) };
+    }
     renderBatiment(data);
   }catch(e){
     cnt.textContent = '0';
@@ -2184,6 +2448,15 @@ async function loadTransactionsAsync(loc, perimetre){
     const tdata = await resp.json();
     // Expose les transactions DVF individuelles au module Avis de valeur (ACM)
     window.__fidiTransactions = tdata.transactions || [];
+    if(window.__avisState){
+      window.__avisState.comparables = (tdata.transactions || []).slice(0, 6).map(t => ({
+        adresse: t.adresse || t.adresse_complete || '—',
+        date: t.date_mutation || t.date || '—',
+        surface: t.surface_reelle_bati || t.surface || null,
+        prix: t.valeur_fonciere || t.prix || null,
+        prix_m2: t.prix_m2 || (t.valeur_fonciere && t.surface_reelle_bati ? t.valeur_fonciere / t.surface_reelle_bati : null),
+      }));
+    }
     renderTransactions(
       tdata.transactions  || [],
       tdata.rayon_km      || 1,
