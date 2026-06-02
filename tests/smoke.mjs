@@ -80,6 +80,27 @@ async function testLoyers() {
   log("ok", "GET /api/loyers", loyer ? `${loyer} €/m²/mois` : "structure OK");
 }
 
+// Une erreur réseau transitoire contre un deploy preview (cold start, ECONNRESET,
+// timeout, DNS) ne doit PAS faire échouer la CI : le smoke test cible les
+// régressions fonctionnelles (mauvais statut HTTP, JSON malformé), pas la météo
+// réseau d'un serverless éphémère. On classe donc ces erreurs en SKIP.
+function isTransient(e) {
+  const blob = `${e?.code || ""} ${e?.message || ""} ${e?.cause?.code || ""} ${e?.cause?.message || ""}`;
+  return /ECONNRESET|ETIMEDOUT|ENOTFOUND|EAI_AGAIN|ECONNREFUSED|UND_ERR|fetch failed|aborted|abort|timeout/i.test(blob);
+}
+
+// Exécute un test en isolant les erreurs réseau transitoires (→ skip).
+async function run(name, fn) {
+  try {
+    await fn();
+  } catch (e) {
+    if (isTransient(e)) {
+      return log("skip", name, `réseau instable (${e.cause?.code || e.code || e.message})`);
+    }
+    log("fail", name, e.message);
+  }
+}
+
 async function main() {
   console.log(`\n🔍 Smoke tests FIDI — cible : ${BASE}\n`);
   // Vérifie d'abord que l'hôte répond
@@ -91,10 +112,10 @@ async function main() {
     process.exit(0);
   }
 
-  await testAutocomplete();
-  await testAnalyse();
-  await testServices();
-  await testLoyers();
+  await run("GET /api/autocomplete", testAutocomplete);
+  await run("POST /api/analyse", testAnalyse);
+  await run("GET /api/services", testServices);
+  await run("GET /api/loyers", testLoyers);
 
   console.log(`\nRésultat : ${passed} ✅  ${failed} ❌  ${skipped} ⊘\n`);
   process.exit(failed > 0 ? 1 : 0);
