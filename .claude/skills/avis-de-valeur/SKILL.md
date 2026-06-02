@@ -92,7 +92,25 @@ GET /api/loyers
   → loyer d'annonce €/m²/mois (appart, T1-T2, T3+, maison)
     + rendement locatif brut implicite si prix_m2 fourni
     (source : Carte des loyers DHUP 2025)
+
+GET /api/revenus
+  ?code_insee=
+  → niveau de vie médian, revenu déclaré médian, part ménages imposés
+    (source : INSEE Filosofi 2021) — alimente la section marché
+
+POST /api/avis-de-valeur
+  body: { adresse, type_bien, surface, etat, localisation,
+          prix_m2_reference, comparables, dpe, risques,
+          services, loyers, revenus }
+  → { valeur: { valeur_venale, fourchette_basse, fourchette_haute,
+                ajustements, capitalisation }, markdown }
+    Génère le document complet automatiquement (raccourci de bout en bout).
 ```
+
+> **Deux modes d'usage** : soit Claude orchestre manuellement les appels et
+> rédige le document via le template ; soit on délègue tout le calcul de
+> valorisation et l'assemblage au endpoint `POST /api/avis-de-valeur`
+> (utilisé par le bouton « Générer l'avis de valeur » de la SPA).
 
 ### Étape 2 — Construction du document
 

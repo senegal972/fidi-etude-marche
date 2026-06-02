@@ -101,6 +101,40 @@ async function run(name, fn) {
   }
 }
 
+async function testRevenus() {
+  // Nouveau endpoint additif (revenus INSEE Filosofi)
+  const r = await fetchT(`${BASE}/api/revenus?code_insee=75112`);
+  if (r.status === 404) return log("skip", "GET /api/revenus", "endpoint absent (optionnel)");
+  if (!r.ok) return log("fail", "GET /api/revenus", `HTTP ${r.status}`);
+  const d = await r.json();
+  if (!d || typeof d !== "object") return log("fail", "GET /api/revenus", "réponse invalide");
+  if (d.disponible === false) return log("skip", "GET /api/revenus", "donnée indisponible");
+  log("ok", "GET /api/revenus", d.niveau_vie_median_annuel ? `${d.niveau_vie_median_annuel} €/an` : "structure OK");
+}
+
+async function testAvis() {
+  // Endpoint de génération d'avis de valeur (logique pure, sans dépendance réseau)
+  const payload = {
+    adresse: ADRESSE_TEST, type_bien: "appartement", surface: 60,
+    localisation: { code_insee: "75101", ville: "Paris" },
+    comparables: [
+      { adresse: "A", date: "2024-01", surface: 58, prix: 600000, prix_m2: 10345 },
+      { adresse: "B", date: "2024-03", surface: 62, prix: 640000, prix_m2: 10322 },
+    ],
+    dpe: { etiquette_energie: "D" }, services: { score: 80 },
+    loyers: { appartement: { loyer_m2: 28 } },
+  };
+  const r = await fetchT(`${BASE}/api/avis-de-valeur`, {
+    method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload),
+  });
+  if (r.status === 404) return log("skip", "POST /api/avis-de-valeur", "endpoint absent (optionnel)");
+  if (!r.ok) return log("fail", "POST /api/avis-de-valeur", `HTTP ${r.status}`);
+  const d = await r.json();
+  const ok = d && d.valeur && Number.isFinite(d.valeur.valeur_venale) && typeof d.markdown === "string";
+  if (!ok) return log("fail", "POST /api/avis-de-valeur", "structure invalide");
+  log("ok", "POST /api/avis-de-valeur", `valeur ${d.valeur.valeur_venale} €`);
+}
+
 async function main() {
   console.log(`\n🔍 Smoke tests FIDI — cible : ${BASE}\n`);
   // Vérifie d'abord que l'hôte répond
@@ -116,6 +150,8 @@ async function main() {
   await run("POST /api/analyse", testAnalyse);
   await run("GET /api/services", testServices);
   await run("GET /api/loyers", testLoyers);
+  await run("GET /api/revenus", testRevenus);
+  await run("POST /api/avis-de-valeur", testAvis);
 
   console.log(`\nRésultat : ${passed} ✅  ${failed} ❌  ${skipped} ⊘\n`);
   process.exit(failed > 0 ? 1 : 0);

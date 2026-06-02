@@ -45,6 +45,7 @@ fidi-etude-marche/
 | **SITADEL** | data.statistiques.developpement-durable.gouv.fr | Permis de construire |
 | **OpenStreetMap** | overpass-api.de | Services de proximité (écoles, commerces, santé, transports) |
 | **Carte des loyers** | tabular-api.data.gouv.fr | Loyers d'annonce au m² par commune (DHUP, millésime 2025) |
+| **INSEE Filosofi** | tabular-api.data.gouv.fr | Niveau de vie médian & revenus par commune (millésime 2021) |
 
 ## Fonctions API — Entrées / Sorties
 
@@ -85,6 +86,17 @@ Retourne : aménités OSM proches par catégorie + score services /100
 ### `GET /api/loyers`
 Paramètres : `code_insee` (5 car.), `prix_m2` (optionnel, pour le rendement)  
 Retourne : loyer d'annonce €/m²/mois (appartement, T1-T2, T3+, maison) + rendement locatif brut si `prix_m2` fourni — source Carte des loyers DHUP 2025
+
+### `GET /api/revenus`
+Paramètre : `code_insee` (5 car.)  
+Retourne : niveau de vie médian, revenu déclaré médian, part de ménages imposés — source INSEE Filosofi 2021
+
+### `POST /api/avis-de-valeur`
+```json
+{ "adresse", "type_bien", "surface", "etat", "localisation", "prix_m2_reference",
+  "comparables", "dpe", "risques", "services", "loyers", "revenus" }
+```
+Retourne : `{ valeur: { valeur_venale, fourchette_basse, fourchette_haute, ajustements, capitalisation }, markdown }` — avis de valeur vénale complet (comparaison directe + contrôle par capitalisation)
 
 ## Score de potentiel — Axes de notation
 

@@ -25,6 +25,12 @@
 [functions."loyers"]
   timeout = 12
 
+[functions."revenus"]
+  timeout = 12
+
+[functions."avis-de-valeur"]
+  timeout = 12
+
 # ── Redirections API → Netlify Functions ──────────────────────────────────────
 [[redirects]]
   from   = "/api/analyse"
@@ -69,6 +75,16 @@
 [[redirects]]
   from   = "/api/loyers"
   to     = "/.netlify/functions/loyers"
+  status = 200
+
+[[redirects]]
+  from   = "/api/revenus"
+  to     = "/.netlify/functions/revenus"
+  status = 200
+
+[[redirects]]
+  from   = "/api/avis-de-valeur"
+  to     = "/.netlify/functions/avis-de-valeur"
   status = 200
 
 # ── SPA fallback : toute URL non trouvée → index.html ─────────────────────────
