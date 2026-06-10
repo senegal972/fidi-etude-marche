@@ -36,6 +36,7 @@ desktop.ini
 .env.*
 secrets.json
 credentials.json
+.claude/settings.local.json
 
 # Logs
 *.log
