@@ -87,6 +87,42 @@
   to     = "/.netlify/functions/avis-de-valeur"
   status = 200
 
+# ── Auth & Paiements Espace Partenaires Optimmo Dom ───────────────────────────
+[[redirects]]
+  from   = "/api/auth/register"
+  to     = "/.netlify/functions/auth-register"
+  status = 200
+
+[[redirects]]
+  from   = "/api/auth/login"
+  to     = "/.netlify/functions/auth-login"
+  status = 200
+
+[[redirects]]
+  from   = "/api/auth/me"
+  to     = "/.netlify/functions/auth-me"
+  status = 200
+
+[[redirects]]
+  from   = "/api/auth/logout"
+  to     = "/.netlify/functions/auth-logout"
+  status = 200
+
+[[redirects]]
+  from   = "/api/paypal/subscription"
+  to     = "/.netlify/functions/paypal-subscription"
+  status = 200
+
+[[redirects]]
+  from   = "/api/paypal/order"
+  to     = "/.netlify/functions/paypal-order"
+  status = 200
+
+[[redirects]]
+  from   = "/api/paypal/webhook"
+  to     = "/.netlify/functions/paypal-webhook"
+  status = 200
+
 # ── SPA fallback : toute URL non trouvée → index.html ─────────────────────────
 [[redirects]]
   from   = "/*"
