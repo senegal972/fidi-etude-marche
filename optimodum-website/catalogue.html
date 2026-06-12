@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Catalogue immobilier Optimmo Dom — Biens d'exception en Martinique et Guadeloupe. Villas, appartements, terrains et maisons de maître. Réseau Sextant." />
+  <meta property="og:title" content="Catalogue — Optimmo Dom · Biens d'exception aux Antilles" />
+  <meta property="og:description" content="Découvrez notre sélection de biens immobiliers d'exception en Martinique et Guadeloupe — villas, terrains littoraux, maisons de maître et appartements standing." />
+  <meta property="og:type" content="website" />
+  <title>Catalogue — Optimmo Dom · Biens d'exception aux Antilles</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/shared.css" />
+
+  <style>
+    /* ============================================
+       PAGE-SPECIFIC TOKENS & RESETS
+    ============================================ */
+    :root {
+      --ink:       #070F1A;
+      --ink-mid:   #0D1A2B;
+      --navy:      #1A2B3C;
+      --navy-mid:  #243447;
+      --gold:      #C9A84C;
+      --gold-lt:   #E8C96A;
+      --gold-pale: #F5EDD4;
+      --green:     #1E4D40;
+      --cream:     #F2EDE3;
+      --white:     #FFFFFF;
+      --slate:     #7A8A99;
+      --text:      #E8ECF0;
+
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'Lato', system-ui, sans-serif;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--ink);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ============================================
+       FULL-SCREEN MENU OVERLAY
+    ============================================ */
+    #menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      background: var(--ink);
+      display: flex;
+      align-items: center;
+      padding: 0 10vw;
+      clip-path: circle(0% at calc(100% - 60px) 40px);
+      transition: clip-path 700ms var(--ease-in-out);
+      pointer-events: none;
+    }
+    #menu-overlay.open {
+      clip-path: circle(150% at calc(100% - 60px) 40px);
+      pointer-events: all;
+    }
+    .menu-overlay-inner { width: 100%; }
+    .menu-overlay-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 60px;
+    }
+    .menu-overlay-nav li { overflow: hidden; }
+    .menu-overlay-nav a {
+      display: block;
+      font-family: var(--serif);
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.15;
+      transform: translateY(110%);
+      transition: transform 500ms var(--ease-out), color 300ms;
+    }
+    #menu-overlay.open .menu-overlay-nav li:nth-child(1) a { transform: none; transition-delay: 80ms; }
+    #menu-overlay.open .menu-overlay-nav li:nth-child(2) a { transform: none; transition-delay: 140ms; }
+    #menu-overlay.open .menu-overlay-nav li:nth-child(3) a { transform: none; transition-delay: 200ms; }
+    #menu-overlay.open .menu-overlay-nav li:nth-child(4) a { transform: none; transition-delay: 260ms; }
+    #menu-overlay.open .menu-overlay-nav li:nth-child(5) a { transform: none; transition-delay: 320ms; }
+    #menu-overlay.open .menu-overlay-nav li:nth-child(6) a { transform: none; transition-delay: 380ms; }
+    .menu-overlay-nav a:hover { color: var(--gold); }
+    .menu-overlay-nav a.active-link { color: var(--gold); }
+    .menu-overlay-footer {
+      display: flex; gap: 40px; align-items: center; flex-wrap: wrap;
+    }
+    .menu-overlay-contact { font-size: 14px; color: var(--slate); }
+    .menu-overlay-contact a { color: var(--gold); }
+
+    /* ============================================
+       NAVIGATION BAR
+    ============================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 800;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+      background: rgba(7,15,26,0.97);
+      box-shadow: 0 1px 0 rgba(201,168,76,0.12);
+      transition: background 400ms ease, box-shadow 400ms ease;
+    }
+    .nav.scrolled {
+      background: rgba(7,15,26,0.97);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 1px 0 rgba(201,168,76,0.2);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 14px; z-index: 910;
+    }
+    .nav-logo-mark {
+      width: 38px; height: 38px;
+      border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif);
+      font-size: 14px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      transition: background 300ms, color 300ms;
+    }
+    .nav-logo:hover .nav-logo-mark { background: var(--gold); color: var(--ink); }
+    .nav-logo-text {
+      font-family: var(--serif);
+      font-size: 20px; font-weight: 400;
+      letter-spacing: 0.06em; color: var(--white);
+    }
+    .nav-logo-sub {
+      display: block;
+      font-family: var(--sans);
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); opacity: 0.75;
+    }
+    .nav-right {
+      display: flex; align-items: center; gap: 32px; z-index: 910;
+    }
+    .nav-cta-btn {
+      padding: 9px 24px;
+      border: 1px solid var(--gold);
+      font-family: var(--sans);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold);
+      transition: background 300ms, color 300ms;
+    }
+    .nav-cta-btn:hover { background: var(--gold); color: var(--ink); }
+    .hamburger {
+      width: 32px; height: 24px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer; z-index: 910;
+    }
+    .hamburger span {
+      display: block; height: 1px;
+      background: var(--white);
+      transition: all 350ms var(--ease-out);
+    }
+    .hamburger.active span:nth-child(1) { transform: translateY(11.5px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active span:nth-child(3) { transform: translateY(-11.5px) rotate(-45deg); }
+
+    /* ============================================
+       PAGE HERO
+    ============================================ */
+    .page-hero {
+      padding: 148px 0 80px;
+      background: var(--ink-mid);
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero-bg-text {
+      position: absolute; right: -20px; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--serif);
+      font-size: clamp(80px, 14vw, 160px);
+      font-weight: 300;
+      color: rgba(201,168,76,0.04);
+      white-space: nowrap;
+      pointer-events: none; user-select: none; line-height: 1;
+    }
+    .page-hero-inner { position: relative; z-index: 1; }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 32px;
+    }
+    .breadcrumb a {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--slate);
+      transition: color 250ms;
+    }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb-sep {
+      width: 16px; height: 1px;
+      background: rgba(255,255,255,0.2);
+      flex-shrink: 0;
+    }
+    .breadcrumb span {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .page-hero-title {
+      font-family: var(--serif);
+      font-size: clamp(48px, 6.5vw, 86px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .page-hero-title em { font-style: italic; color: var(--gold); }
+    .page-hero-sub {
+      font-size: 17px; font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+    .page-hero-divider {
+      width: 60px; height: 1px;
+      background: var(--gold);
+      margin: 28px 0;
+    }
+
+    /* ============================================
+       FILTER BAR (sticky)
+    ============================================ */
+    .filter-bar-wrap {
+      position: sticky;
+      top: 76px;
+      z-index: 500;
+      background: rgba(7,15,26,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .filter-bar {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 60px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .filter-group-label {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--slate);
+      white-space: nowrap;
+      margin-right: 2px;
+    }
+    .filter-btn {
+      padding: 6px 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent;
+      color: var(--slate);
+      font-family: var(--sans);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 200ms, color 200ms, background 200ms;
+      white-space: nowrap;
+    }
+    .filter-btn:hover {
+      border-color: rgba(255,255,255,0.25);
+      color: var(--white);
+    }
+    .filter-btn.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+    .filter-select {
+      padding: 6px 32px 6px 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237A8A99' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;
+      color: var(--slate);
+      font-family: var(--sans);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+      transition: border-color 200ms, color 200ms;
+    }
+    .filter-select:focus {
+      border-color: var(--gold);
+      color: var(--white);
+    }
+    .filter-select option { background: var(--navy); color: var(--white); }
+    .filter-divider {
+      width: 1px; height: 28px;
+      background: rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+    .filter-bar-spacer { flex: 1; }
+    .filter-reset {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--slate);
+      background: none; border: none;
+      cursor: pointer;
+      transition: color 200ms;
+      display: flex; align-items: center; gap: 6px;
+      flex-shrink: 0;
+    }
+    .filter-reset:hover { color: var(--gold); }
+    .filter-count-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--ink);
+      font-size: 9px; font-weight: 700;
+      line-height: 1;
+      opacity: 0;
+      transition: opacity 200ms;
+    }
+    .filter-count-badge.show { opacity: 1; }
+    .result-count {
+      font-size: 12px; color: var(--slate);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .result-count strong { color: var(--gold); font-weight: 700; }
+    .view-toggle {
+      display: flex; gap: 4px; flex-shrink: 0;
+    }
+    .view-btn {
+      width: 34px; height: 34px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent;
+      color: var(--slate);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: border-color 200ms, color 200ms, background 200ms;
+    }
+    .view-btn.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+    .view-btn:hover:not(.active) {
+      border-color: rgba(255,255,255,0.2);
+      color: var(--white);
+    }
+    .view-btn svg { pointer-events: none; }
+
+    /* ============================================
+       CATALOGUE LAYOUT
+    ============================================ */
+    .catalogue-main {
+      background: var(--ink);
+      padding: 56px 0 100px;
+    }
+    .catalogue-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 60px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ============================================
+       SIDEBAR FILTERS (desktop)
+    ============================================ */
+    .sidebar {
+      position: sticky;
+      top: calc(76px + 68px + 24px);
+      max-height: calc(100vh - 76px - 68px - 48px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(201,168,76,0.3) transparent;
+    }
+    .sidebar::-webkit-scrollbar { width: 3px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+    .sidebar-section {
+      margin-bottom: 36px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .sidebar-section:last-child { border-bottom: none; margin-bottom: 0; }
+    .sidebar-section-title {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+    .sidebar-check-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .sidebar-check-item {
+      display: flex; align-items: center; gap: 10px;
+      cursor: pointer;
+    }
+    .sidebar-check-item input[type="checkbox"] {
+      width: 16px; height: 16px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      appearance: none; -webkit-appearance: none;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: border-color 200ms, background 200ms;
+      position: relative;
+    }
+    .sidebar-check-item input[type="checkbox"]:checked {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+    .sidebar-check-item input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 5px;
+      width: 4px; height: 7px;
+      border: 1.5px solid var(--ink);
+      border-top: none; border-left: none;
+      transform: rotate(45deg);
+    }
+    .sidebar-check-label {
+      font-size: 13px; color: rgba(255,255,255,0.65);
+      cursor: pointer;
+      transition: color 200ms;
+    }
+    .sidebar-check-item:hover .sidebar-check-label { color: var(--white); }
+    .sidebar-check-count {
+      margin-left: auto;
+      font-size: 11px; color: var(--slate);
+    }
+
+    /* Range slider */
+    .range-wrap {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .range-values {
+      display: flex; justify-content: space-between;
+      font-size: 12px; color: var(--slate);
+    }
+    .range-values strong { color: var(--white); font-weight: 400; }
+    input[type="range"] {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 2px;
+      background: rgba(255,255,255,0.12);
+      outline: none; cursor: pointer;
+      border-radius: 2px;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--ink);
+      box-shadow: 0 0 0 1px var(--gold);
+      cursor: pointer;
+      transition: transform 200ms;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+    input[type="range"]::-moz-range-thumb {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--ink);
+      cursor: pointer;
+    }
+
+    .sidebar-apply-btn {
+      width: 100%;
+      padding: 11px 0;
+      background: var(--gold);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      border: none; cursor: pointer;
+      margin-top: 8px;
+      transition: background 250ms, transform 200ms;
+    }
+    .sidebar-apply-btn:hover { background: var(--gold-lt); transform: translateY(-1px); }
+
+    /* ============================================
+       PROPERTY GRID
+    ============================================ */
+    .prop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .prop-card {
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      transition: transform 350ms var(--ease-out), box-shadow 350ms var(--ease-out);
+      cursor: pointer;
+    }
+    .prop-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.12);
+    }
+    .prop-card.hidden { display: none; }
+
+    .prop-img-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+    .prop-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 600ms var(--ease-out);
+    }
+    .prop-card:hover .prop-img-wrap img { transform: scale(1.06); }
+
+    .prop-badges {
+      position: absolute;
+      top: 14px; left: 14px; right: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .prop-badge-territory {
+      display: inline-block;
+      padding: 4px 10px;
+      background: rgba(7,15,26,0.75);
+      backdrop-filter: blur(8px);
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .prop-badge-status {
+      display: inline-block;
+      padding: 4px 10px;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+    }
+    .prop-badge-status.disponible {
+      background: rgba(46,204,113,0.15);
+      color: #2ECC71;
+    }
+    .prop-badge-status.compromis {
+      background: rgba(230,126,34,0.18);
+      color: #E67E22;
+    }
+    .prop-badge-status.vendu {
+      background: rgba(122,138,153,0.2);
+      color: var(--slate);
+    }
+
+    .prop-body {
+      padding: 22px 24px 24px;
+    }
+    .prop-price {
+      font-family: var(--serif);
+      font-size: 28px; font-weight: 300;
+      color: var(--gold-lt);
+      line-height: 1;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .prop-title {
+      font-family: var(--serif);
+      font-size: 18px; font-weight: 400;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+    .prop-meta {
+      display: flex; align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .prop-meta-item {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 12px; color: var(--slate);
+    }
+    .prop-meta-item svg { flex-shrink: 0; opacity: 0.7; }
+    .prop-location {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--slate);
+      margin-bottom: 18px;
+    }
+    .prop-location-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .prop-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .prop-agent {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 11px; color: var(--gold);
+    }
+    .prop-agent-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .prop-cta {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--white);
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: border-color 250ms, color 250ms;
+      white-space: nowrap;
+    }
+    .prop-cta:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Empty state */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 0;
+      display: none;
+    }
+    .no-results.show { display: block; }
+    .no-results-icon {
+      font-family: var(--serif);
+      font-size: 64px; font-weight: 300;
+      color: rgba(201,168,76,0.15);
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+    .no-results p {
+      font-size: 16px; color: var(--slate);
+      margin-bottom: 24px;
+    }
+
+    /* ============================================
+       MAP VIEW (placeholder)
+    ============================================ */
+    .map-view {
+      display: none;
+      background: var(--ink-mid);
+      border: 1px solid rgba(255,255,255,0.07);
+      min-height: 540px;
+      position: relative;
+      overflow: hidden;
+    }
+    .map-view.show { display: block; }
+    .map-placeholder-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 40% 50%, rgba(26,77,64,0.15) 0%, transparent 70%),
+                  repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px),
+                  repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px);
+    }
+    .map-message {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      min-height: 540px;
+      gap: 16px;
+      text-align: center;
+      padding: 40px;
+    }
+    .map-message-icon {
+      width: 56px; height: 56px;
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 4px;
+    }
+    .map-message h3 {
+      font-family: var(--serif);
+      font-size: 28px; font-weight: 300;
+      color: var(--white);
+    }
+    .map-message p {
+      font-size: 14px; color: var(--slate);
+      max-width: 360px;
+      line-height: 1.7;
+    }
+    /* Gold dot markers on the map */
+    .map-dot {
+      position: absolute;
+      z-index: 3;
+    }
+    .map-dot-inner {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(201,168,76,0.2), 0 0 20px rgba(201,168,76,0.3);
+      animation: mapPulse 2.5s ease-in-out infinite;
+      cursor: pointer;
+    }
+    .map-dot-label {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--navy);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 5px 10px;
+      font-size: 11px; white-space: nowrap;
+      color: var(--white);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 200ms;
+    }
+    .map-dot:hover .map-dot-label { opacity: 1; }
+    @keyframes mapPulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(201,168,76,0.2), 0 0 20px rgba(201,168,76,0.3); }
+      50% { box-shadow: 0 0 0 8px rgba(201,168,76,0.1), 0 0 32px rgba(201,168,76,0.4); }
+    }
+
+    /* ============================================
+       PAGINATION
+    ============================================ */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 60px;
+    }
+    .pagination-btn {
+      height: 40px;
+      padding: 0 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent;
+      color: var(--slate);
+      font-family: var(--sans);
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+      transition: border-color 200ms, color 200ms, background 200ms;
+    }
+    .pagination-btn:hover:not(:disabled) {
+      border-color: rgba(255,255,255,0.25);
+      color: var(--white);
+    }
+    .pagination-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .pagination-num {
+      width: 40px; height: 40px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent;
+      color: var(--slate);
+      font-family: var(--sans);
+      font-size: 13px; font-weight: 700;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 200ms, color 200ms, background 200ms;
+    }
+    .pagination-num:hover {
+      border-color: rgba(255,255,255,0.25);
+      color: var(--white);
+    }
+    .pagination-num.active {
+      border-color: var(--gold);
+      background: var(--gold);
+      color: var(--ink);
+    }
+
+    /* ============================================
+       SCROLL REVEAL
+    ============================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 650ms var(--ease-out), transform 650ms var(--ease-out);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ============================================
+       CTA FINAL / CONTACT
+    ============================================ */
+    .cta-final {
+      padding: 120px 0;
+      background: var(--ink-mid);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-bg-text {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: var(--serif);
+      font-size: clamp(80px, 16vw, 220px);
+      font-weight: 300;
+      color: rgba(201,168,76,0.025);
+      white-space: nowrap;
+      pointer-events: none; user-select: none;
+    }
+    .cta-final .section-label,
+    .cta-final .section-title,
+    .cta-final .gold-rule { position: relative; }
+    .cta-final-desc {
+      font-size: 17px; font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      max-width: 480px; margin: 0 auto 52px;
+      line-height: 1.75; position: relative;
+    }
+    .cta-actions {
+      display: flex; gap: 16px;
+      justify-content: center; flex-wrap: wrap;
+      position: relative;
+    }
+    .btn-gold-border {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 13px 31px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: var(--sans); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      transition: background 250ms, color 250ms;
+    }
+    .btn-gold-border:hover { background: var(--gold); color: var(--ink); }
+
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px;
+      background: var(--gold); color: var(--ink);
+      font-family: var(--sans); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      border: none; cursor: pointer;
+      transition: background 250ms, transform 250ms;
+    }
+    .btn-gold:hover { background: var(--gold-lt); transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 13px 31px;
+      border: 1px solid rgba(255,255,255,0.35); color: var(--white);
+      font-family: var(--sans); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      background: transparent; cursor: pointer;
+      transition: border-color 250ms, color 250ms;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Gold rule utility */
+    .gold-rule {
+      width: 60px; height: 1px; background: var(--gold); margin: 16px 0 24px;
+    }
+    .gold-rule.centered { margin-left: auto; margin-right: auto; }
+    .section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.24em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .section-title {
+      font-family: var(--serif); font-size: clamp(32px, 4vw, 54px);
+      font-weight: 300; line-height: 1.15; letter-spacing: -0.01em; color: var(--white);
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 1160px) {
+      .catalogue-layout {
+        grid-template-columns: 240px 1fr;
+        gap: 32px;
+      }
+      .prop-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 1024px) {
+      .catalogue-layout {
+        grid-template-columns: 1fr;
+        padding: 0 40px;
+      }
+      .sidebar { display: none; }
+      .filter-bar { padding: 0 40px; overflow-x: auto; }
+      .filter-bar::-webkit-scrollbar { height: 2px; }
+      .filter-bar::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); }
+      .prop-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nav { padding: 0 24px; }
+      .nav-cta-btn { display: none; }
+      .catalogue-layout { padding: 0 24px; }
+      .filter-bar { padding: 0 24px; gap: 8px; }
+      .filter-group-label { display: none; }
+      .prop-grid { grid-template-columns: 1fr; }
+      .page-hero { padding: 120px 0 60px; }
+      .page-hero-title { font-size: clamp(38px, 8vw, 60px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MENU OVERLAY -->
+  <div id="menu-overlay">
+    <div class="menu-overlay-inner">
+      <ul class="menu-overlay-nav">
+        <li><a href="/services">Services</a></li>
+        <li><a href="/catalogue" class="active-link">Catalogue</a></li>
+        <li><a href="/#about" onclick="closeMenu()">À propos</a></li>
+        <li><a href="/#equipe" onclick="closeMenu()">L'équipe</a></li>
+        <li><a href="/espace-partenaires">Espace partenaires</a></li>
+        <li><a href="/#contact" onclick="closeMenu()">Contact</a></li>
+      </ul>
+      <div class="menu-overlay-footer">
+        <div class="menu-overlay-contact">
+          <a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a><br>
+          <span>fidiconseil.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="nav">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">OD</div>
+      <div>
+        <span class="nav-logo-text">Optimmo Dom</span>
+        <span class="nav-logo-sub">Conseil · Patrimoine · Antilles</span>
+      </div>
+    </a>
+    <div class="nav-right">
+      <a href="/espace-partenaires" class="nav-cta-btn">Espace partenaires</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-bg-text" aria-hidden="true">Catalogue</div>
+    <div class="container">
+      <div class="page-hero-inner">
+        <nav class="breadcrumb" aria-label="Fil d'Ariane">
+          <a href="/">Accueil</a>
+          <div class="breadcrumb-sep" aria-hidden="true"></div>
+          <span>Catalogue</span>
+        </nav>
+        <h1 class="page-hero-title">
+          Notre<br><em>Catalogue</em>
+        </h1>
+        <div class="page-hero-divider" aria-hidden="true"></div>
+        <p class="page-hero-sub">
+          Biens d'exception en Martinique &amp; Guadeloupe — villas, terrains littoraux, appartements standing et maisons de maître sélectionnés par nos conseillers Sextant.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar-wrap" id="filterBarWrap">
+    <div class="filter-bar">
+
+      <!-- Type -->
+      <div class="filter-group">
+        <span class="filter-group-label">Type</span>
+        <button class="filter-btn active" data-filter="type" data-value="tous" onclick="setFilter('type', 'tous', this)">Tous</button>
+        <button class="filter-btn" data-filter="type" data-value="maison" onclick="setFilter('type', 'maison', this)">Maison</button>
+        <button class="filter-btn" data-filter="type" data-value="appartement" onclick="setFilter('type', 'appartement', this)">Appartement</button>
+        <button class="filter-btn" data-filter="type" data-value="terrain" onclick="setFilter('type', 'terrain', this)">Terrain</button>
+        <button class="filter-btn" data-filter="type" data-value="commercial" onclick="setFilter('type', 'commercial', this)">Commercial</button>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <!-- Territoire -->
+      <div class="filter-group">
+        <span class="filter-group-label">Territoire</span>
+        <button class="filter-btn active" data-filter="territoire" data-value="tous" onclick="setFilter('territoire', 'tous', this)">Tous</button>
+        <button class="filter-btn" data-filter="territoire" data-value="martinique" onclick="setFilter('territoire', 'martinique', this)">Martinique</button>
+        <button class="filter-btn" data-filter="territoire" data-value="guadeloupe" onclick="setFilter('territoire', 'guadeloupe', this)">Guadeloupe</button>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <!-- Prix max -->
+      <div class="filter-group">
+        <span class="filter-group-label">Prix&nbsp;max</span>
+        <select class="filter-select" id="prixMaxSelect" onchange="filterAll()">
+          <option value="tous">Sans limite</option>
+          <option value="200000">200 000 €</option>
+          <option value="400000">400 000 €</option>
+          <option value="600000">600 000 €</option>
+          <option value="800000">800 000 €</option>
+          <option value="1200000">1 200 000 €</option>
+        </select>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <!-- Statut -->
+      <div class="filter-group">
+        <span class="filter-group-label">Statut</span>
+        <button class="filter-btn active" data-filter="statut" data-value="tous" onclick="setFilter('statut', 'tous', this)">Tous</button>
+        <button class="filter-btn" data-filter="statut" data-value="disponible" onclick="setFilter('statut', 'disponible', this)">Disponible</button>
+      </div>
+
+      <div class="filter-bar-spacer"></div>
+
+      <!-- Reset -->
+      <button class="filter-reset" id="resetBtn" onclick="resetFilters()">
+        <span class="filter-count-badge" id="filterBadge">0</span>
+        Réinitialiser
+      </button>
+
+      <div class="filter-divider"></div>
+
+      <!-- Result count -->
+      <div class="result-count" id="resultCount"><strong>9</strong>&nbsp;biens trouvés</div>
+
+      <div class="filter-divider"></div>
+
+      <!-- View toggle -->
+      <div class="view-toggle">
+        <button class="view-btn active" id="btnGrid" aria-label="Vue grille" onclick="setView('grid')">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6"/><rect x="9" y="1" width="6" height="6"/><rect x="1" y="9" width="6" height="6"/><rect x="9" y="9" width="6" height="6"/></svg>
+        </button>
+        <button class="view-btn" id="btnMap" aria-label="Vue carte" onclick="setView('map')">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2C5.8 2 4 3.8 4 6c0 3 4 8 4 8s4-5 4-8c0-2.2-1.8-4-4-4z"/><circle cx="8" cy="6" r="1.5"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATALOGUE MAIN -->
+  <main class="catalogue-main">
+    <div class="catalogue-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar" aria-label="Filtres avancés">
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Type de bien</div>
+          <ul class="sidebar-check-list">
+            <li class="sidebar-check-item">
+              <input type="checkbox" id="sTypeAll" checked onchange="sidebarFilter()">
+              <label class="sidebar-check-label" for="sTypeAll">Tous les types</label>
+              <span class="sidebar-check-count">9</span>
+            </li>
+            <li class="sidebar-check-item">
+              <input type="checkbox" id="sTypeMaison" onchange="sidebarFilter()">
+              <label class="sidebar-check-label" for="sTypeMaison">Maison / Villa</label>
+              <span class="sidebar-check-count">4</span>
+            </li>
+            <li class="sidebar-check-item">
+              <input type="checkbox" id="sTypeAppt" onchange="sidebarFilter()">
+              <label class="sidebar-check-label" for="sTypeAppt">Appartement</label>
+              <span class="sidebar-check-count">3</span>
+            </li>
+            <li class="sidebar-check-item">
+              <input type="checkbox" id="sTypeTerrain" onchange="sidebarFilter()">
+              <label class="sidebar-check-label" for="sTypeTerrain">Terrain</label>
+              <span class="sidebar-check-count">2</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Territoire</div>
+          <ul class="sidebar-check-list">
+            <li class="sidebar-check-item">
+              <input type="checkbox" id="sTerrMart" onchange="sidebarFilter()">
+              <label class="sidebar-check-label" for="sTerrMart">Martinique</label>
+              <span class="sidebar-check-count">5</span>
+            </li>
+            <li class="sidebar-check-item">
+              <input type="checkbox" id="sTerrGuad" onchange="sidebarFilter()">
+              <label class="sidebar-check-label" for="sTerrGuad">Guadeloupe</label>
+              <span class="sidebar-check-count">4</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Budget maximum</div>
+          <div class="range-wrap">
+            <div class="range-values">
+              <span>0 €</span>
+              <strong id="rangePrixDisplay">1 200 000 €</strong>
+            </div>
+            <input type="range" id="rangePrix" min="100000" max="1200000" step="50000" value="1200000"
+              oninput="updateRangePrix(this.value); filterAll()" />
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Surface habitable</div>
+          <div class="range-wrap">
+            <div class="range-values">
+              <span>0 m²</span>
+              <strong id="rangeSurfDisplay">400 m²</strong>
+            </div>
+            <input type="range" id="rangeSurf" min="30" max="400" step="10" value="400"
+              oninput="updateRangeSurf(this.value)" />
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Statut</div>
+          <ul class="sidebar-check-list">
+            <li class="sidebar-check-item">
+              <input type="checkbox" id="sStatDisp" onchange="sidebarFilter()">
+              <label class="sidebar-check-label" for="sStatDisp">Disponible uniquement</label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Conseiller</div>
+          <ul class="sidebar-check-list">
+            <li class="sidebar-check-item">
+              <input type="checkbox" id="sAgentFF" onchange="sidebarFilter()">
+              <label class="sidebar-check-label" for="sAgentFF">Franck Fidi</label>
+              <span class="sidebar-check-count">3</span>
+            </li>
+            <li class="sidebar-check-item">
+              <input type="checkbox" id="sAgentPM" onchange="sidebarFilter()">
+              <label class="sidebar-check-label" for="sAgentPM">Philippe Marie-Luce</label>
+              <span class="sidebar-check-count">3</span>
+            </li>
+            <li class="sidebar-check-item">
+              <input type="checkbox" id="sAgentLF" onchange="sidebarFilter()">
+              <label class="sidebar-check-label" for="sAgentLF">Lucien Fortuné</label>
+              <span class="sidebar-check-count">3</span>
+            </li>
+          </ul>
+        </div>
+
+        <button class="sidebar-apply-btn" onclick="resetFilters()">Réinitialiser les filtres</button>
+      </aside>
+
+      <!-- PROPERTY GRID + MAP -->
+      <div>
+
+        <!-- Grid view -->
+        <div class="prop-grid" id="propGrid">
+
+          <!-- Bien 1 — Villa avec piscine, Trois-Îlets, Martinique -->
+          <article class="prop-card reveal"
+            data-type="maison"
+            data-territoire="martinique"
+            data-statut="disponible"
+            data-prix="680000"
+            data-surface="220">
+            <div class="prop-img-wrap">
+              <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&q=80"
+                   alt="Villa avec piscine — Les Trois-Îlets, Martinique" loading="lazy" />
+              <div class="prop-badges">
+                <span class="prop-badge-territory">Martinique</span>
+                <span class="prop-badge-status disponible">Disponible</span>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-price">680 000 €</div>
+              <h2 class="prop-title">Villa contemporaine avec piscine</h2>
+              <div class="prop-meta">
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5V21h18V9.5M1 9.5h22M9 21V12h6v9"/><path d="M12 3L2 9.5h20L12 3z"/></svg>
+                  220 m²
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-3a5 5 0 0 1 5-5h10a5 5 0 0 1 5 5v3"/><rect x="9" y="2" width="6" height="8" rx="3"/></svg>
+                  4 chambres
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                  Piscine
+                </div>
+              </div>
+              <div class="prop-location">
+                <div class="prop-location-dot"></div>
+                Les Trois-Îlets, Martinique
+              </div>
+              <div class="prop-footer">
+                <div class="prop-agent">
+                  <div class="prop-agent-dot"></div>
+                  Franck Fidi
+                </div>
+                <a href="/catalogue/villa-trois-ilets" class="prop-cta">Voir le détail →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bien 2 — Appartement T3, Gosier, Guadeloupe -->
+          <article class="prop-card reveal"
+            data-type="appartement"
+            data-territoire="guadeloupe"
+            data-statut="compromis"
+            data-prix="285000"
+            data-surface="78">
+            <div class="prop-img-wrap">
+              <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80"
+                   alt="Appartement T3 standing — Gosier, Guadeloupe" loading="lazy" />
+              <div class="prop-badges">
+                <span class="prop-badge-territory">Guadeloupe</span>
+                <span class="prop-badge-status compromis">Sous Compromis</span>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-price">285 000 €</div>
+              <h2 class="prop-title">Appartement T3 résidence standing</h2>
+              <div class="prop-meta">
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5V21h18V9.5M1 9.5h22M9 21V12h6v9"/><path d="M12 3L2 9.5h20L12 3z"/></svg>
+                  78 m²
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-3a5 5 0 0 1 5-5h10a5 5 0 0 1 5 5v3"/><rect x="9" y="2" width="6" height="8" rx="3"/></svg>
+                  2 chambres
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+                  Étage 3/4
+                </div>
+              </div>
+              <div class="prop-location">
+                <div class="prop-location-dot"></div>
+                Le Gosier, Guadeloupe
+              </div>
+              <div class="prop-footer">
+                <div class="prop-agent">
+                  <div class="prop-agent-dot"></div>
+                  Philippe Marie-Luce
+                </div>
+                <a href="/catalogue/appt-gosier" class="prop-cta">Voir le détail →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bien 3 — Terrain 1200m², Sainte-Anne, Martinique -->
+          <article class="prop-card reveal"
+            data-type="terrain"
+            data-territoire="martinique"
+            data-statut="disponible"
+            data-prix="180000"
+            data-surface="0">
+            <div class="prop-img-wrap">
+              <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80"
+                   alt="Terrain constructible viabilisé — Sainte-Anne, Martinique" loading="lazy" />
+              <div class="prop-badges">
+                <span class="prop-badge-territory">Martinique</span>
+                <span class="prop-badge-status disponible">Disponible</span>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-price">180 000 €</div>
+              <h2 class="prop-title">Terrain viabilisé 1 200 m² vue mer</h2>
+              <div class="prop-meta">
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                  1 200 m² terrain
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+                  Vue mer
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                  Viabilisé
+                </div>
+              </div>
+              <div class="prop-location">
+                <div class="prop-location-dot"></div>
+                Sainte-Anne, Martinique
+              </div>
+              <div class="prop-footer">
+                <div class="prop-agent">
+                  <div class="prop-agent-dot"></div>
+                  Lucien Fortuné
+                </div>
+                <a href="/catalogue/terrain-sainte-anne" class="prop-cta">Voir le détail →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bien 4 — Maison de maître, Schoelcher, Martinique -->
+          <article class="prop-card reveal"
+            data-type="maison"
+            data-territoire="martinique"
+            data-statut="disponible"
+            data-prix="1200000"
+            data-surface="380">
+            <div class="prop-img-wrap">
+              <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80"
+                   alt="Maison de maître coloniale — Schoelcher, Martinique" loading="lazy" />
+              <div class="prop-badges">
+                <span class="prop-badge-territory">Martinique</span>
+                <span class="prop-badge-status disponible">Disponible</span>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-price">1 200 000 €</div>
+              <h2 class="prop-title">Maison de maître coloniale</h2>
+              <div class="prop-meta">
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5V21h18V9.5M1 9.5h22M9 21V12h6v9"/><path d="M12 3L2 9.5h20L12 3z"/></svg>
+                  380 m²
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-3a5 5 0 0 1 5-5h10a5 5 0 0 1 5 5v3"/><rect x="9" y="2" width="6" height="8" rx="3"/></svg>
+                  6 chambres
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                  Parc 2 000 m²
+                </div>
+              </div>
+              <div class="prop-location">
+                <div class="prop-location-dot"></div>
+                Schoelcher, Martinique
+              </div>
+              <div class="prop-footer">
+                <div class="prop-agent">
+                  <div class="prop-agent-dot"></div>
+                  Franck Fidi
+                </div>
+                <a href="/catalogue/maison-maitre-schoelcher" class="prop-cta">Voir le détail →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bien 5 — Studio T1 standing, Pointe-à-Pitre, Guadeloupe -->
+          <article class="prop-card reveal"
+            data-type="appartement"
+            data-territoire="guadeloupe"
+            data-statut="disponible"
+            data-prix="125000"
+            data-surface="35">
+            <div class="prop-img-wrap">
+              <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&q=80"
+                   alt="Studio T1 standing — Pointe-à-Pitre, Guadeloupe" loading="lazy" />
+              <div class="prop-badges">
+                <span class="prop-badge-territory">Guadeloupe</span>
+                <span class="prop-badge-status disponible">Disponible</span>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-price">125 000 €</div>
+              <h2 class="prop-title">Studio T1 standing rénové</h2>
+              <div class="prop-meta">
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5V21h18V9.5M1 9.5h22M9 21V12h6v9"/><path d="M12 3L2 9.5h20L12 3z"/></svg>
+                  35 m²
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+                  Étage 5/6
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+                  Centre-ville
+                </div>
+              </div>
+              <div class="prop-location">
+                <div class="prop-location-dot"></div>
+                Pointe-à-Pitre, Guadeloupe
+              </div>
+              <div class="prop-footer">
+                <div class="prop-agent">
+                  <div class="prop-agent-dot"></div>
+                  Philippe Marie-Luce
+                </div>
+                <a href="/catalogue/studio-pointe-a-pitre" class="prop-cta">Voir le détail →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bien 6 — Villa contemporaine, Saint-François, Guadeloupe -->
+          <article class="prop-card reveal"
+            data-type="maison"
+            data-territoire="guadeloupe"
+            data-statut="vendu"
+            data-prix="520000"
+            data-surface="160">
+            <div class="prop-img-wrap">
+              <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=600&q=80"
+                   alt="Villa contemporaine — Saint-François, Guadeloupe" loading="lazy" />
+              <div class="prop-badges">
+                <span class="prop-badge-territory">Guadeloupe</span>
+                <span class="prop-badge-status vendu">Vendu</span>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-price">520 000 €</div>
+              <h2 class="prop-title">Villa contemporaine en lisière de golf</h2>
+              <div class="prop-meta">
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5V21h18V9.5M1 9.5h22M9 21V12h6v9"/><path d="M12 3L2 9.5h20L12 3z"/></svg>
+                  160 m²
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-3a5 5 0 0 1 5-5h10a5 5 0 0 1 5 5v3"/><rect x="9" y="2" width="6" height="8" rx="3"/></svg>
+                  3 chambres
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+                  Terrasse &amp; jardin
+                </div>
+              </div>
+              <div class="prop-location">
+                <div class="prop-location-dot"></div>
+                Saint-François, Guadeloupe
+              </div>
+              <div class="prop-footer">
+                <div class="prop-agent">
+                  <div class="prop-agent-dot"></div>
+                  Lucien Fortuné
+                </div>
+                <a href="/catalogue/villa-saint-francois" class="prop-cta">Voir le détail →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bien 7 — Terrain littoral 2500m², Le Marin, Martinique -->
+          <article class="prop-card reveal"
+            data-type="terrain"
+            data-territoire="martinique"
+            data-statut="disponible"
+            data-prix="320000"
+            data-surface="0">
+            <div class="prop-img-wrap">
+              <img src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=600&q=80"
+                   alt="Terrain littoral 2500 m² — Le Marin, Martinique" loading="lazy" />
+              <div class="prop-badges">
+                <span class="prop-badge-territory">Martinique</span>
+                <span class="prop-badge-status disponible">Disponible</span>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-price">320 000 €</div>
+              <h2 class="prop-title">Terrain littoral 2 500 m² front de mer</h2>
+              <div class="prop-meta">
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                  2 500 m² terrain
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+                  Vue lagon
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                  Zone UA
+                </div>
+              </div>
+              <div class="prop-location">
+                <div class="prop-location-dot"></div>
+                Le Marin, Martinique
+              </div>
+              <div class="prop-footer">
+                <div class="prop-agent">
+                  <div class="prop-agent-dot"></div>
+                  Franck Fidi
+                </div>
+                <a href="/catalogue/terrain-littoral-marin" class="prop-cta">Voir le détail →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bien 8 — Appartement T4 résidence, Fort-de-France, Martinique -->
+          <article class="prop-card reveal"
+            data-type="appartement"
+            data-territoire="martinique"
+            data-statut="disponible"
+            data-prix="390000"
+            data-surface="105">
+            <div class="prop-img-wrap">
+              <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80"
+                   alt="Appartement T4 résidence — Fort-de-France, Martinique" loading="lazy" />
+              <div class="prop-badges">
+                <span class="prop-badge-territory">Martinique</span>
+                <span class="prop-badge-status disponible">Disponible</span>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-price">390 000 €</div>
+              <h2 class="prop-title">Appartement T4 résidence sécurisée</h2>
+              <div class="prop-meta">
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5V21h18V9.5M1 9.5h22M9 21V12h6v9"/><path d="M12 3L2 9.5h20L12 3z"/></svg>
+                  105 m²
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-3a5 5 0 0 1 5-5h10a5 5 0 0 1 5 5v3"/><rect x="9" y="2" width="6" height="8" rx="3"/></svg>
+                  3 chambres
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+                  2 parkings
+                </div>
+              </div>
+              <div class="prop-location">
+                <div class="prop-location-dot"></div>
+                Fort-de-France, Martinique
+              </div>
+              <div class="prop-footer">
+                <div class="prop-agent">
+                  <div class="prop-agent-dot"></div>
+                  Lucien Fortuné
+                </div>
+                <a href="/catalogue/t4-fort-de-france" class="prop-cta">Voir le détail →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bien 9 — Bungalow créole rénové, Sainte-Rose, Guadeloupe -->
+          <article class="prop-card reveal"
+            data-type="maison"
+            data-territoire="guadeloupe"
+            data-statut="disponible"
+            data-prix="245000"
+            data-surface="95">
+            <div class="prop-img-wrap">
+              <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=600&q=80"
+                   alt="Bungalow créole rénové — Sainte-Rose, Guadeloupe" loading="lazy" />
+              <div class="prop-badges">
+                <span class="prop-badge-territory">Guadeloupe</span>
+                <span class="prop-badge-status disponible">Disponible</span>
+              </div>
+            </div>
+            <div class="prop-body">
+              <div class="prop-price">245 000 €</div>
+              <h2 class="prop-title">Bungalow créole entièrement rénové</h2>
+              <div class="prop-meta">
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5V21h18V9.5M1 9.5h22M9 21V12h6v9"/><path d="M12 3L2 9.5h20L12 3z"/></svg>
+                  95 m²
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-3a5 5 0 0 1 5-5h10a5 5 0 0 1 5 5v3"/><rect x="9" y="2" width="6" height="8" rx="3"/></svg>
+                  3 chambres
+                </div>
+                <div class="prop-meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                  Jardin 600 m²
+                </div>
+              </div>
+              <div class="prop-location">
+                <div class="prop-location-dot"></div>
+                Sainte-Rose, Guadeloupe
+              </div>
+              <div class="prop-footer">
+                <div class="prop-agent">
+                  <div class="prop-agent-dot"></div>
+                  Philippe Marie-Luce
+                </div>
+                <a href="/catalogue/bungalow-sainte-rose" class="prop-cta">Voir le détail →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Empty state -->
+          <div class="no-results" id="noResults">
+            <div class="no-results-icon">∅</div>
+            <p>Aucun bien ne correspond à vos critères de recherche.</p>
+            <button class="btn-gold-border" onclick="resetFilters()">Réinitialiser les filtres</button>
+          </div>
+
+        </div><!-- /.prop-grid -->
+
+        <!-- MAP VIEW -->
+        <div class="map-view" id="mapView">
+          <div class="map-placeholder-bg"></div>
+          <!-- Dots representing approximate positions -->
+          <div class="map-dot" style="top:38%; left:28%">
+            <div class="map-dot-inner"></div>
+            <div class="map-dot-label">Les Trois-Îlets — 680 000 €</div>
+          </div>
+          <div class="map-dot" style="top:52%; left:71%">
+            <div class="map-dot-inner"></div>
+            <div class="map-dot-label">Le Gosier — 285 000 €</div>
+          </div>
+          <div class="map-dot" style="top:67%; left:34%">
+            <div class="map-dot-inner"></div>
+            <div class="map-dot-label">Sainte-Anne — 180 000 €</div>
+          </div>
+          <div class="map-dot" style="top:22%; left:22%">
+            <div class="map-dot-inner"></div>
+            <div class="map-dot-label">Schoelcher — 1 200 000 €</div>
+          </div>
+          <div class="map-dot" style="top:42%; left:64%">
+            <div class="map-dot-inner"></div>
+            <div class="map-dot-label">Pointe-à-Pitre — 125 000 €</div>
+          </div>
+          <div class="map-dot" style="top:60%; left:82%">
+            <div class="map-dot-inner"></div>
+            <div class="map-dot-label">Saint-François — 520 000 €</div>
+          </div>
+          <div class="map-dot" style="top:74%; left:42%">
+            <div class="map-dot-inner"></div>
+            <div class="map-dot-label">Le Marin — 320 000 €</div>
+          </div>
+          <div class="map-dot" style="top:18%; left:30%">
+            <div class="map-dot-inner"></div>
+            <div class="map-dot-label">Fort-de-France — 390 000 €</div>
+          </div>
+          <div class="map-dot" style="top:28%; left:75%">
+            <div class="map-dot-inner"></div>
+            <div class="map-dot-label">Sainte-Rose — 245 000 €</div>
+          </div>
+          <div class="map-message">
+            <div class="map-message-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <h3>Carte interactive</h3>
+            <p>Visualisation cartographique Leaflet.js à intégrer — les marqueurs représentent la localisation approximative de chaque bien dans les Antilles françaises.</p>
+          </div>
+        </div><!-- /.map-view -->
+
+        <!-- PAGINATION -->
+        <nav class="pagination" aria-label="Pagination">
+          <button class="pagination-btn" disabled aria-label="Page précédente">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15,18 9,12 15,6"/></svg>
+            Précédent
+          </button>
+          <button class="pagination-num active" aria-current="page">1</button>
+          <button class="pagination-num">2</button>
+          <button class="pagination-num">3</button>
+          <button class="pagination-btn" aria-label="Page suivante">
+            Suivant
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9,6 15,12 9,18"/></svg>
+          </button>
+        </nav>
+
+      </div><!-- /.right-column -->
+    </div><!-- /.catalogue-layout -->
+  </main>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final">
+    <div class="cta-bg-text" aria-hidden="true">Votre bien</div>
+    <div class="container">
+      <div class="reveal" style="text-align:center">
+        <div class="section-label">Vous vendez un bien ?</div>
+        <div class="gold-rule centered"></div>
+        <h2 class="section-title" style="margin-bottom:24px; text-align:center">
+          Confiez-nous votre<br><em>projet de vente</em>
+        </h2>
+        <p class="cta-final-desc">
+          Nos conseillers Sextant en Martinique et Guadeloupe vous accompagnent
+          de l'estimation à la signature — avec une expertise terrain inégalée
+          et des outils d'analyse à la pointe du marché.
+        </p>
+        <div class="cta-actions">
+          <a href="/#contact" class="btn-gold">Estimer mon bien</a>
+          <a href="/#services" class="btn-ghost">Nos services</a>
+          <a href="/espace-partenaires" class="btn-gold-border">Espace partenaires</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand-name">Optimmo Dom</div>
+          <div class="footer-brand-sub">Conseil · Patrimoine · Antilles</div>
+          <p class="footer-brand-desc">
+            Expert en conseil immobilier, valorisation de patrimoine et dénouement
+            successoral en Martinique et Guadeloupe. Partenaire Sextant France.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" aria-label="Facebook">f</a>
+            <a href="#" class="footer-social" aria-label="LinkedIn">in</a>
+            <a href="#" class="footer-social" aria-label="Instagram">ig</a>
+          </div>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="/services/conseil-immobilier">Conseil immobilier</a></li>
+            <li><a href="/services/succession">Dénouement successoral</a></li>
+            <li><a href="/services/valorisation">Valorisation patrimoine</a></li>
+            <li><a href="/services/foncier">Développement foncier</a></li>
+            <li><a href="/services/construction">Projets de construction</a></li>
+            <li><a href="/services/avis-de-valeur">Avis de valeur</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Ressources</h4>
+          <ul class="footer-links">
+            <li><a href="/catalogue">Catalogue immobilier</a></li>
+            <li><a href="/realisations">Réalisations</a></li>
+            <li><a href="/actualites">Actualités marché</a></li>
+            <li><a href="/#equipe">L'équipe</a></li>
+            <li><a href="/espace-partenaires">Espace partenaires</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a></li>
+            <li><a href="https://fidiconseil.com">fidiconseil.com</a></li>
+            <li><a href="#">Martinique</a></li>
+            <li><a href="#">Guadeloupe</a></li>
+            <li><a href="/#contact">Formulaire de contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Optimmo Dom · <a href="/mentions-legales">Mentions légales</a> · <a href="/rgpd">RGPD</a></p>
+        <p>Partenaire <a href="https://www.sextantfrance.fr" target="_blank" rel="noopener">Sextant France</a> · Martinique &amp; Guadeloupe</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ======================================
+       MENU
+    ====================================== */
+    let menuOpen = false
+    function toggleMenu() {
+      menuOpen = !menuOpen
+      document.getElementById('menu-overlay').classList.toggle('open', menuOpen)
+      document.getElementById('hamburger').classList.toggle('active', menuOpen)
+      document.body.style.overflow = menuOpen ? 'hidden' : ''
+    }
+    function closeMenu() {
+      menuOpen = false
+      document.getElementById('menu-overlay').classList.remove('open')
+      document.getElementById('hamburger').classList.remove('active')
+      document.body.style.overflow = ''
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) closeMenu() })
+
+    /* ======================================
+       NAV SCROLL
+    ====================================== */
+    const nav = document.getElementById('nav')
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50)
+    }, { passive: true })
+
+    /* ======================================
+       FILTER STATE
+    ====================================== */
+    const filters = {
+      type: 'tous',
+      territoire: 'tous',
+      statut: 'tous',
+      prix: 1200000,
+    }
+
+    function setFilter(key, value, btn) {
+      filters[key] = value
+      // Update active button in its group
+      const group = btn.closest('.filter-group')
+      group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'))
+      btn.classList.add('active')
+      filterAll()
+    }
+
+    function filterAll() {
+      const cards = document.querySelectorAll('.prop-card')
+      const prixSelect = document.getElementById('prixMaxSelect').value
+      const prixMax = prixSelect === 'tous' ? 99999999 : parseInt(prixSelect)
+
+      let visibleCount = 0
+      cards.forEach(card => {
+        const typeOk = filters.type === 'tous' || card.dataset.type === filters.type
+        const terrOk = filters.territoire === 'tous' || card.dataset.territoire === filters.territoire
+        const prixOk = parseInt(card.dataset.prix) <= prixMax
+        const statOk = filters.statut === 'tous' || card.dataset.statut === filters.statut
+
+        if (typeOk && terrOk && prixOk && statOk) {
+          card.classList.remove('hidden')
+          visibleCount++
+        } else {
+          card.classList.add('hidden')
+        }
+      })
+
+      // Update result count
+      const rc = document.getElementById('resultCount')
+      rc.innerHTML = `<strong>${visibleCount}</strong>&nbsp;bien${visibleCount > 1 ? 's' : ''} trouvé${visibleCount > 1 ? 's' : ''}`
+
+      // Show/hide empty state
+      document.getElementById('noResults').classList.toggle('show', visibleCount === 0)
+
+      // Active filter badge
+      const prixFiltered = prixSelect !== 'tous'
+      const activeCount = [
+        filters.type !== 'tous',
+        filters.territoire !== 'tous',
+        filters.statut !== 'tous',
+        prixFiltered,
+      ].filter(Boolean).length
+
+      const badge = document.getElementById('filterBadge')
+      badge.textContent = activeCount
+      badge.classList.toggle('show', activeCount > 0)
+    }
+
+    function resetFilters() {
+      filters.type = 'tous'
+      filters.territoire = 'tous'
+      filters.statut = 'tous'
+
+      // Reset bar buttons
+      document.querySelectorAll('[data-filter]').forEach(btn => {
+        btn.classList.remove('active')
+        if (btn.dataset.value === 'tous') btn.classList.add('active')
+      })
+
+      // Reset selects
+      document.getElementById('prixMaxSelect').value = 'tous'
+
+      // Reset sidebar range sliders
+      const rangePrix = document.getElementById('rangePrix')
+      if (rangePrix) { rangePrix.value = 1200000; updateRangePrix(1200000) }
+
+      // Reset sidebar checkboxes
+      document.querySelectorAll('.sidebar input[type="checkbox"]').forEach(cb => {
+        cb.checked = cb.id === 'sTypeAll'
+      })
+
+      filterAll()
+    }
+
+    /* ======================================
+       VIEW TOGGLE (grid / map)
+    ====================================== */
+    function setView(view) {
+      const grid = document.getElementById('propGrid')
+      const map = document.getElementById('mapView')
+      const btnGrid = document.getElementById('btnGrid')
+      const btnMap = document.getElementById('btnMap')
+
+      if (view === 'grid') {
+        grid.style.display = 'grid'
+        map.classList.remove('show')
+        btnGrid.classList.add('active')
+        btnMap.classList.remove('active')
+      } else {
+        grid.style.display = 'none'
+        map.classList.add('show')
+        btnGrid.classList.remove('active')
+        btnMap.classList.add('active')
+      }
+    }
+
+    /* ======================================
+       RANGE SLIDERS
+    ====================================== */
+    function updateRangePrix(val) {
+      const n = parseInt(val)
+      document.getElementById('rangePrixDisplay').textContent = n.toLocaleString('fr-FR') + ' €'
+    }
+    function updateRangeSurf(val) {
+      document.getElementById('rangeSurfDisplay').textContent = val + ' m²'
+    }
+
+    /* ======================================
+       SIDEBAR CHECKBOXES — bridge to bar
+    ====================================== */
+    function sidebarFilter() {
+      const martChecked = document.getElementById('sTerrMart')?.checked
+      const guadChecked = document.getElementById('sTerrGuad')?.checked
+      if (martChecked && !guadChecked) {
+        filters.territoire = 'martinique'
+      } else if (guadChecked && !martChecked) {
+        filters.territoire = 'guadeloupe'
+      } else {
+        filters.territoire = 'tous'
+      }
+
+      const statDisp = document.getElementById('sStatDisp')?.checked
+      filters.statut = statDisp ? 'disponible' : 'tous'
+
+      // Sync bar territoire buttons
+      document.querySelectorAll('[data-filter="territoire"]').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.value === filters.territoire)
+      })
+      // Sync bar statut buttons
+      document.querySelectorAll('[data-filter="statut"]').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.value === filters.statut)
+      })
+
+      filterAll()
+    }
+
+    /* ======================================
+       SCROLL REVEAL (IntersectionObserver)
+    ====================================== */
+    const revealEls = document.querySelectorAll('.reveal')
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          const delay = (i % 3) * 80
+          setTimeout(() => entry.target.classList.add('in'), delay)
+          revealObs.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' })
+    revealEls.forEach(el => revealObs.observe(el))
+
+    /* ======================================
+       INIT — sync counter on load
+    ====================================== */
+    filterAll()
+  </script>
+</body>
+</html>
