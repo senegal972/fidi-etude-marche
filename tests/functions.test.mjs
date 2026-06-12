@@ -48,15 +48,27 @@ for (const file of functionFiles) {
       "doit exporter `handler`");
   });
 
+  // Les fonctions peuvent gérer CORS/OPTIONS directement (littéral dans le
+  // source) ou via les helpers partagés de _auth.mjs (jsonResp/handleOptions),
+  // qui définissent CORS_HEADERS et le preflight 204.
+  const usesSharedCors = (src) =>
+    /from\s+["']\.\/_auth\.mjs["']/.test(src) &&
+    /\b(jsonResp|handleOptions|CORS_HEADERS)\b/.test(src);
+
   test(`${file} — headers CORS Access-Control-Allow-Origin`, () => {
     const src = read(file);
-    assert.match(src, /Access-Control-Allow-Origin/,
-      "doit définir le header CORS");
+    assert.ok(
+      /Access-Control-Allow-Origin/.test(src) || usesSharedCors(src),
+      "doit définir le header CORS (littéral ou via helpers _auth.mjs)",
+    );
   });
 
   test(`${file} — gère la requête OPTIONS (preflight)`, () => {
     const src = read(file);
-    assert.match(src, /OPTIONS/, "doit gérer la méthode OPTIONS");
+    assert.ok(
+      /OPTIONS/.test(src) || /\bhandleOptions\b/.test(src),
+      "doit gérer la méthode OPTIONS (littéral ou via handleOptions)",
+    );
   });
 
   test(`${file} — timeout sur les appels réseau (AbortController/fetchTimeout)`, () => {
