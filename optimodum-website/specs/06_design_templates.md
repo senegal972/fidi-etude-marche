@@ -1,9 +1,9 @@
 # Phase 6 — Design System & Propositions de Templates
-## Projet Optimodum · Identité Visuelle Très Haute Gamme
+## Projet Optimmo Dom · Identité Visuelle Très Haute Gamme
 
 ---
 
-## 1. Identité Visuelle Optimodum
+## 1. Identité Visuelle Optimmo Dom
 
 ### Philosophie Design
 > Élégance des Antilles · Expertise patrimoniale · Confiance absolue
@@ -330,7 +330,7 @@ graph TB
 ### Plan de fichiers CSS
 
 ```
-optimodum-website/
+optimmo-dom-website/
 ├── styles/
 │   ├── tokens.css          # Variables CSS (couleurs, typo, espacements)
 │   ├── base.css            # Reset + typographie globale

@@ -1,5 +1,5 @@
 # Phase 3 — Espace Partenaires Sécurisé
-## Projet Optimodum · Module Accès Restreint & Outils Métier
+## Projet Optimmo Dom · Module Accès Restreint & Outils Métier
 
 ---
 

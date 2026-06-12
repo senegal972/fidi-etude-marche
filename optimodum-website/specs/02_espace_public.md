@@ -1,5 +1,5 @@
 # Phase 2 — Espace Public : Pages & Composants
-## Projet Optimodum · Module Frontend Public
+## Projet Optimmo Dom · Module Frontend Public
 
 ---
 
@@ -10,13 +10,13 @@
 ```mermaid
 graph TB
     subgraph NAV["Navigation Sticky"]
-        LOGO[Logo Optimodum] --- MENU["Services | Réalisations | Catalogue | Équipe | Contact"]
+        LOGO[Logo Optimmo Dom] --- MENU["Services | Réalisations | Catalogue | Équipe | Contact"]
         MENU --- CTA_NAV["[ Espace Partenaires ]"]
     end
 
     subgraph HERO["Section Hero — 100vh"]
         BG["Vidéo/image fond\n(vue mer Martinique ou Guadeloupe)"]
-        HEADLINE["OPTIMODUM\nL'excellence immobilière aux Antilles"]
+        HEADLINE["OPTIMMO DOM\nL'excellence immobilière aux Antilles"]
         SUBLINE["Conseil · Valorisation · Développement foncier\nMartinique & Guadeloupe"]
         CTA1["→ Découvrir nos services"]
         CTA2["→ Consulter le catalogue"]
@@ -152,7 +152,7 @@ graph LR
         IFRAME_TOGGLE["Option : iframe du catalogue\nSextant de l'agent"]
     end
 
-    subgraph AGENTS["Agents Sextant Optimodum"]
+    subgraph AGENTS["Agents Sextant Optimmo Dom"]
         A1["Philippe\n[lien profil sextant]"]
         A2["Marie-Luce\n[lien profil sextant]"]
         A3["Lucien Fortuné\n[lien profil sextant]"]
@@ -216,7 +216,7 @@ TDD_ANCHORS:
 graph TB
     subgraph PAGE_SERVICE["Template Page Service"]
         HERO_S["Hero section\n(image thématique + titre service)"]
-        INTRO["Paragraphe introductif\n(expertise Optimodum)"]
+        INTRO["Paragraphe introductif\n(expertise Optimmo Dom)"]
         PROCESS["Notre processus\n(étapes numérotées)"]
         CASES["Cas concrets\n(anonymisés Martinique/Guadeloupe)"]
         FAQ["FAQ spécifique au service"]
@@ -248,7 +248,7 @@ COMPONENT TeamSection:
   DATA:
     members: [
       {
-        nom: "Optimodum / [Prénom Nom gérant]",
+        nom: "Optimmo Dom / [Prénom Nom gérant]",
         role: "Fondateur & Expert Immobilier",
         specialites: ["Avis de valeur", "Étude de marché", "Succession"],
         territoire: ["Martinique", "Guadeloupe"],
@@ -331,16 +331,16 @@ flowchart LR
 FUNCTION generateSEOMeta(page):
   SWITCH page.type:
     CASE "home":
-      title: "Optimodum — Conseil Immobilier Martinique & Guadeloupe"
+      title: "Optimmo Dom — Conseil Immobilier Martinique & Guadeloupe"
       description: "Expert en immobilier aux Antilles : conseil, valorisation, dénouement successoral, avis de valeur. Martinique et Guadeloupe."
-      og:image: "/images/og/optimodum-home.jpg"
+      og:image: "/images/og/optimmo-dom-home.jpg"
 
     CASE "service":
-      title: "{service.nom} | Optimodum Martinique Guadeloupe"
+      title: "{service.nom} | Optimmo Dom Martinique Guadeloupe"
       description: "{service.meta_desc}"
 
     CASE "property":
-      title: "{property.titre} — {property.commune} | Optimodum"
+      title: "{property.titre} — {property.commune} | Optimmo Dom"
       schema: RealEstateListing {
         "@type": "RealEstateListing",
         "name": property.titre,

@@ -1,5 +1,5 @@
 # Phase 5 — Intégration des Outils Existants
-## Projet Optimodum · Réutilisation fidi-etude-marche
+## Projet Optimmo Dom · Réutilisation fidi-etude-marche
 
 ---
 
@@ -28,7 +28,7 @@ graph LR
         end
     end
 
-    subgraph NEW_SITE["Nouveau site Optimodum"]
+    subgraph NEW_SITE["Nouveau site Optimmo Dom"]
         TOOL_AV["Outil Avis de Valeur\n(plan PRO+)"]
         TOOL_EM["Outil Étude de Marché\n(plan BASIC+)"]
         TOOL_DVF["Analyse DVF\n(plan BASIC+)"]
@@ -63,7 +63,7 @@ flowchart TD
         OPT_D["Option D — Copier les Functions\nCopier les .mjs dans le\nnouveau repo + adapter\n✅ Simple\n✅ Un seul déploiement\n❌ Duplication code"]
     end
 
-    RECOMMENDED["✅ RECOMMANDÉ : Option C\n(Microservices)\nfidi-etude-marche → api.optimodum.fr\nnouveausite → optimodum.fr"]
+    RECOMMENDED["✅ RECOMMANDÉ : Option C\n(Microservices)\nfidi-etude-marche → api.optimmo-dom.fr\nnouveausite → optimmo-dom.fr"]
 ```
 
 ### Pourquoi l'Option C est recommandée
@@ -83,8 +83,8 @@ flowchart TD
 // netlify/functions/_cors.mjs
 
 export const ALLOWED_ORIGINS = [
-  "https://optimodum.fr",
-  "https://www.optimodum.fr",
+  "https://optimmo-dom.fr",
+  "https://www.optimmo-dom.fr",
   "http://localhost:3000",  // dev
   "http://localhost:8888"   // netlify dev
 ]
@@ -107,7 +107,7 @@ export function corsHeaders(origin) {
 ```mermaid
 sequenceDiagram
     participant U as Utilisateur (browser)
-    participant FE as Front Optimodum
+    participant FE as Front Optimmo Dom
     participant GW as /api/tools/proxy (Gateway)
     participant TOOL as fidi-etude-marche API
 
@@ -118,7 +118,7 @@ sequenceDiagram
     GW->>GW: Vérifie plan utilisateur
     GW->>GW: Log utilisation
 
-    GW->>TOOL: POST https://api.optimodum.fr/api/analyse\n(avec API key interne)
+    GW->>TOOL: POST https://api.optimmo-dom.fr/api/analyse\n(avec API key interne)
     TOOL->>GW: Résultats analyse JSON
     GW->>FE: Résultats filtrés selon plan
     FE->>U: Affichage rapport
@@ -234,7 +234,7 @@ flowchart TD
     STEP1 --> STEP2 --> STEP3 --> STEP4
 
     subgraph REPORT_ACTIONS["Actions sur le rapport"]
-        PDF["Générer PDF professionnel\n(avec logo Optimodum)"]
+        PDF["Générer PDF professionnel\n(avec logo Optimmo Dom)"]
         SHARE["Lien de partage sécurisé\n(exp 30 jours)"]
         ARCHIVE["Archiver dans\nla bibliothèque"]
     end
@@ -250,7 +250,7 @@ flowchart TD
 graph LR
     subgraph PDF_FLOW["Génération PDF Rapport"]
         DATA["Données rapport JSON"]
-        TEMPLATE["Template HTML/CSS\n(en-tête Optimodum,\ncharte graphique)"]
+        TEMPLATE["Template HTML/CSS\n(en-tête Optimmo Dom,\ncharte graphique)"]
         PUPPETEER["Puppeteer headless\n(Netlify Function)"]
         PDF_FILE["Fichier .pdf"]
         BLOB_STORE["Netlify Blobs\n(stockage temporaire 24h)"]

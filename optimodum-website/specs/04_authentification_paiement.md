@@ -1,5 +1,5 @@
 # Phase 4 — Authentification & Paiement PayPal
-## Projet Optimodum · Module Sécurité & Monétisation
+## Projet Optimmo Dom · Module Sécurité & Monétisation
 
 ---
 
@@ -119,9 +119,9 @@ sequenceDiagram
 ```mermaid
 flowchart TD
     subgraph PAYPAL_PLANS["Plans PayPal (pré-créés dans PayPal Dashboard)"]
-        PP_BASIC["Plan ID: P-BASIC-OPTIMODUM\n29€/mois · facturation mensuelle"]
-        PP_PRO["Plan ID: P-PRO-OPTIMODUM\n79€/mois · facturation mensuelle"]
-        PP_PREM["Plan ID: P-PREMIUM-OPTIMODUM\n149€/mois · facturation mensuelle"]
+        PP_BASIC["Plan ID: P-BASIC-OPTIMMO DOM\n29€/mois · facturation mensuelle"]
+        PP_PRO["Plan ID: P-PRO-OPTIMMO DOM\n79€/mois · facturation mensuelle"]
+        PP_PREM["Plan ID: P-PREMIUM-OPTIMMO DOM\n149€/mois · facturation mensuelle"]
     end
 
     subgraph FLOW_SUB["Flow Souscription Abonnement"]
@@ -232,7 +232,7 @@ FUNCTION handler(event):
         paypal_subscription_id: subscription_id,
         statut: "actif"
       })
-      await sendEmail(user.email, "Votre abonnement Optimodum est activé !")
+      await sendEmail(user.email, "Votre abonnement Optimmo Dom est activé !")
 
     CASE "BILLING.SUBSCRIPTION.CANCELLED":
       await db.subscriptions.update({
@@ -286,10 +286,10 @@ PAYPAL_WEBHOOK_ID=xxx  # pour vérification signature
 
 # Email (Resend ou SendGrid)
 EMAIL_API_KEY=re_xxx
-EMAIL_FROM=contact@optimodum.fr
+EMAIL_FROM=contact@optimmo-dom.fr
 
 # App
-BASE_URL=https://optimodum.fr
+BASE_URL=https://optimmo-dom.fr
 PAPPERS_API_KEY=xxx  # hérité fidi-etude-marche
 ```
 

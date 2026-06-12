@@ -1,6 +1,6 @@
 # Phase 1 — Vision & Architecture Globale
-## Projet : Site Web Professionnel OPTIMODUM
-**Version** : 1.0 · **Date** : 2026-06-10 · **Client** : Optimodum / contact@fidiconseil.com
+## Projet : Site Web Professionnel OPTIMMO DOM
+**Version** : 1.0 · **Date** : 2026-06-10 · **Client** : Optimmo Dom / contact@fidiconseil.com
 
 ---
 
@@ -8,7 +8,7 @@
 
 | Attribut | Valeur |
 |---|---|
-| **Nom** | Optimodum |
+| **Nom** | Optimmo Dom |
 | **Fondateur** | Franck Fidi |
 | **Domaine** | fidiconseil.com |
 | **Email** | contact@fidiconseil.com |
@@ -277,7 +277,7 @@ graph TB
 
 ```mermaid
 gantt
-    title Roadmap Développement Optimodum
+    title Roadmap Développement Optimmo Dom
     dateFormat  YYYY-MM-DD
     section Phase 1 — Fondations
     Architecture & design system    :2026-06-15, 7d
