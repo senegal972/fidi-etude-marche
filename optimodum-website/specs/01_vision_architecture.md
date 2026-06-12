@@ -9,10 +9,14 @@
 | Attribut | Valeur |
 |---|---|
 | **Nom** | Optimodum |
+| **Fondateur** | Franck Fidi |
+| **Domaine** | fidiconseil.com |
+| **Email** | contact@fidiconseil.com |
 | **Slogan** | *L'excellence immobilière aux Antilles* |
 | **Marchés** | Martinique · Guadeloupe |
 | **Gamme** | Très haute gamme — consulting patrimonial |
 | **Ton** | Élégant, confiant, expert, chaleureux |
+| **Template** | Caribbean Luxury (choix validé) |
 
 ### Services Core
 1. Conseil immobilier & transaction
@@ -22,7 +26,15 @@
 5. Accompagnement projets de construction
 6. Avis de valeur vénale
 7. Étude de marché (Martinique / Guadeloupe)
-8. Réseau Sextant (Philippe, Marie-Luce, Lucien Fortuné)
+8. Réseau Sextant (Franck Fidi, Philippe Marie-Luce, Lucien Fortuné)
+
+### Équipe & URLs Sextant
+
+| Agent | URL Sextant | Territoire |
+|---|---|---|
+| **Franck Fidi** | https://franck-fidi.sextantfrance.fr/fr/liste.htm#numnego=75011114 | Martinique & Guadeloupe |
+| **Philippe Marie-Luce** | https://philippe-marie-luce.sextantfrance.fr/fr/liste.htm#numnego=75011175 | Guadeloupe |
+| **Lucien Fortuné** | https://lucien-fortune.sextantfrance.fr/fr/liste.htm#numnego=75011408 | Martinique |
 
 ---
 
