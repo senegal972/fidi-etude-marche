@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Optimmo Dom — Services immobiliers haut de gamme en Martinique et Guadeloupe : conseil, succession, valorisation, foncier, construction, avis de valeur." />
+  <meta property="og:title" content="Nos Services — Optimmo Dom" />
+  <meta property="og:description" content="Une offre intégrée pour tous vos projets immobiliers en Martinique et Guadeloupe." />
+  <meta property="og:type" content="website" />
+  <title>Nos Services — Optimmo Dom · Conseil Immobilier Antilles</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/shared.css" />
+
+  <style>
+    /* ============================================
+       SERVICES.HTML — Page-specific styles
+    ============================================ */
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--slate);
+    }
+    .breadcrumb a { color: var(--gold); transition: opacity 200ms; }
+    .breadcrumb a:hover { opacity: 0.7; }
+    .breadcrumb-sep { color: rgba(255,255,255,0.2); }
+
+    /* Intro block */
+    .services-intro {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+    .services-intro p {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 17px;
+      line-height: 1.85;
+      color: rgba(232,236,240,0.75);
+    }
+
+    /* Alternating service rows */
+    .service-rows {
+      padding: 0 0 80px;
+    }
+    .service-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 100px 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .service-row:first-child { border-top: none; }
+
+    /* Reverse layout for even rows */
+    .service-row.reverse .service-visual { order: 2; }
+    .service-row.reverse .service-content { order: 1; }
+
+    .service-visual {
+      position: relative;
+    }
+    .service-visual-frame {
+      position: relative;
+      overflow: hidden;
+    }
+    .service-visual-frame::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      right: -12px;
+      width: 60%;
+      height: 60%;
+      border: 1px solid rgba(201,168,76,0.2);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .service-row.reverse .service-visual-frame::after {
+      right: auto;
+      left: -12px;
+    }
+
+    .service-number {
+      font-family: var(--serif);
+      font-size: 80px;
+      font-weight: 300;
+      color: rgba(201,168,76,0.08);
+      line-height: 1;
+      margin-bottom: -20px;
+      display: block;
+    }
+    .service-content-title {
+      font-family: var(--serif);
+      font-size: clamp(30px, 3.5vw, 48px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .service-content-title em { font-style: italic; color: var(--gold); }
+    .service-content p {
+      font-size: 15px;
+      line-height: 1.85;
+      color: rgba(232,236,240,0.75);
+      margin-bottom: 16px;
+    }
+    .service-bullets {
+      list-style: none;
+      margin: 24px 0 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .service-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      color: rgba(232,236,240,0.8);
+      letter-spacing: 0.02em;
+    }
+    .service-bullets li::before {
+      content: '';
+      width: 16px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 10px;
+    }
+
+    /* CTA finale */
+    .services-cta {
+      background: var(--ink-mid);
+      border-top: 1px solid rgba(201,168,76,0.1);
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+      padding: 120px 0;
+      text-align: center;
+    }
+    .services-cta .section-label { margin-bottom: 20px; display: block; }
+    .services-cta .gold-rule.centered { margin-bottom: 32px; }
+    .services-cta-title {
+      font-family: var(--serif);
+      font-size: clamp(36px, 4.5vw, 60px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 48px;
+    }
+    .services-cta-title em { font-style: italic; color: var(--gold); }
+    .cta-btns {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .service-row {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding: 72px 0;
+      }
+      .service-row.reverse .service-visual { order: 0; }
+      .service-row.reverse .service-content { order: 0; }
+    }
+    @media (max-width: 600px) {
+      .service-row { padding: 56px 0; }
+      .service-number { font-size: 56px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav opaque" id="nav">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">OD</div>
+      <div>
+        <span class="nav-logo-text">Optimmo Dom</span>
+        <span class="nav-logo-sub">Conseil Immobilier Antilles</span>
+      </div>
+    </a>
+    <div class="nav-right">
+      <a href="espace-partenaires/" class="nav-cta-btn">Espace Partenaires</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="menu-overlay">
+    <div>
+      <ul class="menu-overlay-nav">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="catalogue.html">Catalogue</a></li>
+        <li><a href="realisations.html">Réalisations</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="espace-partenaires/">Espace Partenaires</a></li>
+      </ul>
+      <div class="menu-overlay-footer">
+        <div class="menu-overlay-contact">
+          <div>+596 696 00 00 00</div>
+          <div><a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-inner">
+        <div class="page-hero-bg-text">Services</div>
+        <div class="breadcrumb">
+          <a href="index.html">Accueil</a>
+          <span class="breadcrumb-sep">·</span>
+          <span>Services</span>
+        </div>
+        <div class="section-label">Notre offre</div>
+        <div class="gold-rule"></div>
+        <h1 class="section-title">Nos <em>Services</em></h1>
+        <p style="max-width:580px; margin-top:20px; font-size:17px; color:rgba(232,236,240,0.7); line-height:1.8;">
+          Une offre intégrée pour tous vos projets immobiliers en Martinique et Guadeloupe — de l'acquisition à la valorisation patrimoniale.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="services-intro reveal">
+    <div class="container">
+      <p>
+        Depuis Fort-de-France à Pointe-à-Pitre, Optimmo Dom accompagne particuliers, investisseurs et professionnels dans toutes les étapes de leurs projets immobiliers en Outre-Mer. Notre maîtrise du cadre juridique spécifique aux DOM — indivision, loi Littoral, normes paracycloniques, dispositifs de défiscalisation — constitue notre avantage décisif.
+      </p>
+    </div>
+  </section>
+
+  <!-- SERVICE ROWS -->
+  <section class="service-rows">
+    <div class="container">
+
+      <!-- ROW 1 — Conseil Immobilier (image left) -->
+      <div class="service-row reveal">
+        <div class="service-visual">
+          <div class="service-visual-frame">
+            <div style="background: linear-gradient(135deg, #1A2B3C 0%, #243447 100%); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
+              <span style="font-family: var(--serif); font-size: 14px; color: rgba(201,168,76,0.4); letter-spacing: 0.2em; text-transform: uppercase;">[Conseil Immobilier]</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-content">
+          <span class="service-number">01</span>
+          <div class="section-label">Accompagnement personnalisé</div>
+          <div class="gold-rule"></div>
+          <h2 class="service-content-title">Conseil <em>Immobilier</em></h2>
+          <p>
+            Acquérir, vendre ou investir en Martinique et en Guadeloupe requiert une expertise locale que les agences généralistes ne possèdent pas. Nous connaissons chaque micro-marché — du Lamentin à Sainte-Anne, du Gosier à Basse-Terre — et nous mettons cette connaissance au service de votre stratégie.
+          </p>
+          <p>
+            Notre appartenance au réseau Sextant France, fort de plus de 3 000 mandataires, nous donne accès à une base de données transactionnelle nationale croisée avec les données DVF locales, pour une négociation toujours fondée sur des faits.
+          </p>
+          <ul class="service-bullets">
+            <li>Analyse comparative de marché (données DVF & VALORIS)</li>
+            <li>Stratégie d'acquisition et négociation prix</li>
+            <li>Sécurisation juridique et due diligence</li>
+            <li>Mise en relation notaire, expert et financement</li>
+          </ul>
+          <a href="services/conseil-immobilier.html" class="btn-gold-border">Découvrir ce service →</a>
+        </div>
+      </div>
+
+      <!-- ROW 2 — Succession & Indivision (image right) -->
+      <div class="service-row reverse reveal">
+        <div class="service-visual">
+          <div class="service-visual-frame">
+            <div style="background: linear-gradient(135deg, #1A2B3C 0%, #243447 100%); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
+              <span style="font-family: var(--serif); font-size: 14px; color: rgba(201,168,76,0.4); letter-spacing: 0.2em; text-transform: uppercase;">[Succession & Indivision]</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-content">
+          <span class="service-number">02</span>
+          <div class="section-label">Résolution patrimoniale</div>
+          <div class="gold-rule"></div>
+          <h2 class="service-content-title">Succession & <em>Indivision</em></h2>
+          <p>
+            L'indivision successorale est l'une des problématiques les plus fréquentes aux Antilles : des biens transmis de génération en génération sans acte notarié, des héritiers dispersés entre la métropole et les îles, des situations bloquées depuis parfois quarante ans. Notre expertise permet de dénouer ces situations dans le respect des droits de chacun.
+          </p>
+          <p>
+            Nous intervenons en médiation amiable avant d'envisager toute procédure contentieuse, avec pour objectif la préservation du patrimoine familial et une répartition équitable du produit de cession.
+          </p>
+          <ul class="service-bullets">
+            <li>Audit des titres de propriété et identification des ayants droit</li>
+            <li>Médiation entre héritiers résidant en métropole et aux Antilles</li>
+            <li>Estimation contradictoire pour partage équitable</li>
+            <li>Accompagnement complet jusqu'à la vente et le partage</li>
+          </ul>
+          <a href="services/succession.html" class="btn-gold-border">Découvrir ce service →</a>
+        </div>
+      </div>
+
+      <!-- ROW 3 — Valorisation Patrimoniale (image left) -->
+      <div class="service-row reveal">
+        <div class="service-visual">
+          <div class="service-visual-frame">
+            <div style="background: linear-gradient(135deg, #1A2B3C 0%, #243447 100%); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
+              <span style="font-family: var(--serif); font-size: 14px; color: rgba(201,168,76,0.4); letter-spacing: 0.2em; text-transform: uppercase;">[Valorisation Patrimoniale]</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-content">
+          <span class="service-number">03</span>
+          <div class="section-label">Optimisation du patrimoine</div>
+          <div class="gold-rule"></div>
+          <h2 class="service-content-title">Valorisation <em>Patrimoniale</em></h2>
+          <p>
+            Votre bien immobilier aux Antilles recèle un potentiel que sa présentation actuelle ne reflète peut-être pas. Qu'il s'agisse d'une villa en bord de mer à Sainte-Anne, d'un appartement en centre-ville de Fort-de-France ou d'un immeuble de rapport au Gosier, nous élaborons une stratégie sur mesure pour maximiser sa valeur vénale et locative.
+          </p>
+          <p>
+            Home staging adapté au goût caribéen, rénovation ciblée, optimisation des charges, mise en conformité énergétique : chaque euro investi est calibré pour un retour sur investissement mesurable avant la mise en marché.
+          </p>
+          <ul class="service-bullets">
+            <li>Diagnostic patrimonial et benchmarking de marché local</li>
+            <li>Plan de valorisation avant vente (travaux, home staging)</li>
+            <li>Optimisation fiscale : dispositifs Pinel Outre-Mer, Girardin</li>
+            <li>Stratégie locative saisonnière ou longue durée</li>
+          </ul>
+          <a href="services/valorisation.html" class="btn-gold-border">Découvrir ce service →</a>
+        </div>
+      </div>
+
+      <!-- ROW 4 — Ingénierie Foncière (image right) -->
+      <div class="service-row reverse reveal">
+        <div class="service-visual">
+          <div class="service-visual-frame">
+            <div style="background: linear-gradient(135deg, #1A2B3C 0%, #243447 100%); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
+              <span style="font-family: var(--serif); font-size: 14px; color: rgba(201,168,76,0.4); letter-spacing: 0.2em; text-transform: uppercase;">[Ingénierie Foncière]</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-content">
+          <span class="service-number">04</span>
+          <div class="section-label">Développement du foncier</div>
+          <div class="gold-rule"></div>
+          <h2 class="service-content-title">Ingénierie <em>Foncière</em></h2>
+          <p>
+            Le foncier antillais est soumis à des contraintes réglementaires spécifiques : loi Littoral, zones de risques naturels (séismes, éruptions, cyclones), servitudes de passage ancestrales, bandes de recul côtières. Notre maîtrise de ces règles est un atout décisif pour débloquer des projets fonciers complexes.
+          </p>
+          <p>
+            Nous intervenons en amont de tout projet, de la vérification de la constructibilité parcellaire à la mise en place des raccordements VRD, en passant par les divisions parcellaires et les dépôts de permis d'aménager.
+          </p>
+          <ul class="service-bullets">
+            <li>Analyse réglementaire (PLU, loi Littoral, zones de risques)</li>
+            <li>Divisions parcellaires et bornage cadastral</li>
+            <li>Coordination VRD : eau, assainissement, électricité, voirie</li>
+            <li>Dossier de permis d'aménager et suivi instruction</li>
+          </ul>
+          <a href="services/foncier.html" class="btn-gold-border">Découvrir ce service →</a>
+        </div>
+      </div>
+
+      <!-- ROW 5 — Construction & Rénovation (image left) -->
+      <div class="service-row reveal">
+        <div class="service-visual">
+          <div class="service-visual-frame">
+            <div style="background: linear-gradient(135deg, #1A2B3C 0%, #243447 100%); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
+              <span style="font-family: var(--serif); font-size: 14px; color: rgba(201,168,76,0.4); letter-spacing: 0.2em; text-transform: uppercase;">[Construction & Rénovation]</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-content">
+          <span class="service-number">05</span>
+          <div class="section-label">Maîtrise d'ouvrage déléguée</div>
+          <div class="gold-rule"></div>
+          <h2 class="service-content-title">Construction & <em>Rénovation</em></h2>
+          <p>
+            Construire ou rénover aux Antilles impose des contraintes techniques sans équivalent en métropole : normes paracycloniques PS MI / NF EN 1998, résistance à l'humidité saline, gestion des eaux pluviales tropicales, isolation thermique adaptée aux fortes chaleurs. Un projet mal encadré peut rapidement dériver en surcoût significatif.
+          </p>
+          <p>
+            En qualité de maître d'ouvrage délégué, nous sélectionnons les entreprises, suivons les chantiers, contrôlons les budgets et garantissons la conformité aux normes locales — pour que vous receviez les clés d'un bien parfaitement réalisé.
+          </p>
+          <ul class="service-bullets">
+            <li>Sélection et contractualisation avec les artisans locaux</li>
+            <li>Suivi de chantier hebdomadaire et reporting client</li>
+            <li>Conformité aux normes paracycloniques et parasismiques</li>
+            <li>Réception de travaux et levée des réserves</li>
+          </ul>
+          <a href="services/construction.html" class="btn-gold-border">Découvrir ce service →</a>
+        </div>
+      </div>
+
+      <!-- ROW 6 — Avis de Valeur (image right) -->
+      <div class="service-row reverse reveal">
+        <div class="service-visual">
+          <div class="service-visual-frame">
+            <div style="background: linear-gradient(135deg, #1A2B3C 0%, #243447 100%); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
+              <span style="font-family: var(--serif); font-size: 14px; color: rgba(201,168,76,0.4); letter-spacing: 0.2em; text-transform: uppercase;">[Avis de Valeur]</span>
+            </div>
+          </div>
+        </div>
+        <div class="service-content">
+          <span class="service-number">06</span>
+          <div class="section-label">Estimation professionnelle</div>
+          <div class="gold-rule"></div>
+          <h2 class="service-content-title">Avis de <em>Valeur</em></h2>
+          <p>
+            Un avis de valeur vénale rigoureux repose sur trois piliers : les transactions réelles comparables (données DVF), les prix affichés sur le marché actuel et une analyse qualitative des caractéristiques intrinsèques du bien. Aux Antilles, s'y ajoutent les spécificités locales : exposition aux vents, vue mer, risques naturels, état des équipements face au climat tropical.
+          </p>
+          <p>
+            Notre méthode associe comparaison directe et contrôle par capitalisation des revenus locatifs pour vous fournir une estimation documentée, argumentée et opposable, que ce soit pour une vente, une succession ou un dossier de financement.
+          </p>
+          <ul class="service-bullets">
+            <li>Rapport d'avis de valeur écrit et argumenté</li>
+            <li>Analyse des transactions DVF dans un rayon pertinent</li>
+            <li>Prise en compte des DPE, risques et services de proximité</li>
+            <li>Contrôle par rendement locatif (capitalisation brute)</li>
+          </ul>
+          <a href="services/avis-de-valeur.html" class="btn-gold-border">Découvrir ce service →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA FINALE -->
+  <section class="services-cta reveal">
+    <div class="container">
+      <span class="section-label">Passez à l'action</span>
+      <div class="gold-rule centered"></div>
+      <h2 class="services-cta-title">Votre projet immobilier<br><em>commence ici</em></h2>
+      <div class="cta-btns">
+        <a href="contact.html" class="btn-gold">Contacter notre équipe</a>
+        <a href="realisations.html" class="btn-ghost">Voir nos réalisations</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand-name">Optimmo Dom</div>
+          <div class="footer-brand-sub">Conseil Immobilier Antilles</div>
+          <p class="footer-brand-desc">Expertise immobilière haut de gamme en Martinique et Guadeloupe. Réseau Sextant France.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social">f</a>
+            <a href="#" class="footer-social">in</a>
+            <a href="#" class="footer-social">ig</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="services/conseil-immobilier.html">Conseil Immobilier</a></li>
+            <li><a href="services/succession.html">Succession &amp; Indivision</a></li>
+            <li><a href="services/valorisation.html">Valorisation</a></li>
+            <li><a href="services/foncier.html">Ingénierie Foncière</a></li>
+            <li><a href="services/construction.html">Construction</a></li>
+            <li><a href="services/avis-de-valeur.html">Avis de Valeur</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Territoires</h4>
+          <ul class="footer-links">
+            <li><a href="#">Martinique</a></li>
+            <li><a href="#">Guadeloupe</a></li>
+            <li><a href="#">Fort-de-France</a></li>
+            <li><a href="#">Pointe-à-Pitre</a></li>
+            <li><a href="#">Le Gosier</a></li>
+            <li><a href="#">Le Lamentin</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a></li>
+            <li><a href="tel:+596696000000">+596 696 00 00 00</a></li>
+            <li><a href="contact.html">Formulaire de contact</a></li>
+            <li><a href="espace-partenaires/">Espace Partenaires</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Optimmo Dom · Réseau Sextant France · <a href="#">Mentions légales</a></p>
+        <p>Conseil immobilier expert en Martinique et Guadeloupe</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    const hamburger = document.getElementById('hamburger');
+    const overlay = document.getElementById('menu-overlay');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); overlay.classList.toggle('open'); document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : ''; });
+    document.querySelectorAll('#menu-overlay a').forEach(a => a.addEventListener('click', () => { hamburger.classList.remove('active'); overlay.classList.remove('open'); document.body.style.overflow = ''; }));
+    document.querySelectorAll('.reveal').forEach(el => { new IntersectionObserver(([e]) => e.isIntersecting && e.target.classList.add('in'), { threshold: 0.12 }).observe(el); });
+  </script>
+</body>
+</html>
