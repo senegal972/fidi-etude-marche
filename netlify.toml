@@ -123,9 +123,15 @@
   to     = "/.netlify/functions/paypal-webhook"
   status = 200
 
+# ── Application Étude de Marché (URL propre, séparée du site) ─────────────────
+# L'app DVF/DPE/analyse vit à la racine (/index.html).
+# On lui donne une URL propre /etude-marche pour l'espace partenaires.
+[[redirects]]
+  from   = "/etude-marche"
+  to     = "/index.html"
+  status = 200
+
 # ── Racine du domaine → site vitrine Optimmo Dom ──────────────────────────────
-# fidiconseil.com sert le site Optimmo Dom. L'outil d'analyse historique reste
-# accessible directement sur /index.html (utilisé par le tableau de bord).
 [[redirects]]
   from   = "/"
   to     = "/optimodum-website/"
@@ -154,8 +160,18 @@
   to     = "/optimodum-website/espace-partenaires/"
   status = 302
 
-# ── SPA fallback : toute URL non trouvée → index.html ─────────────────────────
+# Pages légales
+[[redirects]]
+  from   = "/mentions-legales"
+  to     = "/optimodum-website/mentions-legales.html"
+  status = 302
+[[redirects]]
+  from   = "/rgpd"
+  to     = "/optimodum-website/rgpd.html"
+  status = 302
+
+# ── Fallback : toute URL non trouvée → site Optimmo Dom (pas l'app) ──────────
 [[redirects]]
   from   = "/*"
-  to     = "/index.html"
+  to     = "/optimodum-website/index.html"
   status = 200
