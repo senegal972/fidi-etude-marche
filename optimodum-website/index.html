@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Optimmo Dom — Expert en conseil immobilier, valorisation de patrimoine et dénouement successoral en Martinique et Guadeloupe. Franck Fidi & réseau Sextant." />
+  <meta property="og:title" content="Optimmo Dom — L'excellence immobilière aux Antilles" />
+  <meta property="og:description" content="Conseil, valorisation patrimoniale, développement foncier, avis de valeur. Martinique & Guadeloupe." />
+  <meta property="og:type" content="website" />
+  <title>Optimmo Dom — L'excellence immobilière aux Antilles</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================
+       TOKENS — Caribbean Luxury
+    ============================================ */
+    :root {
+      --ink:       #070F1A;
+      --ink-mid:   #0D1A2B;
+      --navy:      #1A2B3C;
+      --navy-mid:  #243447;
+      --gold:      #C9A84C;
+      --gold-lt:   #E8C96A;
+      --gold-pale: #F5EDD4;
+      --green:     #1E4D40;
+      --cream:     #F2EDE3;
+      --white:     #FFFFFF;
+      --slate:     #7A8A99;
+      --text:      #E8ECF0;
+
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'Lato', system-ui, sans-serif;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--ink);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ============================================
+       PRELOADER
+    ============================================ */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 24px;
+      transition: opacity 600ms var(--ease-out), visibility 600ms;
+    }
+    #preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .preloader-logo {
+      font-family: var(--serif);
+      font-size: 52px;
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: 0.12em;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: preReveal 800ms 200ms var(--ease-out) forwards;
+    }
+    .preloader-logo em { color: var(--gold); font-style: normal; }
+    .preloader-line {
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      animation: preLineGrow 700ms 600ms ease forwards;
+    }
+    .preloader-sub {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--slate);
+      opacity: 0;
+      animation: preReveal 600ms 900ms var(--ease-out) forwards;
+    }
+    @keyframes preReveal {
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes preLineGrow {
+      to { width: 180px; }
+    }
+
+    /* ============================================
+       FULL-SCREEN MENU OVERLAY
+    ============================================ */
+    #menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      background: var(--ink);
+      display: flex;
+      align-items: center;
+      padding: 0 10vw;
+      clip-path: circle(0% at calc(100% - 60px) 40px);
+      transition: clip-path 700ms var(--ease-in-out);
+      pointer-events: none;
+    }
+    #menu-overlay.open {
+      clip-path: circle(150% at calc(100% - 60px) 40px);
+      pointer-events: all;
+    }
+    .menu-overlay-inner { width: 100%; }
+    .menu-overlay-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 60px;
+    }
+    .menu-overlay-nav li {
+      overflow: hidden;
+    }
+    .menu-overlay-nav a {
+      display: block;
+      font-family: var(--serif);
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.15;
+      transform: translateY(110%);
+      transition: transform 500ms var(--ease-out), color 300ms;
+    }
+    #menu-overlay.open .menu-overlay-nav li:nth-child(1) a { transform: none; transition-delay: 80ms; }
+    #menu-overlay.open .menu-overlay-nav li:nth-child(2) a { transform: none; transition-delay: 140ms; }
+    #menu-overlay.open .menu-overlay-nav li:nth-child(3) a { transform: none; transition-delay: 200ms; }
+    #menu-overlay.open .menu-overlay-nav li:nth-child(4) a { transform: none; transition-delay: 260ms; }
+    #menu-overlay.open .menu-overlay-nav li:nth-child(5) a { transform: none; transition-delay: 320ms; }
+    #menu-overlay.open .menu-overlay-nav li:nth-child(6) a { transform: none; transition-delay: 380ms; }
+    .menu-overlay-nav a:hover { color: var(--gold); }
+    .menu-overlay-footer {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .menu-overlay-contact {
+      font-size: 14px;
+      color: var(--slate);
+    }
+    .menu-overlay-contact a { color: var(--gold); }
+
+    /* ============================================
+       NAVIGATION BAR
+    ============================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 800;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+      transition: background 400ms ease, box-shadow 400ms ease;
+    }
+    .nav.scrolled {
+      background: rgba(7,15,26,0.92);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 1px 0 rgba(201,168,76,0.15);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 910;
+    }
+    .nav-logo-mark {
+      width: 38px; height: 38px;
+      border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--gold);
+      transition: background 300ms, color 300ms;
+    }
+    .nav-logo:hover .nav-logo-mark {
+      background: var(--gold);
+      color: var(--ink);
+    }
+    .nav-logo-text {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+    .nav-logo-sub {
+      display: block;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.75;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      z-index: 910;
+    }
+    .nav-cta-btn {
+      padding: 9px 24px;
+      border: 1px solid var(--gold);
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      transition: background 300ms, color 300ms;
+    }
+    .nav-cta-btn:hover { background: var(--gold); color: var(--ink); }
+    .hamburger {
+      width: 32px; height: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      z-index: 910;
+    }
+    .hamburger span {
+      display: block;
+      height: 1px;
+      background: var(--white);
+      transition: all 350ms var(--ease-out);
+    }
+    .hamburger.active span:nth-child(1) { transform: translateY(11.5px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active span:nth-child(3) { transform: translateY(-11.5px) rotate(-45deg); }
+
+    /* ============================================
+       HERO — Cinematic
+    ============================================ */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      overflow: hidden;
+    }
+    .hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(7,15,26,0.5) 0%, rgba(7,15,26,0.2) 40%, rgba(7,15,26,0.65) 100%),
+        url('https://images.unsplash.com/photo-1559628129-67cf63b72248?w=1920&q=85') center/cover no-repeat;
+      transform: scale(1.06);
+      transition: transform 8s ease;
+    }
+    .hero-bg.zoomed { transform: scale(1); }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 80px 100px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: revealUp 700ms 1400ms var(--ease-out) forwards;
+    }
+    .hero-eyebrow-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+    .hero-eyebrow span {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(56px, 8.5vw, 116px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+    .hero-title .line {
+      display: block;
+      overflow: hidden;
+    }
+    .hero-title .line-inner {
+      display: block;
+      transform: translateY(110%);
+    }
+    .hero-title .line:nth-child(1) .line-inner { animation: lineReveal 900ms 1600ms var(--ease-out) forwards; }
+    .hero-title .line:nth-child(2) .line-inner { animation: lineReveal 900ms 1750ms var(--ease-out) forwards; }
+    .hero-title .line:nth-child(3) .line-inner { animation: lineReveal 900ms 1900ms var(--ease-out) forwards; }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    @keyframes lineReveal { to { transform: translateY(0); } }
+    @keyframes revealUp { to { opacity: 1; transform: none; } }
+
+    .hero-divider {
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 28px;
+      animation: heroLine 700ms 2600ms ease forwards;
+    }
+    @keyframes heroLine { to { width: 100px; } }
+
+    .hero-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+      opacity: 0;
+      animation: revealUp 700ms 2700ms var(--ease-out) forwards;
+    }
+    .hero-desc {
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      max-width: 440px;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-shrink: 0; flex-wrap: wrap; }
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 16px 36px;
+      background: var(--gold);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: background 300ms, transform 300ms;
+    }
+    .btn-gold:hover { background: var(--gold-lt); transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 15px 35px;
+      border: 1px solid rgba(255,255,255,0.35);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: border-color 300ms, background 300ms;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 36px; right: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 3;
+    }
+    .hero-scroll-hint span {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px; height: 60px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity: 0.3; transform: scaleY(0.8); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* ============================================
+       UTILITIES
+    ============================================ */
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 60px; }
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .gold-rule {
+      width: 60px; height: 1px;
+      background: var(--gold);
+      margin: 18px 0 28px;
+    }
+    .gold-rule.centered { margin: 18px auto 28px; }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(36px, 4.5vw, 60px);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ============================================
+       TRUST STRIP
+    ============================================ */
+    .trust-strip {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 36px 0;
+      background: var(--ink-mid);
+    }
+    .trust-inner {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      divide-x: 1px solid rgba(255,255,255,0.08);
+    }
+    .trust-item {
+      text-align: center;
+      padding: 0 20px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-num {
+      font-family: var(--serif);
+      font-size: 44px;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .trust-lbl {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-top: 6px;
+    }
+
+    /* ============================================
+       SERVICES — Dark grid
+    ============================================ */
+    .services { padding: 120px 0; background: var(--ink); }
+    .services-header { margin-bottom: 64px; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .service-item {
+      background: var(--ink);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background 350ms;
+    }
+    .service-item::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 400ms var(--ease-out);
+    }
+    .service-item:hover { background: rgba(201,168,76,0.04); }
+    .service-item:hover::before { transform: scaleX(1); }
+    .service-num {
+      font-family: var(--serif);
+      font-size: 72px;
+      font-weight: 300;
+      color: rgba(201,168,76,0.1);
+      line-height: 1;
+      margin-bottom: 24px;
+      transition: color 350ms;
+    }
+    .service-item:hover .service-num { color: rgba(201,168,76,0.2); }
+    .service-icon-char {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .service-name {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .service-text {
+      font-size: 14px;
+      color: var(--slate);
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+    .service-arrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 300ms, transform 300ms;
+    }
+    .service-item:hover .service-arrow { opacity: 1; transform: none; }
+
+    /* ============================================
+       CATALOGUE — 3D Flip Cards
+    ============================================ */
+    .catalog { padding: 120px 0; background: var(--ink-mid); }
+    .catalog-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .flip-card {
+      height: 440px;
+      perspective: 1200px;
+      cursor: pointer;
+    }
+    .flip-card-inner {
+      width: 100%; height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 600ms var(--ease-in-out);
+    }
+    .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .flip-card-front { background: var(--navy); overflow: hidden; }
+    .flip-card-front img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 8s ease;
+    }
+    .flip-card:hover .flip-card-front img { transform: scale(1.04); }
+    .flip-card-front-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7,15,26,0.9) 0%, transparent 50%);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .card-territory {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .card-name {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .card-price {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--gold-lt);
+    }
+    .flip-card-back {
+      background: var(--navy);
+      transform: rotateY(180deg);
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-back-type {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .card-back-name {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .card-specs {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .card-specs li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: var(--slate);
+    }
+    .card-specs li span { color: var(--white); }
+    .card-back-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sextant-agent {
+      font-size: 11px;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sextant-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .card-cta {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white);
+      padding: 10px 20px;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: border-color 300ms, color 300ms;
+    }
+    .card-cta:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ============================================
+       ABOUT — Split Parallax
+    ============================================ */
+    .about { padding: 140px 0; background: var(--ink); }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    .about-media { position: relative; }
+    .about-img-wrap {
+      position: relative;
+      overflow: hidden;
+      height: 600px;
+    }
+    .about-img-wrap img {
+      width: 100%; height: 120%;
+      object-fit: cover;
+      position: absolute;
+      top: -10%;
+      will-change: transform;
+    }
+    .about-accent-box {
+      position: absolute;
+      bottom: -32px; right: -32px;
+      width: 160px; height: 160px;
+      background: var(--gold);
+      z-index: -1;
+    }
+    .about-accent-num {
+      position: absolute;
+      top: -24px; left: -24px;
+      font-family: var(--serif);
+      font-size: 160px;
+      font-weight: 300;
+      color: rgba(201,168,76,0.08);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .about-text .section-title { color: var(--white); margin-bottom: 32px; }
+    .about-body {
+      font-size: 16px;
+      color: var(--slate);
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+    .about-quote {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--white);
+      padding: 28px 0 28px 28px;
+      border-left: 2px solid var(--gold);
+      margin: 36px 0;
+      line-height: 1.5;
+    }
+    .about-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 24px;
+      transition: gap 300ms;
+    }
+    .about-link:hover { gap: 20px; }
+    .about-link::after { content: '→'; font-size: 16px; }
+
+    /* ============================================
+       TEAM — Large Cards
+    ============================================ */
+    .team { padding: 120px 0; background: var(--ink-mid); }
+    .team-header { text-align: center; margin-bottom: 72px; }
+    .team-header .section-title { color: var(--white); }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .team-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+      height: 520px;
+    }
+    .team-card-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--ink) 100%);
+      z-index: 0;
+    }
+    .team-card-content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+    }
+    .team-avatar-initial {
+      width: 80px; height: 80px;
+      border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--gold);
+      margin-bottom: 24px;
+      transition: background 300ms, color 300ms;
+    }
+    .team-card:hover .team-avatar-initial {
+      background: var(--gold);
+      color: var(--ink);
+    }
+    .team-role-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .team-name {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .team-specialites {
+      font-size: 14px;
+      color: var(--slate);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .team-sextant {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 10px 20px;
+      border: 1px solid rgba(201,168,76,0.35);
+      transition: background 300ms, border-color 300ms;
+    }
+    .team-sextant:hover { background: rgba(201,168,76,0.1); border-color: var(--gold); }
+
+    /* ============================================
+       TERRITORY — Map Section
+    ============================================ */
+    .territory {
+      padding: 120px 0;
+      background: var(--green);
+      position: relative;
+      overflow: hidden;
+    }
+    .territory::before {
+      content: '';
+      position: absolute;
+      top: -50%; right: -10%;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+    .territory-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .territory-text .section-title { color: var(--white); }
+    .territory-desc {
+      font-size: 16px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.8;
+      margin: 28px 0 40px;
+    }
+    .territory-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .territory-card {
+      padding: 32px 28px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      transition: background 300ms, border-color 300ms;
+    }
+    .territory-card:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .territory-card.wide { grid-column: 1/-1; }
+    .territory-emoji { font-size: 28px; margin-bottom: 14px; }
+    .territory-name {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .territory-info { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+    /* ============================================
+       TOOLS TEASER — Dark Cinematic
+    ============================================ */
+    .tools {
+      padding: 120px 0;
+      background: var(--ink);
+      position: relative;
+    }
+    .tools::after {
+      content: 'OUTILS';
+      position: absolute;
+      right: -20px; top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      font-family: var(--serif);
+      font-size: 140px;
+      font-weight: 300;
+      color: rgba(201,168,76,0.03);
+      letter-spacing: 0.1em;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .tools-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .tools-text .section-title { color: var(--white); }
+    .tools-desc {
+      font-size: 16px;
+      color: var(--slate);
+      line-height: 1.8;
+      margin: 28px 0;
+    }
+    .tools-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+    .tools-features li {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 15px;
+      color: rgba(255,255,255,0.8);
+    }
+    .tools-features li::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .plans-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .plan-card {
+      padding: 28px 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      transition: border-color 300ms, background 300ms;
+      position: relative;
+    }
+    .plan-card.featured {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.06);
+    }
+    .plan-card.featured::before {
+      content: 'Populaire';
+      position: absolute;
+      top: -1px; right: 20px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--gold);
+      padding: 4px 12px;
+    }
+    .plan-card:hover:not(.featured) {
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.04);
+    }
+    .plan-name {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .plan-price {
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .plan-price sub { font-size: 14px; color: var(--slate); }
+    .plan-features {
+      list-style: none;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .plan-features li {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .plan-features li::before {
+      content: '✓';
+      color: var(--gold);
+      font-size: 11px;
+    }
+
+    /* ============================================
+       CONTACT / CTA FINAL
+    ============================================ */
+    .cta-final {
+      padding: 160px 0;
+      background: var(--ink-mid);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-bg-text {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: var(--serif);
+      font-size: clamp(100px, 18vw, 260px);
+      font-weight: 300;
+      color: rgba(201,168,76,0.03);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+    .cta-final .section-title { color: var(--white); position: relative; }
+    .cta-final .section-label { position: relative; }
+    .cta-final .gold-rule { position: relative; }
+    .cta-final-desc {
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      max-width: 500px;
+      margin: 0 auto 60px;
+      line-height: 1.7;
+      position: relative;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .btn-gold-border {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 15px 35px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: background 300ms, color 300ms;
+    }
+    .btn-gold-border:hover { background: var(--gold); color: var(--ink); }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    footer {
+      background: #030810;
+      padding: 80px 0 32px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-brand-name {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+    .footer-brand-sub {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+      margin-bottom: 20px;
+    }
+    .footer-brand-desc {
+      font-size: 14px;
+      color: var(--slate);
+      line-height: 1.8;
+      max-width: 260px;
+      margin-bottom: 28px;
+    }
+    .footer-socials { display: flex; gap: 10px; }
+    .footer-social {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+      color: var(--slate);
+      transition: border-color 300ms, color 300ms;
+    }
+    .footer-social:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-col h4 {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a {
+      font-size: 14px;
+      color: var(--slate);
+      transition: color 300ms;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.25); }
+    .footer-bottom a { color: rgba(201,168,76,0.7); transition: color 300ms; }
+    .footer-bottom a:hover { color: var(--gold); }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 1100px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .catalog-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .tools-inner { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 24px; }
+      .nav { padding: 0 24px; }
+      .nav-cta-btn { display: none; }
+      .hero-content { padding: 0 24px 80px; }
+      .hero-bottom { flex-direction: column; align-items: flex-start; }
+      .services-grid { grid-template-columns: 1fr; }
+      .about-inner { grid-template-columns: 1fr; }
+      .about-img-wrap { height: 320px; }
+      .team-grid { grid-template-columns: 1fr; }
+      .territory-inner { grid-template-columns: 1fr; }
+      .territory-cards { grid-template-columns: 1fr; }
+      .catalog-grid { grid-template-columns: 1fr; }
+      .flip-card { height: 360px; }
+      .trust-inner { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .trust-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 16px; }
+      .plans-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PRELOADER -->
+  <div id="preloader">
+    <div class="preloader-logo">Optim<em>mo</em> Dom</div>
+    <div class="preloader-line"></div>
+    <div class="preloader-sub">Martinique · Guadeloupe</div>
+  </div>
+
+  <!-- MENU OVERLAY -->
+  <div id="menu-overlay">
+    <div class="menu-overlay-inner">
+      <ul class="menu-overlay-nav">
+        <li><a href="#services" onclick="closeMenu()">Services</a></li>
+        <li><a href="#catalogue" onclick="closeMenu()">Catalogue</a></li>
+        <li><a href="#about" onclick="closeMenu()">À propos</a></li>
+        <li><a href="#equipe" onclick="closeMenu()">L'équipe</a></li>
+        <li><a href="#outils" onclick="closeMenu()">Espace partenaires</a></li>
+        <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+      </ul>
+      <div class="menu-overlay-footer">
+        <div class="menu-overlay-contact">
+          <a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a><br>
+          <span>fidiconseil.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="nav">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">OD</div>
+      <div>
+        <span class="nav-logo-text">Optimmo Dom</span>
+        <span class="nav-logo-sub">Conseil · Patrimoine · Antilles</span>
+      </div>
+    </a>
+    <div class="nav-right">
+      <a href="/espace-partenaires" class="nav-cta-btn">Espace partenaires</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <canvas class="hero-canvas" id="heroCanvas"></canvas>
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-content container">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span>Martinique &amp; Guadeloupe — Excellence depuis 20 ans</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="line"><span class="line-inner">L'excellence</span></span>
+        <span class="line"><span class="line-inner"><em>immobilière</em></span></span>
+        <span class="line"><span class="line-inner">aux Antilles</span></span>
+      </h1>
+      <div class="hero-divider"></div>
+      <div class="hero-bottom">
+        <p class="hero-desc">
+          Conseil patrimonial · Valorisation · Développement foncier
+          · Dénouement successoral · Avis de valeur
+        </p>
+        <div class="hero-actions">
+          <a href="#services" class="btn-gold">Nos expertises</a>
+          <a href="#catalogue" class="btn-ghost">Voir le catalogue</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="container">
+      <div class="trust-inner">
+        <div class="trust-item">
+          <div class="trust-num" data-target="20">0</div>
+          <div class="trust-lbl">Années d'expertise</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-num">200+</div>
+          <div class="trust-lbl">Biens valorisés</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-num">2</div>
+          <div class="trust-lbl">Îles couvertes</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-num">3</div>
+          <div class="trust-lbl">Experts Sextant</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-num" style="font-size:20px; padding-top:6px">Partenaire</div>
+          <div class="trust-lbl" style="color:var(--gold)">Sextant France</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="services-header reveal">
+        <div class="section-label">Nos expertises</div>
+        <div class="gold-rule"></div>
+        <h2 class="section-title" style="color:var(--white)">
+          Un accompagnement<br><em>complet</em> de votre patrimoine
+        </h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-item reveal">
+          <div class="service-num">01</div>
+          <div class="service-icon-char">🏠</div>
+          <h3 class="service-name">Conseil Immobilier</h3>
+          <p class="service-text">Acquisition, vente, investissement locatif — expertise approfondie du marché antillais et des opportunités locales en Martinique et Guadeloupe.</p>
+          <a href="/services/conseil-immobilier" class="service-arrow">En savoir plus →</a>
+        </div>
+        <div class="service-item reveal">
+          <div class="service-num">02</div>
+          <div class="service-icon-char">⚖️</div>
+          <h3 class="service-name">Dénouement Successoral</h3>
+          <p class="service-text">Spécialiste des successions complexes aux Antilles, des situations d'indivision et des partages patrimoniaux délicats.</p>
+          <a href="/services/succession" class="service-arrow">En savoir plus →</a>
+        </div>
+        <div class="service-item reveal">
+          <div class="service-num">03</div>
+          <div class="service-icon-char">💎</div>
+          <h3 class="service-name">Valorisation de Patrimoine</h3>
+          <p class="service-text">Audit patrimonial, stratégie de valorisation et optimisation de votre portefeuille immobilier sur les deux territoires.</p>
+          <a href="/services/valorisation" class="service-arrow">En savoir plus →</a>
+        </div>
+        <div class="service-item reveal">
+          <div class="service-num">04</div>
+          <div class="service-icon-char">🌿</div>
+          <h3 class="service-name">Développement Foncier</h3>
+          <p class="service-text">Identification de foncier, études de faisabilité, montage opérationnel et commercialisation de programmes en terres antillaises.</p>
+          <a href="/services/foncier" class="service-arrow">En savoir plus →</a>
+        </div>
+        <div class="service-item reveal">
+          <div class="service-num">05</div>
+          <div class="service-icon-char">🏗️</div>
+          <h3 class="service-name">Projets de Construction</h3>
+          <p class="service-text">Accompagnement global : permis, entreprises locales partenaires, suivi de chantier, réception et livraison des travaux.</p>
+          <a href="/services/construction" class="service-arrow">En savoir plus →</a>
+        </div>
+        <div class="service-item reveal">
+          <div class="service-num">06</div>
+          <div class="service-icon-char">📊</div>
+          <h3 class="service-name">Avis de Valeur &amp; Études</h3>
+          <p class="service-text">Évaluations vénales argumentées et études de marché complètes, adossées aux données DVF, DPE et aux références de marché antillaises.</p>
+          <a href="/services/avis-de-valeur" class="service-arrow">En savoir plus →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOGUE -->
+  <section class="catalog" id="catalogue">
+    <div class="container">
+      <div class="catalog-header reveal">
+        <div>
+          <div class="section-label">Sélection</div>
+          <div class="gold-rule"></div>
+          <h2 class="section-title" style="color:var(--white)">Biens <em>d'exception</em></h2>
+        </div>
+        <a href="/catalogue" class="btn-ghost">Tout le catalogue →</a>
+      </div>
+      <div class="catalog-grid">
+
+        <!-- Bien 1 -->
+        <div class="flip-card reveal">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=700&q=80" alt="Villa vue mer Martinique" loading="lazy" />
+              <div class="flip-card-front-overlay">
+                <div class="card-territory">Martinique</div>
+                <div class="card-name">Villa contemporaine vue mer</div>
+                <div class="card-price">680 000 €</div>
+              </div>
+            </div>
+            <div class="flip-card-back">
+              <div>
+                <div class="card-back-type">Maison · Disponible</div>
+                <div class="card-back-name">Villa contemporaine vue mer</div>
+                <ul class="card-specs">
+                  <li>Surface <span>220 m²</span></li>
+                  <li>Chambres <span>4</span></li>
+                  <li>Terrain <span>1 200 m²</span></li>
+                  <li>Piscine <span>Oui</span></li>
+                  <li>Localisation <span>Les Trois-Îlets</span></li>
+                </ul>
+              </div>
+              <div class="card-back-footer">
+                <div class="sextant-agent"><div class="sextant-dot"></div>Franck Fidi</div>
+                <a href="/catalogue/1" class="card-cta">Détail</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bien 2 -->
+        <div class="flip-card reveal">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=80" alt="Appartement Guadeloupe" loading="lazy" />
+              <div class="flip-card-front-overlay">
+                <div class="card-territory">Guadeloupe</div>
+                <div class="card-name">Appartement T3 standing</div>
+                <div class="card-price">285 000 €</div>
+              </div>
+            </div>
+            <div class="flip-card-back">
+              <div>
+                <div class="card-back-type">Appartement · Sous compromis</div>
+                <div class="card-back-name">Appartement T3 résidence standing</div>
+                <ul class="card-specs">
+                  <li>Surface <span>78 m²</span></li>
+                  <li>Chambres <span>2</span></li>
+                  <li>Étage <span>3/4</span></li>
+                  <li>Parking <span>Oui</span></li>
+                  <li>Localisation <span>Gosier</span></li>
+                </ul>
+              </div>
+              <div class="card-back-footer">
+                <div class="sextant-agent"><div class="sextant-dot"></div>Philippe Marie-Luce</div>
+                <a href="/catalogue/2" class="card-cta">Détail</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bien 3 -->
+        <div class="flip-card reveal">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700&q=80" alt="Terrain constructible Martinique" loading="lazy" />
+              <div class="flip-card-front-overlay">
+                <div class="card-territory">Martinique</div>
+                <div class="card-name">Terrain constructible 1 200 m²</div>
+                <div class="card-price">180 000 €</div>
+              </div>
+            </div>
+            <div class="flip-card-back">
+              <div>
+                <div class="card-back-type">Terrain · Disponible</div>
+                <div class="card-back-name">Terrain vue mer viabilisé</div>
+                <ul class="card-specs">
+                  <li>Superficie <span>1 200 m²</span></li>
+                  <li>Vue mer <span>Oui</span></li>
+                  <li>Viabilisé <span>Oui</span></li>
+                  <li>COS <span>0.35</span></li>
+                  <li>Localisation <span>Sainte-Anne</span></li>
+                </ul>
+              </div>
+              <div class="card-back-footer">
+                <div class="sextant-agent"><div class="sextant-dot"></div>Lucien Fortuné</div>
+                <a href="/catalogue/3" class="card-cta">Détail</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-media reveal">
+          <div class="about-accent-num">20</div>
+          <div class="about-img-wrap" id="aboutImg">
+            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80" alt="Franck Fidi — Optimmo Dom" id="aboutImgEl" />
+          </div>
+          <div class="about-accent-box"></div>
+        </div>
+        <div class="about-text reveal">
+          <div class="section-label">À propos</div>
+          <div class="gold-rule"></div>
+          <h2 class="section-title" style="color:var(--white)">
+            Franck Fidi —<br><em>Expert immobilier</em><br>aux Antilles
+          </h2>
+          <blockquote class="about-quote">
+            « L'immobilier antillais a ses propres règles, ses propres rythmes —
+            je les connais et je les maîtrise pour vous. »
+          </blockquote>
+          <p class="about-body">
+            Fondateur d'Optimmo Dom, Franck Fidi est un expert reconnu du marché immobilier
+            en Martinique et en Guadeloupe. Avec plus de 20 ans d'expérience, il accompagne
+            particuliers, professionnels et institutionnels dans leurs projets patrimoniaux
+            les plus complexes.
+          </p>
+          <p class="about-body">
+            Sa double compétence — technique (avis de valeur, études de marché DVF/DPE)
+            et opérationnelle (dénouement successoral, développement foncier, construction)
+            lui permet d'offrir un conseil global, précis et sur-mesure.
+          </p>
+          <a href="/about" class="about-link">Notre philosophie</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPE -->
+  <section class="team" id="equipe">
+    <div class="container">
+      <div class="team-header reveal">
+        <div class="section-label">L'équipe</div>
+        <div class="gold-rule centered"></div>
+        <h2 class="section-title" style="text-align:center">
+          Des experts <em>dédiés</em> à votre réussite
+        </h2>
+      </div>
+      <div class="team-grid">
+
+        <div class="team-card reveal">
+          <div class="team-card-bg"></div>
+          <div class="team-card-content">
+            <div class="team-avatar-initial">FF</div>
+            <div class="team-role-label">Fondateur · Expert Immobilier</div>
+            <h3 class="team-name">Franck Fidi</h3>
+            <p class="team-specialites">
+              Avis de valeur · Études de marché<br>
+              Dénouement successoral · Foncier<br>
+              Martinique &amp; Guadeloupe
+            </p>
+            <a href="https://franck-fidi.sextantfrance.fr/fr/liste.htm#numnego=75011114&TypeModeListeForm=pict&ope=1"
+               target="_blank" rel="noopener noreferrer" class="team-sextant">
+              ⬡ Voir mes biens Sextant
+            </a>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <div class="team-card-bg"></div>
+          <div class="team-card-content">
+            <div class="team-avatar-initial">PM</div>
+            <div class="team-role-label">Conseiller Sextant</div>
+            <h3 class="team-name">Philippe<br>Marie-Luce</h3>
+            <p class="team-specialites">
+              Transaction résidentielle<br>
+              Investissement locatif<br>
+              Guadeloupe
+            </p>
+            <a href="https://philippe-marie-luce.sextantfrance.fr/fr/liste.htm#numnego=75011175&TypeModeListeForm=pict&ope=1"
+               target="_blank" rel="noopener noreferrer" class="team-sextant">
+              ⬡ Voir mes biens Sextant
+            </a>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <div class="team-card-bg"></div>
+          <div class="team-card-content">
+            <div class="team-avatar-initial">LF</div>
+            <div class="team-role-label">Conseiller Sextant</div>
+            <h3 class="team-name">Lucien<br>Fortuné</h3>
+            <p class="team-specialites">
+              Foncier &amp; terrains<br>
+              Programmes neufs<br>
+              Martinique
+            </p>
+            <a href="https://lucien-fortune.sextantfrance.fr/fr/liste.htm#numnego=75011408&TypeModeListeForm=pict&ope=1"
+               target="_blank" rel="noopener noreferrer" class="team-sextant">
+              ⬡ Voir mes biens Sextant
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TERRITORY -->
+  <section class="territory" id="territory">
+    <div class="container">
+      <div class="territory-inner">
+        <div class="territory-text reveal">
+          <div class="section-label" style="color:rgba(255,255,255,0.5)">Nos territoires</div>
+          <div class="gold-rule"></div>
+          <h2 class="section-title" style="color:var(--white)">
+            Deux îles,<br>une <em>expertise</em>
+          </h2>
+          <p class="territory-desc">
+            Une connaissance fine des marchés martiniquais et guadeloupéen :
+            leurs dynamiques, leurs spécificités juridiques, leurs opportunités distinctes.
+          </p>
+          <a href="/territoires" class="btn-gold">Explorer les marchés</a>
+        </div>
+        <div class="territory-cards reveal">
+          <div class="territory-card">
+            <div class="territory-emoji">🌋</div>
+            <div class="territory-name">Martinique</div>
+            <div class="territory-info">Fort-de-France · Les Trois-Îlets · Sainte-Anne · Le Marin · Le François — Marché résidentiel, patrimonial et successoral actif.</div>
+          </div>
+          <div class="territory-card">
+            <div class="territory-emoji">🌊</div>
+            <div class="territory-name">Guadeloupe</div>
+            <div class="territory-info">Pointe-à-Pitre · Gosier · Sainte-Anne · Saint-François · Basse-Terre — Développement foncier &amp; résidentiel dynamique.</div>
+          </div>
+          <div class="territory-card wide">
+            <div class="territory-emoji">🏆</div>
+            <div class="territory-name">Réseau Sextant</div>
+            <div class="territory-info">Partenaire officiel Sextant France aux Antilles — un catalogue élargi et trois conseillers spécialisés pour couvrir l'ensemble des deux territoires.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS TEASER -->
+  <section class="tools" id="outils">
+    <div class="container">
+      <div class="tools-inner">
+        <div class="tools-text reveal">
+          <div class="section-label">Espace partenaires</div>
+          <div class="gold-rule"></div>
+          <h2 class="section-title" style="color:var(--white)">
+            Des outils <em>professionnels</em><br>exclusifs
+          </h2>
+          <p class="tools-desc">
+            Suite d'outils d'analyse immobilière développée pour les professionnels —
+            adossée aux données publiques françaises (DVF, ADEME, Géorisques, INSEE)
+            et calibrée pour le marché antillais.
+          </p>
+          <ul class="tools-features">
+            <li>Avis de valeur vénale complet et argumenté (PDF)</li>
+            <li>Étude de marché — transactions DVF, DPE, risques naturels</li>
+            <li>Loyers de marché et rendements locatifs Martinique/Guadeloupe</li>
+            <li>Analyse des permis de construire (SITADEL)</li>
+            <li>Bibliothèque de documents professionnels partagés</li>
+            <li>Accès aux catalogues Sextant des conseillers (plan Premium)</li>
+          </ul>
+          <a href="/espace-partenaires" class="btn-gold" style="margin-top:36px">
+            Accéder à l'espace partenaires
+          </a>
+        </div>
+        <div class="reveal">
+          <div class="plans-grid">
+            <div class="plan-card">
+              <div class="plan-name">Basic</div>
+              <div class="plan-price">29 <sub>€/mois</sub></div>
+              <ul class="plan-features">
+                <li>Études de marché</li>
+                <li>Données DVF</li>
+                <li>Rapports PDF</li>
+                <li>Loyers de marché</li>
+              </ul>
+            </div>
+            <div class="plan-card featured">
+              <div class="plan-name">Pro</div>
+              <div class="plan-price">79 <sub>€/mois</sub></div>
+              <ul class="plan-features">
+                <li>Tout Basic inclus</li>
+                <li>Avis de valeur</li>
+                <li>Analyse DPE complète</li>
+                <li>Analyse risques</li>
+                <li>Messagerie &amp; docs</li>
+              </ul>
+            </div>
+            <div class="plan-card">
+              <div class="plan-name">Premium</div>
+              <div class="plan-price">149 <sub>€/mois</sub></div>
+              <ul class="plan-features">
+                <li>Tout Pro inclus</li>
+                <li>Accès Sextant agents</li>
+                <li>Projets partagés</li>
+                <li>Support prioritaire</li>
+              </ul>
+            </div>
+            <div class="plan-card">
+              <div class="plan-name">À la demande</div>
+              <div class="plan-price" style="font-size:26px">dès 9 <sub>€</sub></div>
+              <ul class="plan-features">
+                <li>Avis de valeur — 19 €</li>
+                <li>Étude de marché — 29 €</li>
+                <li>Rapport DVF — 9 €</li>
+              </ul>
+            </div>
+          </div>
+          <p style="margin-top:20px; font-size:12px; color:var(--slate); text-align:center">
+            Sans engagement · Paiement sécurisé PayPal · Annulation à tout moment
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL / CONTACT -->
+  <section class="cta-final" id="contact">
+    <div class="cta-bg-text">Optimmo Dom</div>
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Contact</div>
+        <div class="gold-rule centered"></div>
+        <h2 class="section-title" style="text-align:center; margin-bottom:24px">
+          Parlons de<br><em>votre projet</em>
+        </h2>
+        <p class="cta-final-desc">
+          Que vous souhaitiez vendre, valoriser, développer ou simplement
+          comprendre votre patrimoine — l'équipe Optimmo Dom est à votre écoute.
+        </p>
+        <div class="cta-actions">
+          <a href="/contact" class="btn-gold">Nous contacter</a>
+          <a href="/catalogue" class="btn-ghost">Parcourir le catalogue</a>
+          <a href="/espace-partenaires/inscription" class="btn-gold-border">Devenir partenaire</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand-name">Optimmo Dom</div>
+          <div class="footer-brand-sub">Conseil · Patrimoine · Antilles</div>
+          <p class="footer-brand-desc">
+            Expert en conseil immobilier, valorisation de patrimoine et dénouement
+            successoral en Martinique et Guadeloupe. Partenaire Sextant France.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" aria-label="Facebook">f</a>
+            <a href="#" class="footer-social" aria-label="LinkedIn">in</a>
+            <a href="#" class="footer-social" aria-label="Instagram">ig</a>
+          </div>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="/services/conseil-immobilier">Conseil immobilier</a></li>
+            <li><a href="/services/succession">Dénouement successoral</a></li>
+            <li><a href="/services/valorisation">Valorisation patrimoine</a></li>
+            <li><a href="/services/foncier">Développement foncier</a></li>
+            <li><a href="/services/construction">Projets de construction</a></li>
+            <li><a href="/services/avis-de-valeur">Avis de valeur</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Ressources</h4>
+          <ul class="footer-links">
+            <li><a href="/catalogue">Catalogue immobilier</a></li>
+            <li><a href="/realisations">Réalisations</a></li>
+            <li><a href="/actualites">Actualités marché</a></li>
+            <li><a href="/equipe">L'équipe</a></li>
+            <li><a href="/espace-partenaires">Espace partenaires</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a></li>
+            <li><a href="https://fidiconseil.com">fidiconseil.com</a></li>
+            <li><a href="#">Martinique</a></li>
+            <li><a href="#">Guadeloupe</a></li>
+            <li><a href="/contact">Formulaire de contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Optimmo Dom · <a href="/mentions-legales">Mentions légales</a> · <a href="/rgpd">RGPD</a></p>
+        <p>Partenaire <a href="https://www.sextantfrance.fr" target="_blank" rel="noopener">Sextant France</a> · Martinique &amp; Guadeloupe</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ======================================
+       PRELOADER
+    ====================================== */
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('preloader').classList.add('hidden')
+        document.getElementById('heroBg').classList.add('zoomed')
+      }, 1800)
+    })
+
+    /* ======================================
+       MENU
+    ====================================== */
+    let menuOpen = false
+    function toggleMenu() {
+      menuOpen = !menuOpen
+      document.getElementById('menu-overlay').classList.toggle('open', menuOpen)
+      document.getElementById('hamburger').classList.toggle('active', menuOpen)
+      document.body.style.overflow = menuOpen ? 'hidden' : ''
+    }
+    function closeMenu() {
+      menuOpen = false
+      document.getElementById('menu-overlay').classList.remove('open')
+      document.getElementById('hamburger').classList.remove('active')
+      document.body.style.overflow = ''
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) closeMenu() })
+
+    /* ======================================
+       NAV SCROLL
+    ====================================== */
+    const nav = document.getElementById('nav')
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50)
+    }, { passive: true })
+
+    /* ======================================
+       GOLD PARTICLE CANVAS
+    ====================================== */
+    const canvas = document.getElementById('heroCanvas')
+    const ctx = canvas.getContext('2d')
+    let particles = []
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    resizeCanvas()
+    window.addEventListener('resize', resizeCanvas, { passive: true })
+
+    class Particle {
+      constructor() { this.reset() }
+      reset() {
+        this.x = Math.random() * canvas.width
+        this.y = Math.random() * canvas.height
+        this.size = Math.random() * 2 + 0.5
+        this.speedX = (Math.random() - 0.5) * 0.3
+        this.speedY = -Math.random() * 0.4 - 0.1
+        this.opacity = Math.random() * 0.4 + 0.1
+        this.life = 1
+        this.decay = Math.random() * 0.003 + 0.001
+      }
+      update() {
+        this.x += this.speedX
+        this.y += this.speedY
+        this.life -= this.decay
+        if (this.life <= 0 || this.y < 0) this.reset()
+      }
+      draw() {
+        ctx.save()
+        ctx.globalAlpha = this.life * this.opacity
+        ctx.fillStyle = '#C9A84C'
+        ctx.beginPath()
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+        ctx.fill()
+        ctx.restore()
+      }
+    }
+
+    for (let i = 0; i < 60; i++) particles.push(new Particle())
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      particles.forEach(p => { p.update(); p.draw() })
+      requestAnimationFrame(animateParticles)
+    }
+    animateParticles()
+
+    /* ======================================
+       SCROLL REVEAL
+    ====================================== */
+    const reveals = document.querySelectorAll('.reveal')
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          const delay = (i % 3) * 90
+          setTimeout(() => entry.target.classList.add('in'), delay)
+          revealObs.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.1 })
+    reveals.forEach(el => revealObs.observe(el))
+
+    /* ======================================
+       COUNTER ANIMATION
+    ====================================== */
+    const counters = document.querySelectorAll('[data-target]')
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return
+        const el = entry.target
+        const target = parseInt(el.dataset.target)
+        let start = 0
+        const step = target / 60
+        const timer = setInterval(() => {
+          start = Math.min(start + step, target)
+          el.textContent = Math.floor(start)
+          if (start >= target) clearInterval(timer)
+        }, 24)
+        counterObs.unobserve(el)
+      })
+    }, { threshold: 0.6 })
+    counters.forEach(el => counterObs.observe(el))
+
+    /* ======================================
+       ABOUT IMAGE PARALLAX
+    ====================================== */
+    const aboutImg = document.getElementById('aboutImgEl')
+    if (aboutImg) {
+      window.addEventListener('scroll', () => {
+        const wrap = document.getElementById('aboutImg')
+        if (!wrap) return
+        const rect = wrap.getBoundingClientRect()
+        const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height)
+        const offset = (progress - 0.5) * 60
+        aboutImg.style.transform = `translateY(${-offset}px)`
+      }, { passive: true })
+    }
+  </script>
+</body>
+</html>

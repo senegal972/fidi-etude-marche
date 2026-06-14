@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contactez l'équipe Optimmo Dom — Expert immobilier en Martinique et Guadeloupe. Réponse sous 24h." />
+  <meta property="og:title" content="Contact — Optimmo Dom" />
+  <meta property="og:description" content="Parlons de votre projet immobilier. Estimation, vente, achat, succession, développement foncier en Martinique &amp; Guadeloupe." />
+  <meta property="og:type" content="website" />
+  <title>Contact — Optimmo Dom</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/shared.css" />
+
+  <style>
+    /* ============================================
+       PAGE-SPECIFIC STYLES — Contact
+    ============================================ */
+
+    /* Hero */
+    .contact-hero {
+      padding: 160px 0 80px;
+      background: var(--ink-mid);
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-hero-bg-text {
+      position: absolute; right: -20px; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--serif); font-size: 160px; font-weight: 300;
+      color: rgba(201,168,76,0.04); white-space: nowrap;
+      pointer-events: none; user-select: none; line-height: 1;
+    }
+    .contact-hero-inner { position: relative; }
+    .contact-hero-title {
+      font-family: var(--serif);
+      font-size: clamp(44px, 6vw, 80px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin: 16px 0 14px;
+    }
+    .contact-hero-title em { font-style: italic; color: var(--gold); }
+    .contact-hero-sub {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--slate);
+      letter-spacing: 0.01em;
+    }
+
+    /* Main layout */
+    .contact-main {
+      padding: 96px 0 120px;
+      background: var(--ink);
+    }
+    .contact-split {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* ---- LEFT COLUMN ---- */
+    .contact-info-section { margin-bottom: 48px; }
+    .contact-info-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .contact-info-rule {
+      width: 40px; height: 1px;
+      background: var(--gold);
+      margin-bottom: 24px;
+    }
+    .contact-info-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .contact-info-item { display: flex; align-items: center; gap: 16px; }
+    .contact-info-icon {
+      width: 38px; height: 38px; flex-shrink: 0;
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+      color: var(--gold);
+    }
+    .contact-info-text { font-size: 15px; color: var(--text); }
+    .contact-info-text a { color: var(--text); transition: color 250ms; }
+    .contact-info-text a:hover { color: var(--gold); }
+    .contact-info-text .sub {
+      display: block; font-size: 12px;
+      color: var(--slate); margin-top: 2px;
+    }
+
+    /* Team cards */
+    .team-cards { display: flex; flex-direction: column; gap: 12px; }
+    .team-card {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px 20px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.02);
+      transition: border-color 300ms, background 300ms;
+    }
+    .team-card:hover {
+      border-color: rgba(201,168,76,0.25);
+      background: rgba(201,168,76,0.03);
+    }
+    .team-avatar {
+      width: 46px; height: 46px; flex-shrink: 0;
+      border: 1px solid rgba(201,168,76,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 15px; font-weight: 500;
+      color: var(--gold); background: rgba(201,168,76,0.07);
+      letter-spacing: 0.04em;
+    }
+    .team-name { font-family: var(--serif); font-size: 17px; font-weight: 400; color: var(--white); line-height: 1.2; }
+    .team-role {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold); opacity: 0.85; margin-top: 3px;
+    }
+    .team-territory { font-size: 12px; color: var(--slate); margin-top: 3px; }
+
+    /* Quick access */
+    .quick-access { display: flex; flex-direction: column; gap: 10px; }
+    .quick-access a {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text);
+      transition: border-color 300ms, color 300ms, background 300ms;
+    }
+    .quick-access a:hover {
+      border-color: var(--gold); color: var(--gold);
+      background: rgba(201,168,76,0.03);
+    }
+    .quick-access a .arrow { transition: transform 250ms; }
+    .quick-access a:hover .arrow { transform: translateX(4px); }
+
+    /* Quote */
+    .contact-quote {
+      margin-top: 40px; padding: 24px 0 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .contact-quote p {
+      font-family: var(--serif); font-size: 19px;
+      font-style: italic; font-weight: 300;
+      color: var(--slate); line-height: 1.6;
+    }
+    .contact-quote p::before { content: '\201C'; color: var(--gold); margin-right: 4px; }
+    .contact-quote p::after  { content: '\201D'; color: var(--gold); margin-left: 4px; }
+
+    /* ---- RIGHT COLUMN — Form ---- */
+    .contact-form-wrap {
+      background: var(--ink-mid);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 48px 40px;
+      position: sticky;
+      top: 96px;
+    }
+    .form-title {
+      font-family: var(--serif); font-size: 30px;
+      font-weight: 300; color: var(--white); margin-bottom: 4px;
+    }
+    .form-gold-rule {
+      width: 48px; height: 1px; background: var(--gold);
+      margin: 14px 0 28px;
+    }
+
+    /* Form fields */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-row .field { margin-bottom: 0; }
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--slate); margin-bottom: 8px;
+    }
+    .field label .req { color: var(--gold); margin-left: 2px; }
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      font-family: var(--sans); font-size: 15px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 250ms, background 250ms;
+      -webkit-appearance: none; appearance: none;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.04);
+    }
+    .field input::placeholder,
+    .field textarea::placeholder { color: var(--slate); opacity: 0.6; }
+    .field select option { background: #1A2B3C; color: var(--white); }
+    .field input.error,
+    .field select.error,
+    .field textarea.error { border-color: #E55353; }
+    .field input.valid,
+    .field select.valid,
+    .field textarea.valid { border-color: rgba(46,204,113,0.45); }
+
+    /* Territory toggles */
+    .territory-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .territory-pill input[type="radio"] { display: none; }
+    .territory-pill label {
+      display: inline-block; padding: 9px 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--slate);
+      cursor: pointer;
+      transition: border-color 250ms, color 250ms, background 250ms;
+    }
+    .territory-pill input[type="radio"]:checked + label {
+      border-color: var(--gold); color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+    .territory-pill label:hover {
+      border-color: rgba(201,168,76,0.5); color: var(--text);
+    }
+    .territory-error .territory-pill label { border-color: rgba(229,83,83,0.5); }
+
+    /* Checkbox */
+    .checkbox-field {
+      display: flex; align-items: flex-start;
+      gap: 12px; cursor: pointer; margin-bottom: 20px;
+    }
+    .checkbox-field input[type="checkbox"] {
+      width: 18px; height: 18px; flex-shrink: 0;
+      appearance: none; -webkit-appearance: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.04);
+      cursor: pointer; margin-top: 2px;
+      transition: border-color 250ms, background 250ms;
+      position: relative;
+    }
+    .checkbox-field input[type="checkbox"]:checked {
+      background: var(--gold); border-color: var(--gold);
+    }
+    .checkbox-field input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute; top: 2px; left: 5px;
+      width: 5px; height: 9px;
+      border: 2px solid var(--ink);
+      border-top: none; border-left: none;
+      transform: rotate(45deg);
+    }
+    .checkbox-field input[type="checkbox"].error { border-color: #E55353; }
+    .checkbox-field span { font-size: 13px; color: var(--slate); line-height: 1.5; }
+    .checkbox-field span a {
+      color: var(--gold); border-bottom: 1px solid rgba(201,168,76,0.3);
+      transition: border-color 250ms;
+    }
+    .checkbox-field span a:hover { border-color: var(--gold); }
+    .req-note { font-size: 11px; color: var(--slate); margin-bottom: 20px; }
+    .req-note .req { color: var(--gold); }
+
+    .btn-submit {
+      width: 100%; padding: 16px 32px;
+      background: var(--gold); color: var(--ink);
+      font-family: var(--sans); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      transition: background 250ms, transform 250ms;
+    }
+    .btn-submit:hover { background: var(--gold-lt); transform: translateY(-2px); }
+    .btn-submit:active { transform: none; }
+    .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+    /* Success banner */
+    .form-success {
+      display: none;
+      background: rgba(46,204,113,0.08);
+      border: 1px solid rgba(46,204,113,0.3);
+      padding: 18px 20px; margin-bottom: 22px;
+    }
+    .form-success.visible { display: flex; gap: 12px; align-items: flex-start; }
+    .form-success-icon { font-size: 20px; line-height: 1; flex-shrink: 0; }
+    .form-success p { font-size: 14px; color: #2ECC71; line-height: 1.5; }
+    .form-success p strong { font-weight: 700; }
+
+    /* Trust signals */
+    .trust-signals {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px;
+    }
+    .trust-chip {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+      font-size: 11px; color: var(--slate);
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 1024px) {
+      .contact-split { grid-template-columns: 1fr; gap: 60px; }
+      .contact-form-wrap { position: static; }
+    }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-wrap { padding: 32px 24px; }
+      .trust-signals { flex-direction: column; }
+      .contact-hero-bg-text { font-size: 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       MENU OVERLAY
+  ============================================ -->
+  <div id="menu-overlay" role="dialog" aria-modal="true" aria-label="Navigation principale">
+    <div class="menu-overlay-inner">
+      <ul class="menu-overlay-nav">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="services/index.html">Services</a></li>
+        <li><a href="index.html#equipe">L'Équipe</a></li>
+        <li><a href="index.html#marche">Le Marché</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+        <li><a href="espace-partenaires/index.html">Espace Partenaires</a></li>
+      </ul>
+      <div class="menu-overlay-footer">
+        <div class="menu-overlay-contact">
+          Martinique &amp; Guadeloupe<br />
+          <a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       NAVIGATION — opaque (inner page)
+  ============================================ -->
+  <nav class="nav opaque" id="main-nav" aria-label="Navigation principale">
+    <a href="index.html" class="nav-logo" aria-label="Optimmo Dom — Accueil">
+      <div class="nav-logo-mark" aria-hidden="true">OD</div>
+      <div>
+        <span class="nav-logo-text">Optimmo Dom</span>
+        <span class="nav-logo-sub">Immobilier Antillais</span>
+      </div>
+    </a>
+    <div class="nav-right">
+      <a href="espace-partenaires/index.html" class="nav-cta-btn">Espace Partenaires</a>
+      <button class="hamburger" id="hamburger"
+        aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-overlay">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============================================
+       PAGE HERO
+  ============================================ -->
+  <section class="contact-hero" aria-labelledby="hero-title">
+    <div class="container">
+      <div class="contact-hero-inner">
+        <p class="section-label">Contact</p>
+        <div class="gold-rule"></div>
+        <h1 class="contact-hero-title" id="hero-title">
+          Parlons de <em>votre projet</em>
+        </h1>
+        <p class="contact-hero-sub">Notre équipe vous répond sous 24h</p>
+      </div>
+    </div>
+    <div class="contact-hero-bg-text" aria-hidden="true">Contact</div>
+  </section>
+
+  <!-- ============================================
+       MAIN CONTENT
+  ============================================ -->
+  <main class="contact-main">
+    <div class="container">
+      <div class="contact-split">
+
+        <!-- ======== LEFT COLUMN — Info ======== -->
+        <div class="contact-left reveal">
+
+          <!-- Nous joindre -->
+          <div class="contact-info-section">
+            <p class="contact-info-label">Nous joindre</p>
+            <div class="contact-info-rule"></div>
+            <ul class="contact-info-list">
+              <li class="contact-info-item">
+                <div class="contact-info-icon" aria-hidden="true">✉</div>
+                <div class="contact-info-text">
+                  <a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a>
+                  <span class="sub">Réponse garantie sous 24h ouvrées</span>
+                </div>
+              </li>
+              <li class="contact-info-item">
+                <div class="contact-info-icon" aria-hidden="true">◎</div>
+                <div class="contact-info-text">
+                  <a href="https://fidiconseil.com" target="_blank" rel="noopener noreferrer">fidiconseil.com</a>
+                  <span class="sub">Groupe Fidi Conseil</span>
+                </div>
+              </li>
+              <li class="contact-info-item">
+                <div class="contact-info-icon" aria-hidden="true">⌖</div>
+                <div class="contact-info-text">
+                  Martinique &amp; Guadeloupe
+                  <span class="sub">Antilles françaises — Département d'Outre-Mer</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- L'équipe disponible -->
+          <div class="contact-info-section">
+            <p class="contact-info-label">L'équipe disponible</p>
+            <div class="contact-info-rule"></div>
+            <div class="team-cards" role="list">
+              <div class="team-card" role="listitem">
+                <div class="team-avatar" aria-hidden="true">FF</div>
+                <div class="team-info">
+                  <div class="team-name">Franck Fidi</div>
+                  <div class="team-role">Fondateur</div>
+                  <div class="team-territory">Martinique &amp; Guadeloupe</div>
+                </div>
+              </div>
+              <div class="team-card" role="listitem">
+                <div class="team-avatar" aria-hidden="true">PM</div>
+                <div class="team-info">
+                  <div class="team-name">Philippe Marie-Luce</div>
+                  <div class="team-role">Conseiller Sextant</div>
+                  <div class="team-territory">Guadeloupe</div>
+                </div>
+              </div>
+              <div class="team-card" role="listitem">
+                <div class="team-avatar" aria-hidden="true">LF</div>
+                <div class="team-info">
+                  <div class="team-name">Lucien Fortuné</div>
+                  <div class="team-role">Conseiller Sextant</div>
+                  <div class="team-territory">Martinique</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accès rapide -->
+          <div class="contact-info-section">
+            <p class="contact-info-label">Accès rapide</p>
+            <div class="contact-info-rule"></div>
+            <nav class="quick-access" aria-label="Raccourcis">
+              <a href="espace-partenaires/index.html">
+                Espace partenaires
+                <span class="arrow" aria-hidden="true">→</span>
+              </a>
+              <a href="services/index.html">
+                Catalogue des services
+                <span class="arrow" aria-hidden="true">→</span>
+              </a>
+            </nav>
+          </div>
+
+          <!-- Signature quote -->
+          <div class="contact-quote">
+            <p>Chaque projet est unique, notre approche aussi.</p>
+          </div>
+
+        </div><!-- /contact-left -->
+
+        <!-- ======== RIGHT COLUMN — Form ======== -->
+        <div class="contact-right reveal" style="transition-delay:150ms;">
+          <div class="contact-form-wrap">
+
+            <h2 class="form-title">Votre demande</h2>
+            <div class="form-gold-rule"></div>
+
+            <!-- Success banner -->
+            <div class="form-success" id="form-success" role="alert" aria-live="polite">
+              <div class="form-success-icon" aria-hidden="true">✓</div>
+              <p>
+                <strong>Demande envoyée</strong> — Nous vous répondrons sous 24h.<br />
+                Un récapitulatif sera adressé à votre adresse e-mail.
+              </p>
+            </div>
+
+            <form id="contact-form" novalidate>
+
+              <p class="req-note">Les champs marqués <span class="req">*</span> sont obligatoires.</p>
+
+              <!-- Prénom / Nom -->
+              <div class="form-row">
+                <div class="field">
+                  <label for="prenom">Prénom <span class="req">*</span></label>
+                  <input type="text" id="prenom" name="prenom"
+                    placeholder="Jean" autocomplete="given-name" required />
+                </div>
+                <div class="field">
+                  <label for="nom">Nom <span class="req">*</span></label>
+                  <input type="text" id="nom" name="nom"
+                    placeholder="Martin" autocomplete="family-name" required />
+                </div>
+              </div>
+
+              <!-- Email / Téléphone -->
+              <div class="form-row" style="margin-bottom:16px;">
+                <div class="field" style="margin-bottom:0;">
+                  <label for="email">Email <span class="req">*</span></label>
+                  <input type="email" id="email" name="email"
+                    placeholder="jean@exemple.com" autocomplete="email" required />
+                </div>
+                <div class="field" style="margin-bottom:0;">
+                  <label for="telephone">Téléphone</label>
+                  <input type="tel" id="telephone" name="telephone"
+                    placeholder="+596 696 00 00 00" autocomplete="tel" />
+                </div>
+              </div>
+
+              <!-- Type de demande -->
+              <div class="field">
+                <label for="type-demande">Type de demande <span class="req">*</span></label>
+                <select id="type-demande" name="type_demande" required>
+                  <option value="" disabled selected>Sélectionnez une option…</option>
+                  <option value="estimation">Estimation / Avis de valeur</option>
+                  <option value="vente">Vente de bien</option>
+                  <option value="achat">Achat de bien</option>
+                  <option value="succession">Succession / Héritage</option>
+                  <option value="foncier">Développement foncier</option>
+                  <option value="construction">Projet de construction</option>
+                  <option value="partenaire">Devenir partenaire</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+
+              <!-- Territoire -->
+              <div class="field">
+                <label>Territoire <span class="req">*</span></label>
+                <div class="territory-group" id="territory-group"
+                  role="radiogroup" aria-label="Territoire concerné">
+                  <div class="territory-pill">
+                    <input type="radio" id="terr-mq" name="territoire" value="martinique" />
+                    <label for="terr-mq">Martinique</label>
+                  </div>
+                  <div class="territory-pill">
+                    <input type="radio" id="terr-gp" name="territoire" value="guadeloupe" />
+                    <label for="terr-gp">Guadeloupe</label>
+                  </div>
+                  <div class="territory-pill">
+                    <input type="radio" id="terr-both" name="territoire" value="les-deux" />
+                    <label for="terr-both">Les deux</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Message -->
+              <div class="field">
+                <label for="message">Message <span class="req">*</span></label>
+                <textarea id="message" name="message" rows="5"
+                  placeholder="Décrivez votre projet, sa localisation, votre calendrier…"
+                  required></textarea>
+              </div>
+
+              <!-- Source -->
+              <div class="field">
+                <label for="source">Comment nous avez-vous connus ?</label>
+                <select id="source" name="source">
+                  <option value="" disabled selected>Sélectionnez…</option>
+                  <option value="google">Google</option>
+                  <option value="reseaux">Réseaux sociaux</option>
+                  <option value="bouche">Bouche-à-oreille</option>
+                  <option value="sextant">Sextant</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+
+              <!-- RGPD -->
+              <label class="checkbox-field">
+                <input type="checkbox" id="rgpd" name="rgpd" required />
+                <span>J'accepte la <a href="#">politique de confidentialité</a>
+                  et le traitement de mes données personnelles dans le cadre
+                  de ma demande. <span class="req">*</span></span>
+              </label>
+
+              <!-- Submit -->
+              <button type="submit" class="btn-submit" id="submit-btn">
+                Envoyer ma demande
+                <span aria-hidden="true">→</span>
+              </button>
+
+              <!-- Trust signals -->
+              <div class="trust-signals" role="list">
+                <div class="trust-chip" role="listitem">
+                  <span aria-hidden="true">🔒</span>
+                  Données protégées (RGPD)
+                </div>
+                <div class="trust-chip" role="listitem">
+                  <span aria-hidden="true">⏱</span>
+                  Réponse sous 24h ouvrées
+                </div>
+                <div class="trust-chip" role="listitem">
+                  <span aria-hidden="true">🤝</span>
+                  Consultation initiale gratuite
+                </div>
+              </div>
+
+            </form>
+          </div><!-- /contact-form-wrap -->
+        </div><!-- /contact-right -->
+
+      </div><!-- /contact-split -->
+    </div><!-- /container -->
+  </main>
+
+  <!-- ============================================
+       FOOTER
+  ============================================ -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand-name">Optimmo Dom</div>
+          <div class="footer-brand-sub">Immobilier Antillais</div>
+          <p class="footer-brand-desc">
+            Conseil, valorisation patrimoniale et développement foncier
+            en Martinique et Guadeloupe. Réseau Sextant.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" aria-label="Facebook">f</a>
+            <a href="#" class="footer-social" aria-label="Instagram">in</a>
+            <a href="#" class="footer-social" aria-label="LinkedIn">li</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="services/index.html">Estimation &amp; Avis de valeur</a></li>
+            <li><a href="services/index.html">Vente de bien</a></li>
+            <li><a href="services/index.html">Succession &amp; Héritage</a></li>
+            <li><a href="services/index.html">Développement foncier</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Territoires</h4>
+          <ul class="footer-links">
+            <li><a href="#">Martinique</a></li>
+            <li><a href="#">Guadeloupe</a></li>
+            <li><a href="#">Marché antillais</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li><a href="contact.html">Formulaire de contact</a></li>
+            <li><a href="espace-partenaires/index.html">Espace Partenaires</a></li>
+            <li><a href="https://fidiconseil.com" target="_blank" rel="noopener">fidiconseil.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Optimmo Dom — Fidi Conseil. Tous droits réservés.</p>
+        <p>
+          <a href="#">Politique de confidentialité</a>
+          &nbsp;·&nbsp;
+          <a href="#">Mentions légales</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================
+       JAVASCRIPT
+  ============================================ -->
+  <script>
+    'use strict';
+
+    /* ---------- Nav & Menu overlay ---------- */
+    const nav       = document.getElementById('main-nav');
+    const hamburger = document.getElementById('hamburger');
+    const overlay   = document.getElementById('menu-overlay');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = overlay.classList.toggle('open');
+      hamburger.classList.toggle('active', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    overlay.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        overlay.classList.remove('open');
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    /* ---------- Scroll Reveal ---------- */
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => revealObs.observe(el));
+
+    /* ---------- Form validation ---------- */
+    const form          = document.getElementById('contact-form');
+    const submitBtn     = document.getElementById('submit-btn');
+    const successBanner = document.getElementById('form-success');
+
+    /** Validates a single text/email/select/textarea field. */
+    function validateField(input) {
+      let valid = true;
+
+      if (input.required) {
+        valid = input.value.trim() !== '';
+      }
+      if (valid && input.type === 'email') {
+        valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+      }
+
+      input.classList.toggle('error', !valid);
+      input.classList.toggle('valid', valid && input.value.trim() !== '');
+      return valid;
+    }
+
+    /** Validates the territory radio group, returns true if one is selected. */
+    function validateTerritory() {
+      const radios  = form.querySelectorAll('input[name="territoire"]');
+      const checked = Array.from(radios).some(r => r.checked);
+      const group   = document.getElementById('territory-group');
+      group.classList.toggle('territory-error', !checked);
+      return checked;
+    }
+
+    // Live validation on blur
+    const liveFields = form.querySelectorAll(
+      'input:not([type="radio"]):not([type="checkbox"]), select, textarea'
+    );
+    liveFields.forEach(input => {
+      input.addEventListener('blur', () => validateField(input));
+      input.addEventListener('input', () => {
+        if (input.classList.contains('error')) validateField(input);
+      });
+    });
+
+    // Remove territory error when user picks one
+    form.querySelectorAll('input[name="territoire"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.getElementById('territory-group').classList.remove('territory-error');
+      });
+    });
+
+    // Submit handler
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      successBanner.classList.remove('visible');
+
+      let allValid = true;
+
+      liveFields.forEach(input => {
+        if (!validateField(input)) allValid = false;
+      });
+
+      if (!validateTerritory()) allValid = false;
+
+      const rgpd = document.getElementById('rgpd');
+      if (!rgpd.checked) {
+        allValid = false;
+        rgpd.classList.add('error');
+      } else {
+        rgpd.classList.remove('error');
+      }
+
+      if (!allValid) {
+        const firstError = form.querySelector('.error, .territory-error');
+        if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      // Simulate async send
+      submitBtn.disabled   = true;
+      submitBtn.textContent = 'Envoi en cours…';
+
+      setTimeout(() => {
+        submitBtn.disabled   = false;
+        submitBtn.innerHTML  = 'Envoyer ma demande <span aria-hidden="true">→</span>';
+        successBanner.classList.add('visible');
+        form.reset();
+        liveFields.forEach(f => f.classList.remove('valid', 'error'));
+        document.getElementById('territory-group').classList.remove('territory-error');
+        successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 1400);
+    });
+  </script>
+</body>
+</html>

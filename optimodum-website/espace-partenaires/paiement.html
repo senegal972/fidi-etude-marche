@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Paiement à la carte — Optimmo Dom</title>
+
+  <!-- ⚙️ Configuration : renseignez le client-id public PayPal ci-dessous
+       (Dashboard PayPal → Apps & Credentials → Client ID).
+       Laissez vide pour désactiver proprement le paiement à la carte. -->
+  <meta name="paypal-client-id" content="" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/shared.css" />
+
+  <style>
+    body { background: var(--ink); display: flex; min-height: 100vh; align-items: center; justify-content: center; padding: 40px 24px; }
+    .pay {
+      max-width: 460px; width: 100%;
+      background: var(--ink-mid); border: 1px solid rgba(201,168,76,0.18);
+      padding: 48px 44px;
+    }
+    .pay-label { font-size: 10px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .pay-title { font-family: var(--serif); font-size: 30px; font-weight: 300; color: var(--white); margin-bottom: 10px; line-height: 1.2; }
+    .pay-title em { font-style: italic; color: var(--gold); }
+    .pay-product {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 0; margin: 22px 0;
+      border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .pay-product-name { font-size: 15px; color: var(--white); }
+    .pay-product-name small { display: block; font-size: 12px; color: var(--slate); margin-top: 2px; }
+    .pay-product-price { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--gold); }
+    #paypal-buttons { min-height: 48px; margin-top: 8px; }
+    .pay-msg { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; margin: 20px 0; }
+    .pay-msg.error { color: #f0a0a0; }
+    .pay-back { display: inline-block; margin-top: 18px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--slate); }
+    .pay-back:hover { color: var(--gold); }
+    .pay-spinner { width: 34px; height: 34px; border: 2px solid rgba(201,168,76,0.2); border-top-color: var(--gold); border-radius: 50%; animation: spin 800ms linear infinite; margin: 24px auto; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="pay">
+    <div class="pay-label">Espace Partenaires · Paiement sécurisé</div>
+    <h1 class="pay-title">Accès <em>à la carte</em></h1>
+
+    <div class="pay-product">
+      <div class="pay-product-name" id="prod-name">Chargement…<small id="prod-sub">Accès 30 jours</small></div>
+      <div class="pay-product-price" id="prod-price">—</div>
+    </div>
+
+    <div class="pay-spinner" id="spinner"></div>
+    <p class="pay-msg" id="msg" style="display:none"></p>
+    <div id="paypal-buttons"></div>
+
+    <a class="pay-back" href="./dashboard.html">← Retour au tableau de bord</a>
+  </div>
+
+  <script>
+    'use strict';
+    const params  = new URLSearchParams(window.location.search);
+    const orderId = params.get('order');
+    const produit = params.get('produit');
+    const token   = localStorage.getItem('optimmo_token');
+    const authHeaders = token ? { 'Authorization': 'Bearer ' + token } : {};
+
+    const PRODUCTS = {
+      etude_marche: { nom: 'Étude de Marché', prix: '29 €' },
+      avis_valeur:  { nom: 'Avis de Valeur',  prix: '19 €' },
+      dvf:          { nom: 'Rapport DVF',      prix: '9 €' },
+    };
+
+    const spinner = document.getElementById('spinner');
+    const msg = document.getElementById('msg');
+    function showMsg(text, isError) {
+      spinner.style.display = 'none';
+      msg.style.display = 'block';
+      msg.textContent = text;
+      msg.classList.toggle('error', !!isError);
+    }
+
+    // Résumé produit
+    const p = PRODUCTS[produit];
+    if (p) {
+      document.getElementById('prod-name').firstChild.textContent = p.nom;
+      document.getElementById('prod-price').textContent = p.prix;
+    }
+
+    if (!orderId || !produit || !p) {
+      showMsg("Commande introuvable. Revenez au tableau de bord pour réessayer.", true);
+    } else {
+      const clientId = (document.querySelector('meta[name="paypal-client-id"]') || {}).content || '';
+      if (!clientId) {
+        showMsg("Le paiement à la carte sera disponible prochainement. Contactez-nous à contact@fidiconseil.com pour un accès immédiat.", false);
+      } else {
+        // Charge le SDK PayPal puis monte les Smart Buttons sur l'ordre existant.
+        const sdk = document.createElement('script');
+        sdk.src = 'https://www.paypal.com/sdk/js?client-id=' + encodeURIComponent(clientId) + '&currency=EUR&intent=capture';
+        sdk.onload = mountButtons;
+        sdk.onerror = () => showMsg("Le module de paiement n'a pas pu être chargé. Réessayez plus tard.", true);
+        document.head.appendChild(sdk);
+      }
+    }
+
+    function mountButtons() {
+      spinner.style.display = 'none';
+      if (!window.paypal) { showMsg("Module de paiement indisponible.", true); return; }
+      window.paypal.Buttons({
+        style: { color: 'gold', shape: 'rect', label: 'pay', height: 46 },
+        createOrder: () => orderId,
+        onApprove: async (data) => {
+          spinner.style.display = 'block';
+          try {
+            const res = await fetch('/api/paypal/order', {
+              method: 'POST', credentials: 'include',
+              headers: { 'Content-Type': 'application/json', ...authHeaders },
+              body: JSON.stringify({ action: 'capture', order_id: data.orderID || orderId }),
+            });
+            const out = await res.json().catch(() => ({}));
+            if (res.ok && out.success) {
+              window.location.replace('./dashboard.html?paiement=succes');
+            } else {
+              showMsg(out.error || "Le paiement n'a pas pu être confirmé.", true);
+            }
+          } catch (e) {
+            showMsg("Erreur lors de la confirmation du paiement.", true);
+          }
+        },
+        onError: () => showMsg("Une erreur est survenue avec PayPal. Réessayez.", true),
+        onCancel: () => showMsg("Paiement annulé. Aucune somme n'a été prélevée.", false),
+      }).render('#paypal-buttons');
+    }
+  </script>
+</body>
+</html>

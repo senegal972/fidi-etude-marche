@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Réalisations Optimmo Dom — Successions dénouées, valorisations patrimoniales, programmes fonciers et constructions menés en Martinique et Guadeloupe." />
+  <meta property="og:title" content="Réalisations — Optimmo Dom · Projets menés aux Antilles" />
+  <meta property="og:description" content="Découvrez nos études de cas : sorties d'indivision, divisions parcellaires, programmes résidentiels et rénovations patrimoniales en Martinique et Guadeloupe." />
+  <meta property="og:type" content="website" />
+  <title>Réalisations — Optimmo Dom · Projets menés aux Antilles</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/shared.css" />
+
+  <style>
+    /* ============================================
+       PAGE HERO — ajustements
+    ============================================ */
+    .page-hero { position: relative; overflow: hidden; }
+    .page-hero-title {
+      font-family: var(--serif);
+      font-size: clamp(48px, 6.5vw, 86px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .page-hero-title em { font-style: italic; color: var(--gold); }
+    .page-hero-sub {
+      font-size: 17px; font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       STATS STRIP
+    ============================================ */
+    .stats-strip {
+      background: var(--ink);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 56px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+    .stat-item {
+      text-align: center;
+      position: relative;
+    }
+    .stat-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -20px; top: 50%;
+      transform: translateY(-50%);
+      width: 1px; height: 48px;
+      background: rgba(201,168,76,0.18);
+    }
+    .stat-number {
+      font-family: var(--serif);
+      font-size: clamp(40px, 4.5vw, 58px);
+      font-weight: 300;
+      color: var(--gold-lt);
+      line-height: 1;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .stat-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--slate);
+    }
+
+    /* ============================================
+       FILTER TABS
+    ============================================ */
+    .filter-tabs-wrap {
+      position: sticky;
+      top: 76px;
+      z-index: 500;
+      background: rgba(7,15,26,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .filter-tabs {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 60px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .filter-tabs::-webkit-scrollbar { display: none; }
+    .filter-tab {
+      padding: 7px 18px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--slate);
+      font-family: var(--sans);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color 200ms, color 200ms, background 200ms;
+    }
+    .filter-tab:hover { border-color: rgba(255,255,255,0.3); color: var(--white); }
+    .filter-tab.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+    .filter-tabs-count {
+      margin-left: auto;
+      font-size: 12px; color: var(--slate);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .filter-tabs-count strong { color: var(--gold); font-weight: 700; }
+
+    /* ============================================
+       PROJECTS GRID
+    ============================================ */
+    .projects-main {
+      background: var(--ink);
+      padding: 72px 0 110px;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+    .project-card {
+      background: var(--navy);
+      overflow: hidden;
+      transition: transform 350ms var(--ease-out), box-shadow 350ms var(--ease-out);
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.12);
+    }
+    .project-card.hidden { display: none; }
+
+    .project-img-wrap {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+    }
+    .project-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 600ms var(--ease-out);
+    }
+    .project-card:hover .project-img-wrap img { transform: scale(1.05); }
+    .project-img-wrap::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(7,15,26,0.55) 0%, transparent 45%);
+      pointer-events: none;
+    }
+    .project-badges {
+      position: absolute;
+      top: 16px; left: 16px; right: 16px;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .project-badge-cat {
+      display: inline-block;
+      padding: 5px 12px;
+      background: rgba(7,15,26,0.78);
+      backdrop-filter: blur(8px);
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .project-badge-status {
+      display: inline-block;
+      padding: 5px 12px;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+    .project-badge-status.termine { background: rgba(46,204,113,0.16); color: #2ECC71; }
+    .project-badge-status.encours { background: rgba(201,168,76,0.18); color: var(--gold-lt); }
+
+    .project-body { padding: 28px 30px 30px; }
+    .project-title {
+      font-family: var(--serif);
+      font-size: 24px; font-weight: 400;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .project-location {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--slate);
+      margin-bottom: 16px;
+    }
+    .project-location-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .project-desc {
+      font-size: 14px; font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .project-metric {
+      font-family: var(--serif);
+      font-size: 21px; font-weight: 400; font-style: italic;
+      color: var(--gold-lt);
+      padding: 14px 0;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 20px;
+      letter-spacing: 0.01em;
+    }
+    .project-toggle {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--sans);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--white);
+      background: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: border-color 250ms, color 250ms;
+    }
+    .project-toggle:hover { border-color: var(--gold); color: var(--gold); }
+    .project-toggle .chev {
+      transition: transform 350ms var(--ease-out);
+      flex-shrink: 0;
+    }
+    .project-card.open .project-toggle { border-color: var(--gold); color: var(--gold); }
+    .project-card.open .project-toggle .chev { transform: rotate(180deg); }
+
+    /* Inline accordion detail panel */
+    .project-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 600ms var(--ease-in-out);
+    }
+    .project-detail-inner {
+      padding: 26px 0 4px;
+      border-top: 1px solid rgba(201,168,76,0.2);
+      margin-top: 24px;
+    }
+    .detail-row {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .detail-row:last-child { margin-bottom: 0; }
+    .detail-label {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold);
+      padding-top: 4px;
+    }
+    .detail-text {
+      font-size: 13.5px; font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.75;
+    }
+    .detail-figures {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 22px;
+    }
+    .detail-figure {
+      padding: 8px 14px;
+      border: 1px solid rgba(201,168,76,0.25);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold-lt);
+    }
+
+    /* Empty state */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 0;
+      display: none;
+    }
+    .no-results.show { display: block; }
+    .no-results-mark {
+      font-family: var(--serif);
+      font-size: 64px; font-weight: 300;
+      color: rgba(201,168,76,0.15);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .no-results p { font-size: 16px; color: var(--slate); }
+
+    /* ============================================
+       TESTIMONIALS
+    ============================================ */
+    .testimonials {
+      background: var(--ink-mid);
+      padding: 110px 0;
+      border-top: 1px solid rgba(201,168,76,0.08);
+      border-bottom: 1px solid rgba(201,168,76,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonials-head { text-align: center; margin-bottom: 64px; }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .testimonial {
+      background: var(--navy);
+      padding: 40px 36px 36px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .testimonial-quote-mark {
+      font-family: var(--serif);
+      font-size: 72px; font-weight: 400;
+      color: var(--gold);
+      line-height: 0.6;
+      margin-bottom: 24px;
+      user-select: none;
+    }
+    .testimonial-text {
+      font-family: var(--serif);
+      font-size: 19px; font-weight: 300; font-style: italic;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.55;
+      margin-bottom: 28px;
+      flex: 1;
+    }
+    .testimonial-author {
+      display: flex; align-items: center; gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .testimonial-author-rule {
+      width: 24px; height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .testimonial-author-name {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--slate);
+    }
+    .testimonial-author-name strong { color: var(--white); font-weight: 700; }
+
+    /* ============================================
+       CTA FINAL
+    ============================================ */
+    .cta-final {
+      padding: 120px 0;
+      background: var(--ink);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-bg-text {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: var(--serif);
+      font-size: clamp(80px, 16vw, 220px);
+      font-weight: 300;
+      color: rgba(201,168,76,0.025);
+      white-space: nowrap;
+      pointer-events: none; user-select: none;
+    }
+    .cta-final .section-label,
+    .cta-final .section-title,
+    .cta-final .gold-rule { position: relative; }
+    .cta-final-desc {
+      font-size: 17px; font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      max-width: 480px; margin: 0 auto 52px;
+      line-height: 1.75; position: relative;
+    }
+    .cta-actions {
+      display: flex; gap: 16px;
+      justify-content: center; flex-wrap: wrap;
+      position: relative;
+    }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 48px 32px; }
+      .stat-item:nth-child(2)::after { display: none; }
+      .filter-tabs { padding: 0 40px; }
+      .testimonials-grid { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+    }
+    @media (max-width: 880px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .filter-tabs { padding: 0 24px; }
+      .filter-tabs-count { display: none; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item::after { display: none; }
+      .detail-row { grid-template-columns: 1fr; gap: 6px; }
+      .page-hero { padding: 130px 0 64px; }
+      .project-body { padding: 24px 22px 26px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MENU OVERLAY -->
+  <div id="menu-overlay">
+    <div class="menu-overlay-inner">
+      <ul class="menu-overlay-nav">
+        <li><a href="services.html">Services</a></li>
+        <li><a href="catalogue.html">Catalogue</a></li>
+        <li><a href="realisations.html" style="color:var(--gold)">Réalisations</a></li>
+        <li><a href="index.html#equipe" onclick="closeMenu()">L'équipe</a></li>
+        <li><a href="espace-partenaires/">Espace partenaires</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="menu-overlay-footer">
+        <div class="menu-overlay-contact">
+          <a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a><br>
+          <span>fidiconseil.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="nav opaque" id="nav">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">OD</div>
+      <div>
+        <span class="nav-logo-text">Optimmo Dom</span>
+        <span class="nav-logo-sub">Conseil · Patrimoine · Antilles</span>
+      </div>
+    </a>
+    <div class="nav-right">
+      <a href="espace-partenaires/" class="nav-cta-btn">Espace partenaires</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-bg-text" aria-hidden="true">Projets</div>
+    <div class="container">
+      <div class="page-hero-inner">
+        <div class="section-label">Études de cas</div>
+        <div class="gold-rule"></div>
+        <h1 class="page-hero-title">Nos <em>réalisations</em></h1>
+        <p class="page-hero-sub">
+          Projets menés et en cours en Martinique &amp; Guadeloupe — successions dénouées,
+          patrimoines valorisés, fonciers développés et constructions accompagnées,
+          présentés de manière anonymisée par respect pour nos clients.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <section class="stats-strip">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-number">200+</div>
+          <div class="stat-label">Biens valorisés</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number">45</div>
+          <div class="stat-label">Successions dénouées</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number">12</div>
+          <div class="stat-label">Programmes fonciers</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-number">350+</div>
+          <div class="stat-label">Avis de valeur</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER TABS -->
+  <div class="filter-tabs-wrap">
+    <div class="filter-tabs" role="tablist" aria-label="Filtrer les réalisations">
+      <button class="filter-tab active" data-filter="tous" onclick="setProjectFilter('tous', this)">Tous</button>
+      <button class="filter-tab" data-filter="succession" onclick="setProjectFilter('succession', this)">Succession</button>
+      <button class="filter-tab" data-filter="valorisation" onclick="setProjectFilter('valorisation', this)">Valorisation</button>
+      <button class="filter-tab" data-filter="foncier" onclick="setProjectFilter('foncier', this)">Foncier</button>
+      <button class="filter-tab" data-filter="construction" onclick="setProjectFilter('construction', this)">Construction</button>
+      <button class="filter-tab" data-filter="encours" onclick="setProjectFilter('encours', this)">En cours</button>
+      <div class="filter-tabs-count" id="projectCount"><strong>8</strong>&nbsp;projets</div>
+    </div>
+  </div>
+
+  <!-- PROJECTS GRID -->
+  <main class="projects-main">
+    <div class="container">
+      <div class="projects-grid" id="projectsGrid">
+
+        <!-- 1 — Sortie d'indivision familiale -->
+        <article class="project-card reveal" data-cat="succession" data-statut="termine">
+          <div class="project-img-wrap">
+            <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?w=700&q=80"
+                 alt="Maison familiale en indivision — Le Lamentin, Martinique" loading="lazy" />
+            <div class="project-badges">
+              <span class="project-badge-cat">Succession</span>
+              <span class="project-badge-status termine">Terminé</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <h2 class="project-title">Sortie d'indivision familiale — 7 héritiers</h2>
+            <div class="project-location">
+              <span class="project-location-dot"></span>
+              Le Lamentin, Martinique
+            </div>
+            <p class="project-desc">
+              Indivision bloquée depuis 12 ans, avec 3 héritiers installés en métropole.
+              Évaluation contradictoire, médiation familiale et cession menées en 14 mois.
+            </p>
+            <div class="project-metric">14 mois · 7 héritiers réunis</div>
+            <button class="project-toggle" onclick="toggleDetail(this)" aria-expanded="false">
+              Voir l'étude de cas
+              <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,9 12,15 18,9"/></svg>
+            </button>
+            <div class="project-detail">
+              <div class="project-detail-inner">
+                <div class="detail-row">
+                  <div class="detail-label">Contexte</div>
+                  <div class="detail-text">
+                    Une maison familiale et son terrain attenant, transmis sans testament, restaient
+                    indivis depuis 12 ans. Trois des sept héritiers résidaient en métropole, deux ne
+                    se parlaient plus, et aucune décision de gestion n'avait été prise depuis le décès.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Intervention</div>
+                  <div class="detail-text">
+                    Avis de valeur contradictoire accepté par l'ensemble des indivisaires, médiation
+                    individuelle puis collective (visioconférences pour les héritiers en métropole),
+                    coordination avec le notaire et mise en vente encadrée du bien.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Résultat</div>
+                  <div class="detail-text">
+                    Cession signée 14 mois après la première réunion, sans procédure judiciaire.
+                    Chaque héritier a perçu sa quote-part sur la base d'une valeur acceptée par tous.
+                  </div>
+                </div>
+                <div class="detail-figures">
+                  <span class="detail-figure">12 ans de blocage levés</span>
+                  <span class="detail-figure">0 contentieux</span>
+                  <span class="detail-figure">7 quotes-parts versées</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2 — Division parcellaire -->
+        <article class="project-card reveal" data-cat="valorisation" data-statut="termine">
+          <div class="project-img-wrap">
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700&q=80"
+                 alt="Terrain divisé en lots — Sainte-Anne, Guadeloupe" loading="lazy" />
+            <div class="project-badges">
+              <span class="project-badge-cat">Valorisation</span>
+              <span class="project-badge-status termine">Terminé</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <h2 class="project-title">Division parcellaire et valorisation</h2>
+            <div class="project-location">
+              <span class="project-location-dot"></span>
+              Sainte-Anne, Guadeloupe
+            </div>
+            <p class="project-desc">
+              Terrain familial de 4 800 m² divisé en 4 lots viabilisés après étude
+              d'urbanisme, bornage et négociation des raccordements.
+            </p>
+            <div class="project-metric">+92% de valeur globale</div>
+            <button class="project-toggle" onclick="toggleDetail(this)" aria-expanded="false">
+              Voir l'étude de cas
+              <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,9 12,15 18,9"/></svg>
+            </button>
+            <div class="project-detail">
+              <div class="project-detail-inner">
+                <div class="detail-row">
+                  <div class="detail-label">Contexte</div>
+                  <div class="detail-text">
+                    Une famille souhaitait vendre un terrain hérité de 4 800 m² en zone constructible.
+                    Vendu en l'état, il aurait subi une décote importante faute d'accès aménagé
+                    et de raccordement aux réseaux.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Intervention</div>
+                  <div class="detail-text">
+                    Analyse du PLU et du potentiel de division, dépôt de la déclaration préalable,
+                    bornage par géomètre-expert, viabilisation des 4 lots (voirie, eau, électricité,
+                    assainissement) puis commercialisation lot par lot.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Résultat</div>
+                  <div class="detail-text">
+                    Les 4 lots ont été vendus en 11 mois. La valeur totale obtenue représente
+                    près du double du prix proposé initialement pour le terrain en l'état.
+                  </div>
+                </div>
+                <div class="detail-figures">
+                  <span class="detail-figure">4 800 m² divisés</span>
+                  <span class="detail-figure">4 lots viabilisés</span>
+                  <span class="detail-figure">11 mois de commercialisation</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3 — Programme Les Alizés -->
+        <article class="project-card reveal" data-cat="foncier" data-statut="encours">
+          <div class="project-img-wrap">
+            <img src="https://images.unsplash.com/photo-1448630360428-65456885c650?w=700&q=80"
+                 alt="Programme résidentiel Les Alizés — Le François, Martinique" loading="lazy" />
+            <div class="project-badges">
+              <span class="project-badge-cat">Foncier</span>
+              <span class="project-badge-status encours">En cours</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <h2 class="project-title">Programme résidentiel Les Alizés</h2>
+            <div class="project-location">
+              <span class="project-location-dot"></span>
+              Le François, Martinique
+            </div>
+            <p class="project-desc">
+              Aménagement de 14 lots libres constructeurs sur un foncier de coteau
+              exposé aux alizés. Permis d'aménager obtenu, viabilisation en cours.
+            </p>
+            <div class="project-metric">14 lots · livraison 2027</div>
+            <button class="project-toggle" onclick="toggleDetail(this)" aria-expanded="false">
+              Voir l'étude de cas
+              <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,9 12,15 18,9"/></svg>
+            </button>
+            <div class="project-detail">
+              <div class="project-detail-inner">
+                <div class="detail-row">
+                  <div class="detail-label">Contexte</div>
+                  <div class="detail-text">
+                    Un propriétaire foncier souhaitait valoriser un terrain de coteau de plus de
+                    2 hectares au François, sans le céder à un promoteur dans des conditions
+                    défavorables.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Intervention</div>
+                  <div class="detail-text">
+                    Étude de capacité et de marché, montage du permis d'aménager, consultation
+                    des entreprises de VRD, structuration de la commercialisation en lots libres
+                    constructeurs de 600 à 950 m² avec cahier des charges architectural.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Avancement</div>
+                  <div class="detail-text">
+                    Permis d'aménager purgé de tout recours. Travaux de viabilisation engagés,
+                    8 lots déjà réservés. Livraison des lots prévue courant 2027.
+                  </div>
+                </div>
+                <div class="detail-figures">
+                  <span class="detail-figure">14 lots de 600 à 950 m²</span>
+                  <span class="detail-figure">8 réservations</span>
+                  <span class="detail-figure">Livraison 2027</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4 — Maison créole -->
+        <article class="project-card reveal" data-cat="valorisation" data-statut="termine">
+          <div class="project-img-wrap">
+            <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=700&q=80"
+                 alt="Maison créole restaurée — Saint-Pierre, Martinique" loading="lazy" />
+            <div class="project-badges">
+              <span class="project-badge-cat">Valorisation</span>
+              <span class="project-badge-status termine">Terminé</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <h2 class="project-title">Rénovation patrimoniale maison créole</h2>
+            <div class="project-location">
+              <span class="project-location-dot"></span>
+              Saint-Pierre, Martinique
+            </div>
+            <p class="project-desc">
+              Restauration complète d'une maison créole de caractère, dans le respect
+              du bâti traditionnel : charpente, galerie, persiennes et toiture.
+            </p>
+            <div class="project-metric">+65% valeur locative</div>
+            <button class="project-toggle" onclick="toggleDetail(this)" aria-expanded="false">
+              Voir l'étude de cas
+              <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,9 12,15 18,9"/></svg>
+            </button>
+            <div class="project-detail">
+              <div class="project-detail-inner">
+                <div class="detail-row">
+                  <div class="detail-label">Contexte</div>
+                  <div class="detail-text">
+                    Une maison créole du début du XXe siècle, vacante depuis 6 ans, se dégradait
+                    rapidement. Les propriétaires hésitaient entre une vente en l'état et une
+                    restauration dont ils craignaient le coût.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Intervention</div>
+                  <div class="detail-text">
+                    Étude comparative vente / rénovation, sélection d'artisans spécialisés dans le
+                    bâti traditionnel, suivi de chantier sur 10 mois : charpente, galerie, menuiseries
+                    persiennées, mise aux normes électriques et confort thermique passif.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Résultat</div>
+                  <div class="detail-text">
+                    Bien reloué dès la fin du chantier en location de standing, avec un loyer
+                    supérieur de 65 % aux références antérieures et un patrimoine familial préservé.
+                  </div>
+                </div>
+                <div class="detail-figures">
+                  <span class="detail-figure">10 mois de chantier</span>
+                  <span class="detail-figure">Bâti traditionnel préservé</span>
+                  <span class="detail-figure">Relouée en 3 semaines</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5 — Succession transatlantique -->
+        <article class="project-card reveal" data-cat="succession" data-statut="termine">
+          <div class="project-img-wrap">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700&q=80"
+                 alt="Immeubles de rapport — Pointe-à-Pitre, Guadeloupe" loading="lazy" />
+            <div class="project-badges">
+              <span class="project-badge-cat">Succession</span>
+              <span class="project-badge-status termine">Terminé</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <h2 class="project-title">Succession transatlantique</h2>
+            <div class="project-location">
+              <span class="project-location-dot"></span>
+              Pointe-à-Pitre, Guadeloupe
+            </div>
+            <p class="project-desc">
+              Héritiers répartis sur 3 pays et 2 fuseaux horaires. Pilotage à distance
+              de la vente de 2 immeubles de rapport occupés.
+            </p>
+            <div class="project-metric">9 mois · 2 immeubles cédés</div>
+            <button class="project-toggle" onclick="toggleDetail(this)" aria-expanded="false">
+              Voir l'étude de cas
+              <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,9 12,15 18,9"/></svg>
+            </button>
+            <div class="project-detail">
+              <div class="project-detail-inner">
+                <div class="detail-row">
+                  <div class="detail-label">Contexte</div>
+                  <div class="detail-text">
+                    Quatre héritiers installés en France hexagonale, au Canada et en Guadeloupe
+                    devaient céder deux immeubles de rapport occupés au centre de Pointe-à-Pitre,
+                    sans pouvoir se déplacer ni coordonner les démarches.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Intervention</div>
+                  <div class="detail-text">
+                    Mandat unique de coordination : audit locatif et technique des deux immeubles,
+                    régularisation des baux, avis de valeur, procurations notariées à distance et
+                    commercialisation auprès d'investisseurs locaux qualifiés.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Résultat</div>
+                  <div class="detail-text">
+                    Les deux immeubles ont été cédés en 9 mois, occupés et en bloc, sans qu'aucun
+                    héritier n'ait eu à se déplacer aux Antilles.
+                  </div>
+                </div>
+                <div class="detail-figures">
+                  <span class="detail-figure">3 pays coordonnés</span>
+                  <span class="detail-figure">11 lots locatifs audités</span>
+                  <span class="detail-figure">Vente en bloc</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6 — Villa clef en main -->
+        <article class="project-card reveal" data-cat="construction" data-statut="termine">
+          <div class="project-img-wrap">
+            <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=700&q=80"
+                 alt="Villa contemporaine — Les Trois-Îlets, Martinique" loading="lazy" />
+            <div class="project-badges">
+              <span class="project-badge-cat">Construction</span>
+              <span class="project-badge-status termine">Terminé</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <h2 class="project-title">Villa contemporaine clef en main</h2>
+            <div class="project-location">
+              <span class="project-location-dot"></span>
+              Les Trois-Îlets, Martinique
+            </div>
+            <p class="project-desc">
+              Assistance à maîtrise d'ouvrage complète : permis de construire,
+              appels d'offres et suivi de chantier pendant 18 mois.
+            </p>
+            <div class="project-metric">Budget tenu à 2%</div>
+            <button class="project-toggle" onclick="toggleDetail(this)" aria-expanded="false">
+              Voir l'étude de cas
+              <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,9 12,15 18,9"/></svg>
+            </button>
+            <div class="project-detail">
+              <div class="project-detail-inner">
+                <div class="detail-row">
+                  <div class="detail-label">Contexte</div>
+                  <div class="detail-text">
+                    Un couple résidant en métropole souhaitait faire construire sa villa de retraite
+                    aux Trois-Îlets, sans pouvoir suivre le chantier sur place ni comparer
+                    sereinement les offres des entreprises locales.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Intervention</div>
+                  <div class="detail-text">
+                    AMO de bout en bout : programmation avec l'architecte, dépôt et suivi du permis
+                    de construire, consultation de 9 entreprises, négociation des marchés, réunions
+                    de chantier hebdomadaires avec comptes rendus photo, réception et levée des réserves.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Résultat</div>
+                  <div class="detail-text">
+                    Villa livrée en 18 mois avec un écart final de 2 % seulement par rapport au
+                    budget initial, réserves levées en 5 semaines.
+                  </div>
+                </div>
+                <div class="detail-figures">
+                  <span class="detail-figure">18 mois de suivi</span>
+                  <span class="detail-figure">9 entreprises consultées</span>
+                  <span class="detail-figure">Écart budget : 2%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7 — Friche commerciale -->
+        <article class="project-card reveal" data-cat="foncier" data-statut="encours">
+          <div class="project-img-wrap">
+            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=700&q=80"
+                 alt="Reconversion de friche commerciale — Baie-Mahault, Guadeloupe" loading="lazy" />
+            <div class="project-badges">
+              <span class="project-badge-cat">Foncier</span>
+              <span class="project-badge-status encours">En cours</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <h2 class="project-title">Reconversion friche commerciale</h2>
+            <div class="project-location">
+              <span class="project-location-dot"></span>
+              Baie-Mahault, Guadeloupe
+            </div>
+            <p class="project-desc">
+              Étude de faisabilité et montage opérationnel pour la reconversion de
+              2 400 m² commerciaux en zone d'activité de Jarry.
+            </p>
+            <div class="project-metric">2 400 m² · faisabilité validée</div>
+            <button class="project-toggle" onclick="toggleDetail(this)" aria-expanded="false">
+              Voir l'étude de cas
+              <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,9 12,15 18,9"/></svg>
+            </button>
+            <div class="project-detail">
+              <div class="project-detail-inner">
+                <div class="detail-row">
+                  <div class="detail-label">Contexte</div>
+                  <div class="detail-text">
+                    Un ensemble commercial de 2 400 m², vacant depuis la fermeture de son enseigne
+                    principale, pesait sur le patrimoine d'une SCI familiale sans générer de revenu.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Intervention</div>
+                  <div class="detail-text">
+                    Étude de marché des besoins en locaux d'activité sur la zone de Jarry, scénarios
+                    de redécoupage en cellules de 150 à 600 m², chiffrage des travaux de remise aux
+                    normes et montage juridique et financier de l'opération.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Avancement</div>
+                  <div class="detail-text">
+                    Faisabilité validée par la SCI. Autorisations en cours d'instruction et
+                    pré-commercialisation engagée auprès d'enseignes régionales.
+                  </div>
+                </div>
+                <div class="detail-figures">
+                  <span class="detail-figure">2 400 m² commerciaux</span>
+                  <span class="detail-figure">3 scénarios étudiés</span>
+                  <span class="detail-figure">Pré-commercialisation engagée</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 8 — Portefeuille locatif -->
+        <article class="project-card reveal" data-cat="valorisation" data-statut="termine">
+          <div class="project-img-wrap">
+            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=700&q=80"
+                 alt="Appartement rénové du portefeuille locatif — Fort-de-France, Martinique" loading="lazy" />
+            <div class="project-badges">
+              <span class="project-badge-cat">Valorisation</span>
+              <span class="project-badge-status termine">Terminé</span>
+            </div>
+          </div>
+          <div class="project-body">
+            <h2 class="project-title">Portefeuille locatif optimisé</h2>
+            <div class="project-location">
+              <span class="project-location-dot"></span>
+              Fort-de-France, Martinique
+            </div>
+            <p class="project-desc">
+              Audit de 6 biens locatifs, rénovation énergétique ciblée et repositionnement
+              des loyers. DPE moyen passé de E à C.
+            </p>
+            <div class="project-metric">+2,1 pts de rendement</div>
+            <button class="project-toggle" onclick="toggleDetail(this)" aria-expanded="false">
+              Voir l'étude de cas
+              <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6,9 12,15 18,9"/></svg>
+            </button>
+            <div class="project-detail">
+              <div class="project-detail-inner">
+                <div class="detail-row">
+                  <div class="detail-label">Contexte</div>
+                  <div class="detail-text">
+                    Un investisseur détenait 6 appartements à Fort-de-France avec des loyers
+                    sous-évalués, une vacance récurrente et des étiquettes énergie exposées aux
+                    futures restrictions de mise en location.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Intervention</div>
+                  <div class="detail-text">
+                    Audit technique et locatif des 6 lots, plan pluriannuel de travaux priorisé
+                    par impact : isolation, brasseurs d'air, chauffe-eau solaires, menuiseries.
+                    Renégociation des baux et repositionnement des loyers au prix de marché.
+                  </div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">Résultat</div>
+                  <div class="detail-text">
+                    DPE moyen du portefeuille passé de E à C, vacance résorbée et rendement net
+                    amélioré de 2,1 points, tout en sécurisant la louabilité à long terme.
+                  </div>
+                </div>
+                <div class="detail-figures">
+                  <span class="detail-figure">6 biens audités</span>
+                  <span class="detail-figure">DPE E → C</span>
+                  <span class="detail-figure">Vacance : 0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Empty state -->
+        <div class="no-results" id="noResults">
+          <div class="no-results-mark">∅</div>
+          <p>Aucune réalisation ne correspond à ce filtre pour le moment.</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="testimonials-head reveal">
+        <div class="section-label">Ils nous ont fait confiance</div>
+        <div class="gold-rule centered"></div>
+        <h2 class="section-title">Paroles de <em>clients</em></h2>
+      </div>
+      <div class="testimonials-grid">
+        <blockquote class="testimonial reveal">
+          <div class="testimonial-quote-mark" aria-hidden="true">“</div>
+          <p class="testimonial-text">
+            Sans Optimmo Dom, notre indivision serait encore bloquée.
+            Professionnalisme et humanité.
+          </p>
+          <footer class="testimonial-author">
+            <span class="testimonial-author-rule" aria-hidden="true"></span>
+            <span class="testimonial-author-name"><strong>Famille D.</strong> · Le Lamentin</span>
+          </footer>
+        </blockquote>
+        <blockquote class="testimonial reveal">
+          <div class="testimonial-quote-mark" aria-hidden="true">“</div>
+          <p class="testimonial-text">
+            L'étude de marché a révélé un potentiel que nous n'imaginions pas.
+          </p>
+          <footer class="testimonial-author">
+            <span class="testimonial-author-rule" aria-hidden="true"></span>
+            <span class="testimonial-author-name"><strong>Investisseur</strong> · Gosier</span>
+          </footer>
+        </blockquote>
+        <blockquote class="testimonial reveal">
+          <div class="testimonial-quote-mark" aria-hidden="true">“</div>
+          <p class="testimonial-text">
+            Un accompagnement de A à Z pour notre construction, sans stress.
+          </p>
+          <footer class="testimonial-author">
+            <span class="testimonial-author-rule" aria-hidden="true"></span>
+            <span class="testimonial-author-name"><strong>M. et Mme L.</strong> · Les Trois-Îlets</span>
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final">
+    <div class="cta-bg-text" aria-hidden="true">Votre projet</div>
+    <div class="container">
+      <div class="reveal" style="text-align:center">
+        <div class="section-label">Et maintenant ?</div>
+        <div class="gold-rule centered"></div>
+        <h2 class="section-title" style="margin-bottom:24px; text-align:center">
+          Votre projet mérite<br>la même <em>attention</em>
+        </h2>
+        <p class="cta-final-desc">
+          Succession à dénouer, patrimoine à valoriser, foncier à développer ou
+          construction à sécuriser — parlons-en. Franck Fidi et son équipe vous
+          répondent sous 48 heures, en Martinique comme en Guadeloupe.
+        </p>
+        <div class="cta-actions">
+          <a href="contact.html" class="btn-gold">Nous contacter</a>
+          <a href="catalogue.html" class="btn-ghost">Voir le catalogue</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand-name">Optimmo Dom</div>
+          <div class="footer-brand-sub">Conseil · Patrimoine · Antilles</div>
+          <p class="footer-brand-desc">
+            Expert en conseil immobilier, valorisation de patrimoine et dénouement
+            successoral en Martinique et Guadeloupe. Partenaire Sextant France.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" aria-label="Facebook">f</a>
+            <a href="#" class="footer-social" aria-label="LinkedIn">in</a>
+            <a href="#" class="footer-social" aria-label="Instagram">ig</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html">Conseil immobilier</a></li>
+            <li><a href="services.html">Dénouement successoral</a></li>
+            <li><a href="services.html">Valorisation patrimoine</a></li>
+            <li><a href="services.html">Développement foncier</a></li>
+            <li><a href="services.html">Projets de construction</a></li>
+            <li><a href="services.html">Avis de valeur</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Ressources</h4>
+          <ul class="footer-links">
+            <li><a href="catalogue.html">Catalogue immobilier</a></li>
+            <li><a href="realisations.html">Réalisations</a></li>
+            <li><a href="index.html#equipe">L'équipe</a></li>
+            <li><a href="espace-partenaires/">Espace partenaires</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a></li>
+            <li><a href="https://fidiconseil.com">fidiconseil.com</a></li>
+            <li><a href="#">Martinique</a></li>
+            <li><a href="#">Guadeloupe</a></li>
+            <li><a href="contact.html">Formulaire de contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Optimmo Dom · <a href="#">Mentions légales</a> · <a href="#">RGPD</a></p>
+        <p>Partenaire <a href="https://www.sextantfrance.fr" target="_blank" rel="noopener">Sextant France</a> · Martinique &amp; Guadeloupe</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ======================================
+       MENU
+    ====================================== */
+    let menuOpen = false
+    function toggleMenu() {
+      menuOpen = !menuOpen
+      document.getElementById('menu-overlay').classList.toggle('open', menuOpen)
+      document.getElementById('hamburger').classList.toggle('active', menuOpen)
+      document.body.style.overflow = menuOpen ? 'hidden' : ''
+    }
+    function closeMenu() {
+      menuOpen = false
+      document.getElementById('menu-overlay').classList.remove('open')
+      document.getElementById('hamburger').classList.remove('active')
+      document.body.style.overflow = ''
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) closeMenu() })
+
+    /* ======================================
+       NAV SCROLL
+    ====================================== */
+    const nav = document.getElementById('nav')
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50)
+    }, { passive: true })
+
+    /* ======================================
+       FILTER TABS
+    ====================================== */
+    function setProjectFilter(value, btn) {
+      document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'))
+      btn.classList.add('active')
+
+      let visible = 0
+      document.querySelectorAll('.project-card').forEach(card => {
+        const match =
+          value === 'tous' ||
+          (value === 'encours' ? card.dataset.statut === 'encours' : card.dataset.cat === value)
+        card.classList.toggle('hidden', !match)
+        if (match) visible++
+        else closeCard(card) // referme les panneaux des cartes masquées
+      })
+
+      document.getElementById('projectCount').innerHTML =
+        `<strong>${visible}</strong>&nbsp;projet${visible > 1 ? 's' : ''}`
+      document.getElementById('noResults').classList.toggle('show', visible === 0)
+    }
+
+    /* ======================================
+       ACCORDION — études de cas
+    ====================================== */
+    function closeCard(card) {
+      card.classList.remove('open')
+      const detail = card.querySelector('.project-detail')
+      const toggle = card.querySelector('.project-toggle')
+      if (detail) detail.style.maxHeight = '0px'
+      if (toggle) toggle.setAttribute('aria-expanded', 'false')
+    }
+
+    function toggleDetail(btn) {
+      const card = btn.closest('.project-card')
+      const detail = card.querySelector('.project-detail')
+      const isOpen = card.classList.contains('open')
+
+      // Un seul panneau ouvert à la fois
+      document.querySelectorAll('.project-card.open').forEach(c => {
+        if (c !== card) closeCard(c)
+      })
+
+      if (isOpen) {
+        closeCard(card)
+      } else {
+        card.classList.add('open')
+        detail.style.maxHeight = detail.scrollHeight + 'px'
+        btn.setAttribute('aria-expanded', 'true')
+      }
+    }
+
+    /* ======================================
+       SCROLL REVEAL (IntersectionObserver)
+    ====================================== */
+    const revealEls = document.querySelectorAll('.reveal')
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          const delay = (i % 4) * 80
+          setTimeout(() => entry.target.classList.add('in'), delay)
+          revealObs.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' })
+    revealEls.forEach(el => revealObs.observe(el))
+  </script>
+</body>
+</html>

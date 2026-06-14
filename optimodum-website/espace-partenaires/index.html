@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Espace Partenaires Optimmo Dom — Accédez à vos outils d'analyse immobilière, études de marché et avis de valeur en Martinique et Guadeloupe." />
+  <meta property="og:title" content="Espace Partenaires — Optimmo Dom" />
+  <meta property="og:description" content="Connectez-vous à votre espace professionnel Optimmo Dom." />
+  <meta property="og:type" content="website" />
+  <title>Espace Partenaires — Optimmo Dom</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/shared.css" />
+
+  <style>
+    /* ============================================
+       RESET & FULL-SCREEN LAYOUT
+    ============================================ */
+    html, body { height: 100%; }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ============================================
+       TWO-COLUMN SPLIT
+    ============================================ */
+    .login-layout {
+      display: flex;
+      min-height: 100vh;
+      flex: 1;
+    }
+
+    /* ---- LEFT PANEL ---- */
+    .login-left {
+      width: 45%;
+      flex-shrink: 0;
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .login-left::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 10%, rgba(201,168,76,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .login-left-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0;
+    }
+
+    /* Logo */
+    .left-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 36px;
+      text-decoration: none;
+    }
+    .left-logo-mark {
+      width: 56px; height: 56px;
+      border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 22px; font-weight: 500;
+      color: var(--gold); letter-spacing: 0.04em;
+      transition: background 300ms, color 300ms;
+    }
+    .left-logo:hover .left-logo-mark { background: var(--gold); color: var(--ink); }
+    .left-logo-name {
+      font-family: var(--serif); font-size: 24px;
+      font-weight: 300; color: var(--white); letter-spacing: 0.06em;
+    }
+    .left-logo-sub {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--gold); opacity: 0.75;
+    }
+
+    /* Tagline */
+    .left-tagline {
+      font-family: var(--serif); font-size: 19px;
+      font-style: italic; font-weight: 300;
+      color: rgba(232,236,240,0.7);
+      line-height: 1.55;
+      margin-bottom: 44px;
+    }
+    .left-tagline em { font-style: normal; color: var(--gold); }
+
+    /* Plan teasers */
+    .plans { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .plan {
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 16px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+      transition: border-color 300ms, background 300ms;
+    }
+    .plan:hover {
+      border-color: rgba(201,168,76,0.3);
+      background: rgba(201,168,76,0.03);
+    }
+    .plan.highlighted {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.06);
+      position: relative;
+    }
+    .plan.highlighted::after {
+      content: 'Populaire';
+      position: absolute; top: -1px; right: 16px;
+      background: var(--gold); color: var(--ink);
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 3px 10px;
+    }
+    .plan-name {
+      font-family: var(--serif); font-size: 16px;
+      font-weight: 400; color: var(--white);
+    }
+    .plan-price {
+      font-family: var(--sans); font-size: 14px;
+      font-weight: 700; color: var(--gold);
+      white-space: nowrap;
+    }
+    .plan-price .per { font-size: 10px; font-weight: 400; color: var(--slate); }
+    .plan-desc {
+      font-size: 11px; color: var(--slate);
+      text-align: left; flex: 1; line-height: 1.4;
+    }
+
+    .left-ondemand {
+      font-size: 12px; color: var(--slate);
+      text-align: center; margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .left-ondemand strong { color: var(--gold); font-weight: 700; }
+
+    .left-back {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--slate);
+      display: flex; align-items: center; gap: 8px;
+      transition: color 250ms;
+    }
+    .left-back:hover { color: var(--gold); }
+    .left-back .arrow { transition: transform 250ms; }
+    .left-back:hover .arrow { transform: translateX(-3px); }
+
+    /* ---- RIGHT PANEL ---- */
+    .login-right {
+      flex: 1;
+      background: var(--ink-mid);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 72px;
+      position: relative;
+    }
+    .login-right-inner {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .login-title {
+      font-family: var(--serif); font-size: clamp(32px, 4vw, 48px);
+      font-weight: 300; color: var(--white);
+      letter-spacing: -0.01em; line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .login-subtitle {
+      font-size: 15px; font-weight: 300;
+      color: var(--slate); margin-bottom: 40px;
+    }
+
+    /* Form */
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: block; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--slate); margin-bottom: 8px;
+    }
+    .field label .req { color: var(--gold); margin-left: 2px; }
+    .field-input-wrap { position: relative; }
+    .field input[type="email"],
+    .field input[type="password"],
+    .field input[type="text"] {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      font-family: var(--sans); font-size: 15px;
+      padding: 13px 16px;
+      outline: none;
+      transition: border-color 250ms, background 250ms;
+      -webkit-appearance: none; appearance: none;
+    }
+    .field input[type="password"] { padding-right: 50px; }
+    .field input:focus {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.04);
+    }
+    .field input::placeholder { color: var(--slate); opacity: 0.6; }
+    .field input.error { border-color: #E55353; }
+    .field input.valid { border-color: rgba(46,204,113,0.45); }
+
+    /* Password toggle */
+    .pwd-toggle {
+      position: absolute; right: 14px; top: 50%;
+      transform: translateY(-50%);
+      background: none; border: none;
+      color: var(--slate); cursor: pointer;
+      font-size: 13px; font-family: var(--sans);
+      font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 6px;
+      transition: color 250ms;
+      line-height: 1;
+    }
+    .pwd-toggle:hover { color: var(--gold); }
+
+    /* Remember me */
+    .remember-row {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 24px; cursor: pointer;
+    }
+    .remember-row input[type="checkbox"] {
+      width: 16px; height: 16px;
+      appearance: none; -webkit-appearance: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.04);
+      cursor: pointer; flex-shrink: 0;
+      transition: border-color 250ms, background 250ms;
+      position: relative;
+    }
+    .remember-row input[type="checkbox"]:checked {
+      background: var(--gold); border-color: var(--gold);
+    }
+    .remember-row input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute; top: 2px; left: 4px;
+      width: 5px; height: 8px;
+      border: 2px solid var(--ink);
+      border-top: none; border-left: none;
+      transform: rotate(45deg);
+    }
+    .remember-row span {
+      font-size: 13px; color: var(--slate);
+    }
+
+    /* Error message */
+    .login-error {
+      display: none;
+      background: rgba(229,83,83,0.08);
+      border: 1px solid rgba(229,83,83,0.3);
+      padding: 14px 18px; margin-bottom: 20px;
+      font-size: 13px; color: #E55353;
+      align-items: center; gap: 10px;
+    }
+    .login-error.visible { display: flex; }
+    .login-error-icon { font-size: 16px; flex-shrink: 0; }
+
+    /* Submit */
+    .btn-login {
+      width: 100%; padding: 15px 32px;
+      background: var(--gold); color: var(--ink);
+      font-family: var(--sans); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      transition: background 250ms, transform 250ms;
+    }
+    .btn-login:hover { background: var(--gold-lt); transform: translateY(-2px); }
+    .btn-login:active { transform: none; }
+    .btn-login:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+    /* Spinner */
+    .spinner {
+      display: none;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(7,15,26,0.3);
+      border-top-color: var(--ink);
+      border-radius: 50%;
+      animation: spin 600ms linear infinite;
+    }
+    .btn-login.loading .spinner { display: block; }
+    .btn-login.loading .btn-label { opacity: 0.7; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Forgot password */
+    .forgot-link {
+      display: block; text-align: right;
+      font-size: 12px; color: var(--slate);
+      margin-top: 14px;
+      transition: color 250ms;
+    }
+    .forgot-link:hover { color: var(--gold); }
+
+    /* Separator */
+    .login-sep {
+      display: flex; align-items: center; gap: 16px;
+      margin: 28px 0;
+    }
+    .login-sep::before,
+    .login-sep::after {
+      content: ''; flex: 1; height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+    .login-sep span {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--slate); white-space: nowrap;
+    }
+
+    /* Register button */
+    .btn-register {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 14px 32px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text); background: transparent;
+      font-family: var(--sans); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 250ms, color 250ms, background 250ms;
+    }
+    .btn-register:hover {
+      border-color: var(--gold); color: var(--gold);
+      background: rgba(201,168,76,0.04);
+    }
+
+    /* New partner section */
+    .new-partner {
+      margin-top: 32px;
+      padding: 28px 28px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .new-partner-label {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .new-partner-title {
+      font-family: var(--serif); font-size: 20px;
+      font-weight: 300; color: var(--white);
+      margin-bottom: 16px;
+    }
+    .new-partner-list {
+      list-style: none; display: flex;
+      flex-direction: column; gap: 8px; margin-bottom: 20px;
+    }
+    .new-partner-list li {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: var(--slate);
+    }
+    .new-partner-list li::before {
+      content: '';
+      width: 4px; height: 4px;
+      border-radius: 50%; background: var(--gold);
+      flex-shrink: 0;
+    }
+    .new-partner-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      padding-bottom: 2px;
+      transition: border-color 250ms, gap 250ms;
+    }
+    .new-partner-link:hover { border-color: var(--gold); gap: 12px; }
+
+    /* ============================================
+       MOBILE — Stack vertically
+    ============================================ */
+    @media (max-width: 900px) {
+      .login-layout { flex-direction: column; }
+      .login-left {
+        width: 100%; padding: 48px 32px;
+        justify-content: flex-start;
+      }
+      .login-left-inner {
+        max-width: 100%; gap: 0;
+      }
+      .left-logo { margin-bottom: 24px; }
+      .left-tagline { margin-bottom: 28px; font-size: 16px; }
+      .plans { margin-bottom: 20px; }
+      .plan { padding: 12px 16px; }
+      .left-ondemand { margin-bottom: 20px; }
+      .left-back { margin-top: 4px; }
+      .login-right {
+        padding: 48px 32px 64px;
+      }
+      .login-right-inner { max-width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .login-left { padding: 36px 24px; }
+      .login-right { padding: 40px 24px 56px; }
+      .new-partner { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-layout">
+
+    <!-- ============================================
+         LEFT PANEL — Brand & Plans
+    ============================================ -->
+    <aside class="login-left" aria-label="Présentation Optimmo Dom">
+      <div class="login-left-inner">
+
+        <!-- Logo -->
+        <a href="../index.html" class="left-logo" aria-label="Optimmo Dom — Retour à l'accueil">
+          <div class="left-logo-mark" aria-hidden="true">OD</div>
+          <div>
+            <div class="left-logo-name">Optimmo Dom</div>
+            <div class="left-logo-sub">Immobilier Antillais</div>
+          </div>
+        </a>
+
+        <!-- Tagline -->
+        <p class="left-tagline">
+          L'immobilier antillais, <em>analysé avec précision</em>
+        </p>
+
+        <!-- Plan teasers -->
+        <div class="plans" role="list" aria-label="Formules disponibles">
+          <div class="plan" role="listitem">
+            <div>
+              <div class="plan-name">Basic</div>
+              <div class="plan-desc">Études de marché + DVF</div>
+            </div>
+            <div class="plan-price">29€ <span class="per">/mois</span></div>
+          </div>
+          <div class="plan highlighted" role="listitem">
+            <div>
+              <div class="plan-name">Pro</div>
+              <div class="plan-desc">+ Avis de valeur + DPE</div>
+            </div>
+            <div class="plan-price">79€ <span class="per">/mois</span></div>
+          </div>
+          <div class="plan" role="listitem">
+            <div>
+              <div class="plan-name">Premium</div>
+              <div class="plan-desc">+ Sextant + Projets</div>
+            </div>
+            <div class="plan-price">149€ <span class="per">/mois</span></div>
+          </div>
+        </div>
+
+        <p class="left-ondemand">
+          Accès à la demande disponible<br />
+          <strong>Avis de valeur 19€</strong> l'unité — sans abonnement
+        </p>
+
+        <a href="https://fidiconseil.com" target="_blank" rel="noopener noreferrer"
+          class="left-back" aria-label="Retour sur fidiconseil.com">
+          <span class="arrow" aria-hidden="true">←</span>
+          fidiconseil.com
+        </a>
+
+      </div>
+    </aside>
+
+    <!-- ============================================
+         RIGHT PANEL — Login Form
+    ============================================ -->
+    <main class="login-right" aria-labelledby="login-heading">
+      <div class="login-right-inner">
+
+        <h1 class="login-title" id="login-heading">Espace<br />Partenaires</h1>
+        <p class="login-subtitle">Connectez-vous à votre espace professionnel</p>
+
+        <!-- Error message -->
+        <div class="login-error" id="login-error" role="alert" aria-live="polite">
+          <span class="login-error-icon" aria-hidden="true">⚠</span>
+          <span id="login-error-text">Identifiants incorrects — veuillez réessayer.</span>
+        </div>
+
+        <form id="login-form" novalidate>
+
+          <!-- Email -->
+          <div class="field">
+            <label for="login-email">
+              Email professionnel <span class="req">*</span>
+            </label>
+            <div class="field-input-wrap">
+              <input type="email" id="login-email" name="email"
+                placeholder="jean@cabinet.fr"
+                autocomplete="email" required />
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="field">
+            <label for="login-password">
+              Mot de passe <span class="req">*</span>
+            </label>
+            <div class="field-input-wrap">
+              <input type="password" id="login-password" name="password"
+                placeholder="••••••••"
+                autocomplete="current-password" required minlength="6" />
+              <button type="button" class="pwd-toggle" id="pwd-toggle"
+                aria-label="Afficher le mot de passe" aria-pressed="false">
+                Voir
+              </button>
+            </div>
+          </div>
+
+          <!-- Remember me -->
+          <label class="remember-row">
+            <input type="checkbox" id="remember" name="remember" />
+            <span>Rester connecté</span>
+          </label>
+
+          <!-- Submit -->
+          <button type="submit" class="btn-login" id="btn-login">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="btn-label">Connexion →</span>
+          </button>
+
+          <!-- Forgot password -->
+          <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+
+        </form>
+
+        <!-- Separator -->
+        <div class="login-sep" aria-hidden="true">
+          <span>ou</span>
+        </div>
+
+        <!-- Register -->
+        <button type="button" class="btn-register" onclick="window.location.href='../contact.html?type=partenaire'">
+          Créer un compte partenaire
+        </button>
+
+        <!-- New partner section -->
+        <div class="new-partner">
+          <p class="new-partner-label">Nouveau partenaire ?</p>
+          <p class="new-partner-title">Rejoignez le réseau Optimmo Dom</p>
+          <ul class="new-partner-list" role="list">
+            <li>Accédez aux outils d'analyse immobilière</li>
+            <li>Gérez vos projets et suivez vos dossiers</li>
+            <li>Restez informé du marché antillais en temps réel</li>
+          </ul>
+          <a href="../contact.html?type=partenaire" class="new-partner-link">
+            S'inscrire maintenant →
+          </a>
+        </div>
+
+      </div><!-- /login-right-inner -->
+    </main>
+
+  </div><!-- /login-layout -->
+
+  <!-- ============================================
+       JAVASCRIPT
+  ============================================ -->
+  <script>
+    'use strict';
+
+    /* ---------- Password show/hide ---------- */
+    const pwdInput  = document.getElementById('login-password');
+    const pwdToggle = document.getElementById('pwd-toggle');
+
+    pwdToggle.addEventListener('click', () => {
+      const isShowing = pwdInput.type === 'text';
+      pwdInput.type   = isShowing ? 'password' : 'text';
+      pwdToggle.textContent = isShowing ? 'Voir' : 'Masquer';
+      pwdToggle.setAttribute('aria-pressed', String(!isShowing));
+      pwdToggle.setAttribute('aria-label',
+        isShowing ? 'Afficher le mot de passe' : 'Masquer le mot de passe');
+    });
+
+    /* ---------- Form validation ---------- */
+    const form       = document.getElementById('login-form');
+    const emailField = document.getElementById('login-email');
+    const pwdField   = document.getElementById('login-password');
+    const btnLogin   = document.getElementById('btn-login');
+    const errorBox   = document.getElementById('login-error');
+    const errorText  = document.getElementById('login-error-text');
+
+    function isValidEmail(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+    }
+
+    function validateEmail() {
+      const v    = emailField.value.trim();
+      const ok   = v !== '' && isValidEmail(v);
+      emailField.classList.toggle('error', !ok && v !== '');
+      emailField.classList.toggle('valid', ok);
+      return ok;
+    }
+
+    function validatePassword() {
+      const v  = pwdField.value;
+      const ok = v.length >= 6;
+      pwdField.classList.toggle('error', !ok && v !== '');
+      pwdField.classList.toggle('valid', ok);
+      return ok;
+    }
+
+    // Live validation on blur / input
+    emailField.addEventListener('blur', validateEmail);
+    emailField.addEventListener('input', () => {
+      if (emailField.classList.contains('error')) validateEmail();
+    });
+    pwdField.addEventListener('blur', validatePassword);
+    pwdField.addEventListener('input', () => {
+      if (pwdField.classList.contains('error')) validatePassword();
+      // Hide error banner once user starts typing again
+      errorBox.classList.remove('visible');
+    });
+
+    /* ---------- Submit ---------- */
+    function showError(msg, { resetPwd = false } = {}) {
+      btnLogin.disabled = false;
+      btnLogin.classList.remove('loading');
+      emailField.classList.add('error');
+      pwdField.classList.add('error');
+      errorText.textContent = msg;
+      errorBox.classList.add('visible');
+      errorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (resetPwd) { pwdField.value = ''; pwdField.classList.remove('valid'); }
+      pwdField.focus();
+    }
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      errorBox.classList.remove('visible');
+
+      const emailOk = validateEmail();
+      const pwdOk   = validatePassword();
+
+      if (!emailOk || !pwdOk) {
+        if (!emailOk) {
+          errorText.textContent = emailField.value.trim() === ''
+            ? 'Veuillez saisir votre adresse e-mail.'
+            : 'Adresse e-mail invalide.';
+        } else {
+          errorText.textContent = 'Le mot de passe doit contenir au moins 6 caractères.';
+        }
+        errorBox.classList.add('visible');
+        (emailOk ? pwdField : emailField).focus();
+        return;
+      }
+
+      btnLogin.disabled = true;
+      btnLogin.classList.add('loading');
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: emailField.value.trim(), password: pwdField.value }),
+        });
+        const data = await res.json().catch(() => ({}));
+
+        if (res.ok && data.success) {
+          // Le cookie HttpOnly est déjà posé ; on conserve aussi le token
+          // pour l'en-tête Bearer (fallback si le cookie est bloqué).
+          if (data.token) localStorage.setItem('optimmo_token', data.token);
+          btnLogin.classList.remove('loading');
+          window.location.assign('./dashboard.html');
+          return;
+        }
+
+        if (res.status === 429) {
+          showError(data.error || 'Trop de tentatives — réessayez dans quelques minutes.');
+        } else if (res.status === 403) {
+          showError(data.error || 'Compte suspendu — contactez contact@fidiconseil.com.');
+        } else {
+          showError('Identifiants incorrects — veuillez réessayer.', { resetPwd: true });
+        }
+      } catch (err) {
+        showError('Connexion au serveur impossible — vérifiez votre réseau et réessayez.');
+      }
+    });
+
+    /* ---------- Clear errors on email focus ---------- */
+    emailField.addEventListener('focus', () => {
+      errorBox.classList.remove('visible');
+      emailField.classList.remove('error');
+    });
+  </script>
+</body>
+</html>

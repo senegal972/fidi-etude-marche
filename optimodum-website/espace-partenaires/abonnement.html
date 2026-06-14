@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Abonnement — Optimmo Dom</title>
+  <script>
+    // Page de retour PayPal (cancel_url). On renvoie l'utilisateur vers son
+    // tableau de bord avec l'état du paiement.
+    'use strict';
+    const params = new URLSearchParams(window.location.search);
+    const annule = params.get('annule') === '1';
+    window.location.replace('./dashboard.html?paiement=' + (annule ? 'annule' : 'succes'));
+  </script>
+</head>
+<body></body>
+</html>

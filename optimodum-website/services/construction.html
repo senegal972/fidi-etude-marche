@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Construction & Rénovation — Optimmo Dom · Conseil Immobilier Antilles</title>
+  <meta name="description" content="Maîtrise d'ouvrage déléguée pour vos projets de construction neuve et rénovation en Martinique et Guadeloupe. Normes PS Antilles, paracyclonique, suivi de chantier." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <style>
+    /* ── Page-specific tokens ───────────────────────────── */
+    :root {
+      --ink: #070F1A;
+      --gold: #C9A84C;
+      --white: #FFFFFF;
+      --slate: #7A8A99;
+      --text: #E8ECF0;
+      --navy: #1A2B3C;
+    }
+
+    /* ── Hero ───────────────────────────────────────────── */
+    .page-hero {
+      min-height: 62vh;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 80px;
+      background: linear-gradient(160deg, #071520 0%, #070F1A 65%);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 1000px 500px at 60% 40%, rgba(201,168,76,0.05) 0%, transparent 70%);
+    }
+    .hero-grid-line {
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: rgba(201,168,76,0.07);
+    }
+    .hero-grid-line:nth-child(1) { left: 25%; }
+    .hero-grid-line:nth-child(2) { left: 50%; }
+    .hero-grid-line:nth-child(3) { left: 75%; }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-breadcrumb {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-bottom: 20px;
+    }
+    .hero-breadcrumb a { color: var(--gold); transition: opacity 0.2s; }
+    .hero-breadcrumb a:hover { opacity: 0.7; }
+    .hero-breadcrumb span { margin: 0 10px; }
+    .hero-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.35);
+      padding: 6px 16px;
+      margin-bottom: 28px;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(40px, 6vw, 80px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      max-width: 820px;
+      margin-bottom: 24px;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-subtitle {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--slate);
+      max-width: 580px;
+      line-height: 1.65;
+    }
+    .hero-rule {
+      width: 80px;
+      height: 1px;
+      background: var(--gold);
+      margin: 32px 0;
+    }
+
+    /* ── Sections ───────────────────────────────────────── */
+    section { padding: 100px 0; }
+    section:nth-child(even) { background: #080F1B; }
+    .section-header { margin-bottom: 60px; }
+    .section-header.centered { text-align: center; }
+    .section-header.centered .gold-rule { margin-left: auto; margin-right: auto; }
+
+    /* ── MOD intro ──────────────────────────────────────── */
+    .mod-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .mod-text p {
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+    .mod-aside {
+      background: var(--navy);
+      padding: 40px;
+      border-top: 2px solid var(--gold);
+    }
+    .mod-aside-title {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .mod-stat {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+    .mod-stat:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .mod-stat-num {
+      font-family: var(--serif);
+      font-size: 40px;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .mod-stat-label {
+      font-size: 13px;
+      color: var(--slate);
+    }
+
+    /* ── Missions grid ──────────────────────────────────── */
+    .missions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .mission-col { display: flex; flex-direction: column; gap: 24px; }
+    .mission-item {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 32px;
+      background: var(--navy);
+      border-left: 2px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .mission-item:hover {
+      border-left-color: var(--gold);
+      background: #1F3347;
+    }
+    .mission-icon {
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--gold);
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 400;
+    }
+    .mission-body {}
+    .mission-title {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .mission-text {
+      font-size: 14px;
+      color: var(--text);
+      opacity: 0.8;
+      line-height: 1.7;
+    }
+
+    /* ── Normes panel ───────────────────────────────────── */
+    .normes-panel {
+      background: #0A1828;
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 60px;
+      position: relative;
+    }
+    .normes-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+    }
+    .normes-panel-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .normes-panel h3 {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 40px;
+    }
+    .normes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    .norme-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .norme-code {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+      display: inline-block;
+      padding: 4px 10px;
+      width: fit-content;
+    }
+    .norme-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .norme-desc {
+      font-size: 13px;
+      color: var(--text);
+      opacity: 0.75;
+      line-height: 1.6;
+    }
+
+    /* ── Types de projets ───────────────────────────────── */
+    .projets-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+    .projet-card {
+      background: var(--navy);
+      padding: 52px 44px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .projet-card:hover { background: #1F3347; }
+    .projet-card::before {
+      content: attr(data-num);
+      position: absolute;
+      right: 32px;
+      top: 24px;
+      font-family: var(--serif);
+      font-size: 80px;
+      font-weight: 300;
+      color: rgba(201,168,76,0.06);
+      line-height: 1;
+    }
+    .projet-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border: 1px solid rgba(201,168,76,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .projet-icon-svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .projet-title {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+    .projet-title em { font-style: italic; color: var(--gold); }
+    .projet-text {
+      font-size: 14px;
+      color: var(--text);
+      opacity: 0.8;
+      line-height: 1.7;
+    }
+    .projet-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .projet-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--slate);
+      border: 1px solid rgba(122,138,153,0.3);
+      padding: 4px 10px;
+    }
+
+    /* ── Témoignage ─────────────────────────────────────── */
+    .temoignage-section { background: #080F1B; }
+    .temoignage-wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .quote-mark {
+      font-family: var(--serif);
+      font-size: 120px;
+      font-weight: 300;
+      color: rgba(201,168,76,0.15);
+      line-height: 0.6;
+      display: block;
+      margin-bottom: 32px;
+    }
+    .temoignage-text {
+      font-family: var(--serif);
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.55;
+      margin-bottom: 40px;
+    }
+    .temoignage-author {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .author-rule {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 12px;
+    }
+    .author-name {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .author-detail {
+      font-size: 13px;
+      color: var(--slate);
+    }
+
+    /* ── CTA ────────────────────────────────────────────── */
+    .cta-section {
+      background: linear-gradient(135deg, #0A1828 0%, #070F1A 100%);
+      padding: 120px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 400px;
+      background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
+    }
+    .cta-content { position: relative; z-index: 2; }
+    .cta-section h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .cta-section h2 em { font-style: italic; color: var(--gold); }
+    .cta-section p {
+      font-size: 16px;
+      color: var(--slate);
+      max-width: 500px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── Reveal animation ───────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── Responsive ─────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .mod-grid { grid-template-columns: 1fr; gap: 48px; }
+      .missions-grid { grid-template-columns: 1fr; }
+      .normes-panel { padding: 40px 32px; }
+      .projets-grid { grid-template-columns: 1fr; }
+      .normes-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 72px 0; }
+      .normes-panel { padding: 32px 24px; }
+      .projet-card { padding: 36px 28px; }
+      .quote-mark { font-size: 80px; }
+      .temoignage-text { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     NAV
+══════════════════════════════════════════════════════ -->
+<nav class="nav opaque" id="nav">
+  <a href="../index.html" class="nav-logo">
+    <div class="nav-logo-mark">OD</div>
+    <div>
+      <span class="nav-logo-text">Optimmo Dom</span>
+      <span class="nav-logo-sub">Conseil Immobilier Antilles</span>
+    </div>
+  </a>
+  <div class="nav-right">
+    <a href="../espace-partenaires/" class="nav-cta-btn">Espace Partenaires</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="menu-overlay">
+  <div>
+    <ul class="menu-overlay-nav">
+      <li><a href="../index.html">Accueil</a></li>
+      <li><a href="../services.html">Services</a></li>
+      <li><a href="../catalogue.html">Catalogue</a></li>
+      <li><a href="../realisations.html">Réalisations</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+      <li><a href="../espace-partenaires/">Espace Partenaires</a></li>
+    </ul>
+    <div class="menu-overlay-footer">
+      <div class="menu-overlay-contact">
+        <div>+596 696 00 00 00</div>
+        <div><a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════ -->
+<section class="page-hero">
+  <div class="hero-grid-line"></div>
+  <div class="hero-grid-line"></div>
+  <div class="hero-grid-line"></div>
+  <div class="container hero-content">
+    <div class="hero-breadcrumb">
+      <a href="../services.html">Services</a>
+      <span>›</span>
+      Construction &amp; Rénovation
+    </div>
+    <div class="hero-tag">Maîtrise d'ouvrage déléguée</div>
+    <h1 class="hero-title">Construction &amp; <em>Rénovation</em></h1>
+    <div class="hero-rule"></div>
+    <p class="hero-subtitle">Maîtrise d'ouvrage déléguée pour vos projets neufs et rénovations aux normes Antilles</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     POURQUOI LA MOD AUX ANTILLES ?
+══════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Contexte</div>
+      <div class="gold-rule"></div>
+      <h2 class="section-title">Pourquoi une maîtrise d'ouvrage<br>déléguée aux <em>Antilles</em> ?</h2>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-text reveal">
+        <p>
+          Construire ou rénover en Martinique et Guadeloupe engage une responsabilité technique et réglementaire particulièrement exigeante. Le territoire antillais est classé en zones sismiques 4 et 5 — les plus élevées du territoire national — et régulièrement exposé à des cyclones de forte intensité. Ces contraintes se traduisent par l'application obligatoire de la réglementation <strong style="color:var(--gold)">PS Antilles 92</strong> pour la résistance parasismique, ainsi que de la norme <strong style="color:var(--gold)">NF P 06-014</strong> pour la résistance aux charges de vent d'origine cyclonique. À cela s'ajoutent les DTU spécifiques à l'Outre-Mer et, pour les constructions neuves, les exigences de la RE 2020 adaptée au climat tropical humide. Maîtriser l'ensemble de ces référentiels normatifs tout en gérant un chantier constitue une mission à part entière.
+        </p>
+        <p>
+          La réalité du secteur du bâtiment aux Antilles ajoute une difficulté supplémentaire : la pénurie chronique d'entreprises qualifiées, la forte sollicitation des prestataires les plus fiables, et des délais d'approvisionnement allongés pour certains matériaux importés. Sans coordination experte entre le maître d'œuvre (architecte ou bureau d'études), les entreprises de gros œuvre, les corps d'état techniques (électricité, plomberie, climatisation) et les finitions, le chantier dérive inévitablement en délais et en coûts. La <strong style="color:var(--gold)">maîtrise d'ouvrage déléguée</strong> (MOD) que nous proposons vous libère de ces contraintes opérationnelles tout en vous gardant décisionnaire sur les choix stratégiques et esthétiques. Nous devenons votre représentant sur le terrain, garant du respect du programme, du budget et des normes.
+        </p>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="mod-aside">
+          <div class="mod-aside-title">En chiffres — marché de la construction Antilles</div>
+          <div class="mod-stat">
+            <span class="mod-stat-num">+35%</span>
+            <span class="mod-stat-label">de surcoût moyen sur les chantiers non coordonnés vs. budget initial</span>
+          </div>
+          <div class="mod-stat">
+            <span class="mod-stat-num">Zone 5</span>
+            <span class="mod-stat-label">classement sismique de la Guadeloupe — le plus élevé de France</span>
+          </div>
+          <div class="mod-stat">
+            <span class="mod-stat-num">185 km/h</span>
+            <span class="mod-stat-label">vitesse de vent de référence pour le dimensionnement paracyclonique aux Antilles</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     NOS MISSIONS
+══════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Périmètre d'intervention</div>
+      <div class="gold-rule"></div>
+      <h2 class="section-title">Nos <em>missions</em></h2>
+    </div>
+    <div class="missions-grid">
+      <div class="mission-col">
+        <div class="mission-item reveal">
+          <div class="mission-icon">P</div>
+          <div class="mission-body">
+            <h3 class="mission-title">Programmation</h3>
+            <p class="mission-text">Définition du programme architectural et technique en collaboration avec le client : besoins fonctionnels, surfaces, niveau de prestations, enveloppe budgétaire réaliste (coûts de construction Antilles inclus), phasage du projet et calendrier général.</p>
+          </div>
+        </div>
+        <div class="mission-item reveal reveal-delay-1">
+          <div class="mission-icon">C</div>
+          <div class="mission-body">
+            <h3 class="mission-title">Consultation & sélection</h3>
+            <p class="mission-text">Appels d'offres auprès d'entreprises qualifiées et référencées localement. Analyse comparative des devis, vérification des qualifications (assurances décennale et RC pro, références chantiers récents), négociation et recommandation finale.</p>
+          </div>
+        </div>
+        <div class="mission-item reveal reveal-delay-2">
+          <div class="mission-icon">S</div>
+          <div class="mission-body">
+            <h3 class="mission-title">Suivi de chantier</h3>
+            <p class="mission-text">Visites hebdomadaires sur site, comptes rendus de chantier détaillés, gestion des réunions de coordination inter-corps d'état, contrôle du planning d'avancement, alerte immédiate au maître d'ouvrage en cas de dérive.</p>
+          </div>
+        </div>
+      </div>
+      <div class="mission-col">
+        <div class="mission-item reveal reveal-delay-1">
+          <div class="mission-icon">N</div>
+          <div class="mission-body">
+            <h3 class="mission-title">Conformité normative</h3>
+            <p class="mission-text">Vérification en continu du respect des normes PS Antilles 92, NF P 06-014 (paracyclonique), DTU Martinique / Guadeloupe et RE 2020 adaptée Outre-Mer. Coordination avec le bureau de contrôle technique (SOCOTEC, QUALICONSULT, etc.).</p>
+          </div>
+        </div>
+        <div class="mission-item reveal reveal-delay-2">
+          <div class="mission-icon">R</div>
+          <div class="mission-body">
+            <h3 class="mission-title">Réception des travaux</h3>
+            <p class="mission-text">Organisation de la réception contradictoire, rédaction du procès-verbal de réception avec réserves, suivi de la levée des réserves dans les délais contractuels, établissement du Dossier des Ouvrages Exécutés (DOE) remis au client.</p>
+          </div>
+        </div>
+        <div class="mission-item reveal reveal-delay-3">
+          <div class="mission-icon">G</div>
+          <div class="mission-body">
+            <h3 class="mission-title">Garanties & suivi post-livraison</h3>
+            <p class="mission-text">Activation des garanties légales : parfait achèvement (1 an), bon fonctionnement (2 ans), décennale (10 ans). Accompagnement dans les démarches vis-à-vis des entreprises et assureurs si un sinistre survient.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     NORMES SPÉCIFIQUES ANTILLES
+══════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="normes-panel">
+        <div class="normes-panel-label">Réglementation technique</div>
+        <h3>Normes spécifiques <em style="font-style:italic; color:var(--gold);">Antilles</em></h3>
+        <div class="normes-grid">
+          <div class="norme-item">
+            <span class="norme-code">PS 69 · PS Antilles 92</span>
+            <div class="norme-name">Parasismique</div>
+            <div class="norme-desc">Règles de construction parasismiques spécifiques aux Antilles françaises. Exigences de ductilité des structures, ferraillages renforcés, fondations adaptées au sol local (argiles gonflantes, sols argileux du centre Martinique).</div>
+          </div>
+          <div class="norme-item">
+            <span class="norme-code">NF P 06-014</span>
+            <div class="norme-name">Paracyclonique</div>
+            <div class="norme-desc">Norme définissant les charges de vent de référence pour la conception des structures aux Antilles. Vitesse de base 185 km/h, majorée selon l'exposition du site. Impose des dimensionnements charpente, menuiseries et toiture très supérieurs à la métropole.</div>
+          </div>
+          <div class="norme-item">
+            <span class="norme-code">DTU Martinique · Guadeloupe</span>
+            <div class="norme-name">Règles constructives locales</div>
+            <div class="norme-desc">Documents techniques unifiés adaptés au contexte tropical humide : ventilation naturelle, protection solaire des façades, étanchéité renforcée des toitures-terrasses, traitement anti-humidité des maçonneries et des enduits.</div>
+          </div>
+          <div class="norme-item">
+            <span class="norme-code">RE 2020 Outre-Mer</span>
+            <div class="norme-name">Réglementation thermique</div>
+            <div class="norme-desc">Version tropicalisée de la réglementation énergétique, axée sur le confort estival, la limitation des apports solaires passifs et le recours privilégié à la ventilation naturelle traversante plutôt qu'à la climatisation mécanique.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     TYPES DE PROJETS
+══════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Références</div>
+      <div class="gold-rule"></div>
+      <h2 class="section-title">Types de <em>projets</em></h2>
+    </div>
+    <div class="projets-grid">
+      <div class="projet-card reveal" data-num="01">
+        <div class="projet-icon-wrap">
+          <svg class="projet-icon-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3 class="projet-title">Villa <em>neuve</em></h3>
+        <p class="projet-text">
+          Construction neuve de villas individuelles de 150 à 500 m², de l'esquisse architecturale à la livraison clés en main. Maîtrise des surcoûts liés aux normes parasismiques et paracycloniques, coordination architecte / bureau d'études structure / entreprises.
+        </p>
+        <div class="projet-tags">
+          <span class="projet-tag">Construction neuve</span>
+          <span class="projet-tag">150–500 m²</span>
+          <span class="projet-tag">Martinique · Guadeloupe</span>
+        </div>
+      </div>
+      <div class="projet-card reveal reveal-delay-1" data-num="02">
+        <div class="projet-icon-wrap">
+          <svg class="projet-icon-svg" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <h3 class="projet-title">Rénovation <em>partielle</em></h3>
+        <p class="projet-text">
+          Réhabilitation d'un bien existant : remise aux normes, rénovation de la salle de bain ou de la cuisine, amélioration de l'isolation thermique et acoustique, mise en conformité électrique, traitement des infiltrations et reprises de toiture.
+        </p>
+        <div class="projet-tags">
+          <span class="projet-tag">Rénovation</span>
+          <span class="projet-tag">Mise aux normes</span>
+          <span class="projet-tag">Valorisation</span>
+        </div>
+      </div>
+      <div class="projet-card reveal reveal-delay-2" data-num="03">
+        <div class="projet-icon-wrap">
+          <svg class="projet-icon-svg" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </div>
+        <h3 class="projet-title">Programme <em>collectif</em></h3>
+        <p class="projet-text">
+          Petits programmes résidentiels collectifs (3 à 20 logements), résidences de tourisme, immeubles de rapport. Coordination avec l'architecte, le bureau d'études, les organismes de contrôle technique et le syndic de copropriété.
+        </p>
+        <div class="projet-tags">
+          <span class="projet-tag">Collectif</span>
+          <span class="projet-tag">Tourisme</span>
+          <span class="projet-tag">Investissement</span>
+        </div>
+      </div>
+      <div class="projet-card reveal reveal-delay-3" data-num="04">
+        <div class="projet-icon-wrap">
+          <svg class="projet-icon-svg" viewBox="0 0 24 24"><path d="M2 20h20M4 20V10L12 3l8 7v10M9 20v-7h6v7"/></svg>
+        </div>
+        <h3 class="projet-title">Réhabilitation <em>patrimoniale</em></h3>
+        <p class="projet-text">
+          Restauration de maisons créoles, cases en bois, habitations de plantation. Respect des techniques traditionnelles (bois local, toiture en tôle sertie) tout en intégrant les exigences modernes de confort et de sécurité parasismique.
+        </p>
+        <div class="projet-tags">
+          <span class="projet-tag">Patrimoine créole</span>
+          <span class="projet-tag">Restauration</span>
+          <span class="projet-tag">Haut de gamme</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     TÉMOIGNAGE
+══════════════════════════════════════════════════════ -->
+<section class="temoignage-section">
+  <div class="container">
+    <div class="temoignage-wrapper reveal">
+      <span class="quote-mark">"</span>
+      <p class="temoignage-text">
+        Nous avions acheté un terrain à Sainte-Anne avec un projet de villa en tête, mais sans savoir par où commencer face aux contraintes parasismiques et à la difficulté de trouver des entreprises fiables. Optimmo Dom a piloté l'intégralité du chantier — de la sélection de l'architecte jusqu'à la réception des travaux. Résultat : un délai tenu et un budget respecté à 3% près. Une sérénité totale.
+      </p>
+      <div class="temoignage-author">
+        <div class="author-rule"></div>
+        <div class="author-name">Marie-Josée L. &amp; Franck B.</div>
+        <div class="author-detail">Villa neuve 280 m² — Sainte-Anne, Martinique</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     CTA
+══════════════════════════════════════════════════════ -->
+<section class="cta-section">
+  <div class="container cta-content">
+    <div class="reveal">
+      <div class="section-label" style="margin-bottom:16px; text-align:center;">Votre projet</div>
+      <h2>Parlons de votre projet de<br><em>construction</em></h2>
+      <p>Une première consultation pour évaluer la faisabilité, le budget et le calendrier de votre projet aux Antilles.</p>
+      <div class="cta-actions">
+        <a href="../contact.html" class="btn-gold">Discuter de mon projet</a>
+        <a href="../realisations.html" class="btn-ghost">Voir nos réalisations</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Optimmo Dom</div>
+        <div class="footer-brand-sub">Conseil Immobilier Antilles</div>
+        <p class="footer-brand-desc">Expertise immobilière haut de gamme en Martinique et Guadeloupe. Réseau Sextant France.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social">f</a>
+          <a href="#" class="footer-social">in</a>
+          <a href="#" class="footer-social">ig</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="conseil-immobilier.html">Conseil Immobilier</a></li>
+          <li><a href="succession.html">Succession &amp; Indivision</a></li>
+          <li><a href="valorisation.html">Valorisation</a></li>
+          <li><a href="foncier.html">Ingénierie Foncière</a></li>
+          <li><a href="construction.html">Construction</a></li>
+          <li><a href="avis-de-valeur.html">Avis de Valeur</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Territoires</h4>
+        <ul class="footer-links">
+          <li><a href="#">Martinique</a></li>
+          <li><a href="#">Guadeloupe</a></li>
+          <li><a href="#">Fort-de-France</a></li>
+          <li><a href="#">Pointe-à-Pitre</a></li>
+          <li><a href="#">Le Gosier</a></li>
+          <li><a href="#">Le Lamentin</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a></li>
+          <li><a href="tel:+596696000000">+596 696 00 00 00</a></li>
+          <li><a href="../contact.html">Formulaire de contact</a></li>
+          <li><a href="../espace-partenaires/">Espace Partenaires</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Optimmo Dom · Réseau Sextant France · <a href="#">Mentions légales</a></p>
+      <p>Conseil immobilier expert en Martinique et Guadeloupe</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const hamburger = document.getElementById('hamburger');
+  const overlay = document.getElementById('menu-overlay');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+  hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); overlay.classList.toggle('open'); document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : ''; });
+  document.querySelectorAll('#menu-overlay a').forEach(a => a.addEventListener('click', () => { hamburger.classList.remove('active'); overlay.classList.remove('open'); document.body.style.overflow = ''; }));
+  document.querySelectorAll('.reveal').forEach(el => { new IntersectionObserver(([e]) => e.isIntersecting && e.target.classList.add('in'), { threshold: 0.12 }).observe(el); });
+</script>
+</body>
+</html>
