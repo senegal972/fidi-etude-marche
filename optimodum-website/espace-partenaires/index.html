@@ -632,7 +632,19 @@
     });
 
     /* ---------- Submit ---------- */
-    form.addEventListener('submit', e => {
+    function showError(msg, { resetPwd = false } = {}) {
+      btnLogin.disabled = false;
+      btnLogin.classList.remove('loading');
+      emailField.classList.add('error');
+      pwdField.classList.add('error');
+      errorText.textContent = msg;
+      errorBox.classList.add('visible');
+      errorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (resetPwd) { pwdField.value = ''; pwdField.classList.remove('valid'); }
+      pwdField.focus();
+    }
+
+    form.addEventListener('submit', async e => {
       e.preventDefault();
       errorBox.classList.remove('visible');
 
@@ -652,24 +664,37 @@
         return;
       }
 
-      // Simulate loading spinner
       btnLogin.disabled = true;
       btnLogin.classList.add('loading');
 
-      setTimeout(() => {
-        btnLogin.disabled = false;
-        btnLogin.classList.remove('loading');
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: emailField.value.trim(), password: pwdField.value }),
+        });
+        const data = await res.json().catch(() => ({}));
 
-        // Simulate auth failure (no real backend yet)
-        emailField.classList.add('error');
-        pwdField.classList.add('error');
-        errorText.textContent = 'Identifiants incorrects — veuillez réessayer.';
-        errorBox.classList.add('visible');
-        errorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        pwdField.value = '';
-        pwdField.classList.remove('valid');
-        pwdField.focus();
-      }, 1600);
+        if (res.ok && data.success) {
+          // Le cookie HttpOnly est déjà posé ; on conserve aussi le token
+          // pour l'en-tête Bearer (fallback si le cookie est bloqué).
+          if (data.token) localStorage.setItem('optimmo_token', data.token);
+          btnLogin.classList.remove('loading');
+          window.location.assign('./dashboard.html');
+          return;
+        }
+
+        if (res.status === 429) {
+          showError(data.error || 'Trop de tentatives — réessayez dans quelques minutes.');
+        } else if (res.status === 403) {
+          showError(data.error || 'Compte suspendu — contactez contact@fidiconseil.com.');
+        } else {
+          showError('Identifiants incorrects — veuillez réessayer.', { resetPwd: true });
+        }
+      } catch (err) {
+        showError('Connexion au serveur impossible — vérifiez votre réseau et réessayez.');
+      }
     });
 
     /* ---------- Clear errors on email focus ---------- */
