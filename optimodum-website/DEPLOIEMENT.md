@@ -241,3 +241,60 @@ git push origin main
 - Connexion limitée à **5 tentatives / 15 min** par email (anti brute-force).
 - Les abonnements vérifient le `custom_id` PayPal = `user.id` (anti-détournement).
 - Les webhooks vérifient la **signature PayPal** avant tout traitement.
+
+---
+
+## 9. Raccordement du domaine `fidiconseil.com` (registrar Gandi)
+
+Le domaine est enregistré chez **Gandi** ; le site est hébergé sur **Netlify**.
+Deux méthodes au choix.
+
+### Étape commune — déclarer le domaine sur Netlify
+
+1. Netlify → projet `fidi-etude-marche` → **Domain management** → **Add a domain**.
+2. Saisir `fidiconseil.com` → **Verify** → **Add domain**.
+3. Netlify propose alors soit ses **nameservers** (option A), soit des
+   **enregistrements DNS** à créer (option B).
+
+### Option A — Déléguer le DNS à Netlify (recommandé, le plus simple)
+
+Donne le HTTPS automatique et gère l'apex sans configuration manuelle.
+
+1. Dans Netlify, après ajout du domaine → **Set up Netlify DNS** → Netlify
+   affiche **4 nameservers** (ex. `dns1.p0X.nsone.net`, … — propres à votre zone).
+2. Chez **Gandi** → domaine `fidiconseil.com` → onglet **Nameservers / Serveurs
+   de noms** → **Modifier / External** → remplacer par les **4 nameservers
+   Netlify** copiés à l'étape 1.
+3. Patienter la propagation DNS (de quelques minutes à 24 h). Netlify émet
+   automatiquement le certificat **Let's Encrypt** (HTTPS).
+
+> ⚠️ Cette option transfère **toute** la gestion DNS à Netlify. Si des e-mails
+> `@fidiconseil.com` (MX) ou d'autres enregistrements existent chez Gandi,
+> recréez-les dans Netlify DNS **avant** de basculer les nameservers, sinon la
+> messagerie sera interrompue.
+
+### Option B — Garder le DNS Gandi (Gandi LiveDNS)
+
+À privilégier si votre messagerie / vos enregistrements restent gérés par Gandi.
+
+Chez **Gandi** → domaine → **Enregistrements DNS (LiveDNS)** → ajouter :
+
+| Type | Nom | Valeur | TTL |
+|------|-----|--------|-----|
+| `A` | `@` | `75.2.60.5` | 1800 |
+| `CNAME` | `www` | `fidi-etude-marche.netlify.app.` | 1800 |
+
+- `@` = l'apex `fidiconseil.com` ; `75.2.60.5` est le load-balancer Netlify.
+- Si votre LiveDNS propose un type **`ALIAS`/`ANAME`**, vous pouvez l'utiliser sur
+  `@` avec la valeur `apex-loadbalancer.netlify.com.` (alternative au `A`).
+- Dans Netlify, après propagation, **Verify DNS configuration** puis laisser
+  Netlify provisionner le certificat HTTPS.
+
+### Après raccordement
+
+- Définir `fidiconseil.com` comme **domaine principal** dans Netlify (redirige
+  `www` → apex ou inversement, au choix).
+- Mettre à jour la variable d'environnement `BASE_URL=https://fidiconseil.com`.
+- Vérifier que `https://fidiconseil.com` redirige vers le site Optimmo Dom
+  (`/optimodum-website/`, cf. règle de redirection du `netlify.toml`).
+- Mettre à jour les **return_url / webhook PayPal** sur le domaine définitif.
