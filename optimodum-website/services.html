@@ -89,6 +89,23 @@
       left: -12px;
     }
 
+    /* Image placeholder */
+    .service-image-placeholder {
+      background: linear-gradient(135deg, #1A2B3C 0%, #243447 100%);
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(201,168,76,0.15);
+    }
+    .placeholder-label {
+      font-family: var(--serif);
+      font-size: 14px;
+      color: rgba(201,168,76,0.4);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
     .service-number {
       font-family: var(--serif);
       font-size: 80px;
@@ -153,9 +170,16 @@
       font-weight: 300;
       color: var(--white);
       line-height: 1.15;
-      margin-bottom: 48px;
+      margin-bottom: 20px;
     }
     .services-cta-title em { font-style: italic; color: var(--gold); }
+    .services-cta-sub {
+      max-width: 560px;
+      margin: 0 auto 48px;
+      font-size: 16px;
+      color: rgba(232,236,240,0.65);
+      line-height: 1.8;
+    }
     .cta-btns {
       display: flex;
       gap: 20px;
@@ -231,7 +255,7 @@
         <div class="gold-rule"></div>
         <h1 class="section-title">Nos <em>Services</em></h1>
         <p style="max-width:580px; margin-top:20px; font-size:17px; color:rgba(232,236,240,0.7); line-height:1.8;">
-          Une offre intégrée pour tous vos projets immobiliers en Martinique et Guadeloupe — de l'acquisition à la valorisation patrimoniale.
+          Une offre intégrée pour tous vos projets immobiliers en Martinique et Guadeloupe
         </p>
       </div>
     </div>
@@ -241,7 +265,7 @@
   <section class="services-intro reveal">
     <div class="container">
       <p>
-        Depuis Fort-de-France à Pointe-à-Pitre, Optimmo Dom accompagne particuliers, investisseurs et professionnels dans toutes les étapes de leurs projets immobiliers en Outre-Mer. Notre maîtrise du cadre juridique spécifique aux DOM — indivision, loi Littoral, normes paracycloniques, dispositifs de défiscalisation — constitue notre avantage décisif.
+        Depuis Fort-de-France à Pointe-à-Pitre, Optimmo Dom accompagne particuliers, investisseurs et professionnels dans toutes les étapes de leurs projets immobiliers en Outre-Mer. Notre maîtrise du cadre juridique spécifique aux DOM, des dispositifs de défiscalisation et des spécificités du marché antillais constitue notre avantage décisif.
       </p>
     </div>
   </section>
@@ -250,181 +274,181 @@
   <section class="service-rows">
     <div class="container">
 
-      <!-- ROW 1 — Conseil Immobilier (image left) -->
+      <!-- ROW 1 — Conseil Immobilier (image left, text right) -->
       <div class="service-row reveal">
         <div class="service-visual">
           <div class="service-visual-frame">
-            <div style="background: linear-gradient(135deg, #1A2B3C 0%, #243447 100%); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
-              <span style="font-family: var(--serif); font-size: 14px; color: rgba(201,168,76,0.4); letter-spacing: 0.2em; text-transform: uppercase;">[Conseil Immobilier]</span>
+            <div class="service-image-placeholder">
+              <span class="placeholder-label">Conseil Immobilier</span>
             </div>
           </div>
         </div>
         <div class="service-content">
           <span class="service-number">01</span>
-          <div class="section-label">Accompagnement personnalisé</div>
+          <div class="section-label">Service 01</div>
           <div class="gold-rule"></div>
           <h2 class="service-content-title">Conseil <em>Immobilier</em></h2>
           <p>
-            Acquérir, vendre ou investir en Martinique et en Guadeloupe requiert une expertise locale que les agences généralistes ne possèdent pas. Nous connaissons chaque micro-marché — du Lamentin à Sainte-Anne, du Gosier à Basse-Terre — et nous mettons cette connaissance au service de votre stratégie.
+            Acquérir, vendre ou investir en immobilier en Martinique ou en Guadeloupe requiert une connaissance approfondie du marché local, de ses spécificités juridiques et des particularités du paysage immobilier des DOM. Optimmo Dom vous accompagne du premier contact jusqu'à la signature de l'acte avec un suivi personnalisé.
           </p>
           <p>
-            Notre appartenance au réseau Sextant France, fort de plus de 3 000 mandataires, nous donne accès à une base de données transactionnelle nationale croisée avec les données DVF locales, pour une négociation toujours fondée sur des faits.
+            En tant que membre du réseau Sextant France fort de plus de 3 000 mandataires, nous conjuguons expertise locale et rayonnement national, offrant à nos clients l'accès à un portefeuille exclusif de biens et à un puissant réseau d'acquéreurs.
           </p>
           <ul class="service-bullets">
-            <li>Analyse comparative de marché (données DVF & VALORIS)</li>
-            <li>Stratégie d'acquisition et négociation prix</li>
-            <li>Sécurisation juridique et due diligence</li>
-            <li>Mise en relation notaire, expert et financement</li>
+            <li>Acquisition clé en main (recherche, visite, négociation, compromis)</li>
+            <li>Mise en vente stratégique avec estimation précise</li>
+            <li>Investissement locatif défiscalisé (Pinel Outre-Mer)</li>
+            <li>Suivi juridique et notarial complet</li>
           </ul>
           <a href="services/conseil-immobilier.html" class="btn-gold-border">Découvrir ce service →</a>
         </div>
       </div>
 
-      <!-- ROW 2 — Succession & Indivision (image right) -->
+      <!-- ROW 2 — Succession & Indivision (text left, image right) -->
       <div class="service-row reverse reveal">
         <div class="service-visual">
           <div class="service-visual-frame">
-            <div style="background: linear-gradient(135deg, #1A2B3C 0%, #243447 100%); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
-              <span style="font-family: var(--serif); font-size: 14px; color: rgba(201,168,76,0.4); letter-spacing: 0.2em; text-transform: uppercase;">[Succession & Indivision]</span>
+            <div class="service-image-placeholder">
+              <span class="placeholder-label">Succession &amp; Indivision</span>
             </div>
           </div>
         </div>
         <div class="service-content">
           <span class="service-number">02</span>
-          <div class="section-label">Résolution patrimoniale</div>
+          <div class="section-label">Service 02</div>
           <div class="gold-rule"></div>
           <h2 class="service-content-title">Succession & <em>Indivision</em></h2>
           <p>
-            L'indivision successorale est l'une des problématiques les plus fréquentes aux Antilles : des biens transmis de génération en génération sans acte notarié, des héritiers dispersés entre la métropole et les îles, des situations bloquées depuis parfois quarante ans. Notre expertise permet de dénouer ces situations dans le respect des droits de chacun.
+            L'indivision successorale est un défi particulièrement fréquent aux Antilles, où des biens ont parfois été transmis sur plusieurs générations sans acte notarié formalisé. Héritiers dispersés entre la métropole et les Antilles, droits non établis, conflits latents : Optimmo Dom intervient pour trouver des solutions amiables et durables.
           </p>
           <p>
-            Nous intervenons en médiation amiable avant d'envisager toute procédure contentieuse, avec pour objectif la préservation du patrimoine familial et une répartition équitable du produit de cession.
+            Notre rôle est de faciliter le dialogue entre co-indivisaires, de procéder à une évaluation équitable et indépendante des biens, et d'accompagner la sortie d'indivision dans les meilleures conditions, que ce soit par une vente amiable, un partage ou un rachat de parts.
           </p>
           <ul class="service-bullets">
             <li>Audit des titres de propriété et identification des ayants droit</li>
-            <li>Médiation entre héritiers résidant en métropole et aux Antilles</li>
-            <li>Estimation contradictoire pour partage équitable</li>
-            <li>Accompagnement complet jusqu'à la vente et le partage</li>
+            <li>Médiation entre héritiers et recherche d'accord amiable</li>
+            <li>Estimation impartiale des biens en indivision</li>
+            <li>Accompagnement complet jusqu'à l'acte authentique</li>
           </ul>
           <a href="services/succession.html" class="btn-gold-border">Découvrir ce service →</a>
         </div>
       </div>
 
-      <!-- ROW 3 — Valorisation Patrimoniale (image left) -->
+      <!-- ROW 3 — Valorisation Patrimoniale (image left, text right) -->
       <div class="service-row reveal">
         <div class="service-visual">
           <div class="service-visual-frame">
-            <div style="background: linear-gradient(135deg, #1A2B3C 0%, #243447 100%); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
-              <span style="font-family: var(--serif); font-size: 14px; color: rgba(201,168,76,0.4); letter-spacing: 0.2em; text-transform: uppercase;">[Valorisation Patrimoniale]</span>
+            <div class="service-image-placeholder">
+              <span class="placeholder-label">Valorisation Patrimoniale</span>
             </div>
           </div>
         </div>
         <div class="service-content">
           <span class="service-number">03</span>
-          <div class="section-label">Optimisation du patrimoine</div>
+          <div class="section-label">Service 03</div>
           <div class="gold-rule"></div>
           <h2 class="service-content-title">Valorisation <em>Patrimoniale</em></h2>
           <p>
-            Votre bien immobilier aux Antilles recèle un potentiel que sa présentation actuelle ne reflète peut-être pas. Qu'il s'agisse d'une villa en bord de mer à Sainte-Anne, d'un appartement en centre-ville de Fort-de-France ou d'un immeuble de rapport au Gosier, nous élaborons une stratégie sur mesure pour maximiser sa valeur vénale et locative.
+            Valoriser un patrimoine immobilier aux Antilles demande une connaissance fine des tendances de marché locales, des contraintes réglementaires spécifiques aux DOM (loi Littoral, zonage PPRN) et des attentes d'une clientèle exigeante. Nous élaborons des stratégies sur mesure pour maximiser la valeur de vos actifs.
           </p>
           <p>
-            Home staging adapté au goût caribéen, rénovation ciblée, optimisation des charges, mise en conformité énergétique : chaque euro investi est calibré pour un retour sur investissement mesurable avant la mise en marché.
+            Qu'il s'agisse d'améliorer la performance énergétique d'un bien, de réorganiser un patrimoine locatif ou d'optimiser la fiscalité d'une SCI familiale, notre approche est globale et intègre les spécificités fiscales de l'Outre-Mer.
           </p>
           <ul class="service-bullets">
-            <li>Diagnostic patrimonial et benchmarking de marché local</li>
-            <li>Plan de valorisation avant vente (travaux, home staging)</li>
-            <li>Optimisation fiscale : dispositifs Pinel Outre-Mer, Girardin</li>
-            <li>Stratégie locative saisonnière ou longue durée</li>
+            <li>Diagnostic patrimonial complet (valeur vénale, valeur locative, fiscalité)</li>
+            <li>Stratégie de rénovation et mise aux normes tropicales</li>
+            <li>Optimisation fiscale (Pinel OM, Girardin, LMP/LMNP)</li>
+            <li>Structuration patrimoniale (SCI, démembrement)</li>
           </ul>
           <a href="services/valorisation.html" class="btn-gold-border">Découvrir ce service →</a>
         </div>
       </div>
 
-      <!-- ROW 4 — Ingénierie Foncière (image right) -->
+      <!-- ROW 4 — Ingénierie Foncière (text left, image right) -->
       <div class="service-row reverse reveal">
         <div class="service-visual">
           <div class="service-visual-frame">
-            <div style="background: linear-gradient(135deg, #1A2B3C 0%, #243447 100%); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
-              <span style="font-family: var(--serif); font-size: 14px; color: rgba(201,168,76,0.4); letter-spacing: 0.2em; text-transform: uppercase;">[Ingénierie Foncière]</span>
+            <div class="service-image-placeholder">
+              <span class="placeholder-label">Ingénierie Foncière</span>
             </div>
           </div>
         </div>
         <div class="service-content">
           <span class="service-number">04</span>
-          <div class="section-label">Développement du foncier</div>
+          <div class="section-label">Service 04</div>
           <div class="gold-rule"></div>
           <h2 class="service-content-title">Ingénierie <em>Foncière</em></h2>
           <p>
-            Le foncier antillais est soumis à des contraintes réglementaires spécifiques : loi Littoral, zones de risques naturels (séismes, éruptions, cyclones), servitudes de passage ancestrales, bandes de recul côtières. Notre maîtrise de ces règles est un atout décisif pour débloquer des projets fonciers complexes.
+            Les opérations foncières aux Antilles sont encadrées par des réglementations complexes : loi Littoral, Plan de Prévention des Risques Naturels (PPRN), servitudes spécifiques aux îles. Notre équipe maîtrise ces contraintes pour vous offrir des solutions opérationnelles fiables.
           </p>
           <p>
-            Nous intervenons en amont de tout projet, de la vérification de la constructibilité parcellaire à la mise en place des raccordements VRD, en passant par les divisions parcellaires et les dépôts de permis d'aménager.
+            De la division parcellaire à la viabilisation d'un terrain, en passant par l'obtention des autorisations administratives, nous coordonnons l'ensemble des intervenants (géomètre, bureau d'études, collectivités) pour sécuriser vos projets fonciers.
           </p>
           <ul class="service-bullets">
-            <li>Analyse réglementaire (PLU, loi Littoral, zones de risques)</li>
-            <li>Divisions parcellaires et bornage cadastral</li>
-            <li>Coordination VRD : eau, assainissement, électricité, voirie</li>
-            <li>Dossier de permis d'aménager et suivi instruction</li>
+            <li>Division et bornage parcellaire</li>
+            <li>Raccordements VRD (eau, électricité, assainissement)</li>
+            <li>Analyse de la constructibilité et des servitudes</li>
+            <li>Montage des dossiers de permis d'aménager</li>
           </ul>
           <a href="services/foncier.html" class="btn-gold-border">Découvrir ce service →</a>
         </div>
       </div>
 
-      <!-- ROW 5 — Construction & Rénovation (image left) -->
+      <!-- ROW 5 — Construction & Rénovation (image left, text right) -->
       <div class="service-row reveal">
         <div class="service-visual">
           <div class="service-visual-frame">
-            <div style="background: linear-gradient(135deg, #1A2B3C 0%, #243447 100%); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
-              <span style="font-family: var(--serif); font-size: 14px; color: rgba(201,168,76,0.4); letter-spacing: 0.2em; text-transform: uppercase;">[Construction & Rénovation]</span>
+            <div class="service-image-placeholder">
+              <span class="placeholder-label">Construction &amp; Rénovation</span>
             </div>
           </div>
         </div>
         <div class="service-content">
           <span class="service-number">05</span>
-          <div class="section-label">Maîtrise d'ouvrage déléguée</div>
+          <div class="section-label">Service 05</div>
           <div class="gold-rule"></div>
           <h2 class="service-content-title">Construction & <em>Rénovation</em></h2>
           <p>
-            Construire ou rénover aux Antilles impose des contraintes techniques sans équivalent en métropole : normes paracycloniques PS MI / NF EN 1998, résistance à l'humidité saline, gestion des eaux pluviales tropicales, isolation thermique adaptée aux fortes chaleurs. Un projet mal encadré peut rapidement dériver en surcoût significatif.
+            Construire ou rénover en Martinique et en Guadeloupe impose de maîtriser les normes parasismiques et paracycloniques (PS 92, Eurocode 8), les contraintes climatiques tropicales et la disponibilité locale des matériaux et des entreprises. Optimmo Dom assure la maîtrise d'ouvrage déléguée de vos projets.
           </p>
           <p>
-            En qualité de maître d'ouvrage délégué, nous sélectionnons les entreprises, suivons les chantiers, contrôlons les budgets et garantissons la conformité aux normes locales — pour que vous receviez les clés d'un bien parfaitement réalisé.
+            Nous sélectionnons les entreprises locales certifiées, coordonnons les études techniques, assurons le suivi de chantier et veillons au respect des délais et des budgets. Notre connaissance du tissu économique local garantit des partenariats fiables.
           </p>
           <ul class="service-bullets">
-            <li>Sélection et contractualisation avec les artisans locaux</li>
-            <li>Suivi de chantier hebdomadaire et reporting client</li>
-            <li>Conformité aux normes paracycloniques et parasismiques</li>
-            <li>Réception de travaux et levée des réserves</li>
+            <li>Maîtrise d'ouvrage déléguée (pilotage complet du projet)</li>
+            <li>Sélection et coordination des entreprises locales certifiées</li>
+            <li>Suivi de chantier aux normes paracycloniques et parasismiques</li>
+            <li>Réception des travaux et levée des réserves</li>
           </ul>
           <a href="services/construction.html" class="btn-gold-border">Découvrir ce service →</a>
         </div>
       </div>
 
-      <!-- ROW 6 — Avis de Valeur (image right) -->
+      <!-- ROW 6 — Avis de Valeur (text left, image right) -->
       <div class="service-row reverse reveal">
         <div class="service-visual">
           <div class="service-visual-frame">
-            <div style="background: linear-gradient(135deg, #1A2B3C 0%, #243447 100%); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
-              <span style="font-family: var(--serif); font-size: 14px; color: rgba(201,168,76,0.4); letter-spacing: 0.2em; text-transform: uppercase;">[Avis de Valeur]</span>
+            <div class="service-image-placeholder">
+              <span class="placeholder-label">Avis de Valeur</span>
             </div>
           </div>
         </div>
         <div class="service-content">
           <span class="service-number">06</span>
-          <div class="section-label">Estimation professionnelle</div>
+          <div class="section-label">Service 06</div>
           <div class="gold-rule"></div>
           <h2 class="service-content-title">Avis de <em>Valeur</em></h2>
           <p>
-            Un avis de valeur vénale rigoureux repose sur trois piliers : les transactions réelles comparables (données DVF), les prix affichés sur le marché actuel et une analyse qualitative des caractéristiques intrinsèques du bien. Aux Antilles, s'y ajoutent les spécificités locales : exposition aux vents, vue mer, risques naturels, état des équipements face au climat tropical.
+            Un avis de valeur professionnel est indispensable pour toute décision immobilière éclairée : vente, succession, partage, financement ou assurance. Fondé sur l'analyse des transactions récentes (DVF), des données de marché locales et de la méthode comparative, notre avis de valeur est un document argumenté et opposable.
           </p>
           <p>
-            Notre méthode associe comparaison directe et contrôle par capitalisation des revenus locatifs pour vous fournir une estimation documentée, argumentée et opposable, que ce soit pour une vente, une succession ou un dossier de financement.
+            Notre expertise du marché antillais, nourrie par les données de l'observatoire immobilier de la Caisse des Dépôts et notre expérience de terrain, nous permet de produire des estimations précises, même pour des biens atypiques ou en secteur rural.
           </p>
           <ul class="service-bullets">
-            <li>Rapport d'avis de valeur écrit et argumenté</li>
-            <li>Analyse des transactions DVF dans un rayon pertinent</li>
-            <li>Prise en compte des DPE, risques et services de proximité</li>
-            <li>Contrôle par rendement locatif (capitalisation brute)</li>
+            <li>Analyse comparative de marché (méthode DVF)</li>
+            <li>Prise en compte des spécificités locales (vue mer, accès, risques)</li>
+            <li>Rapport écrit détaillé et argumenté</li>
+            <li>Estimation valeur vénale ET valeur locative</li>
           </ul>
           <a href="services/avis-de-valeur.html" class="btn-gold-border">Découvrir ce service →</a>
         </div>
@@ -438,7 +462,10 @@
     <div class="container">
       <span class="section-label">Passez à l'action</span>
       <div class="gold-rule centered"></div>
-      <h2 class="services-cta-title">Votre projet immobilier<br><em>commence ici</em></h2>
+      <h2 class="services-cta-title">Votre projet immobilier <em>commence ici</em></h2>
+      <p class="services-cta-sub">
+        Notre équipe d'experts est disponible pour étudier votre situation et vous proposer la solution la mieux adaptée.
+      </p>
       <div class="cta-btns">
         <a href="contact.html" class="btn-gold">Contacter notre équipe</a>
         <a href="realisations.html" class="btn-ghost">Voir nos réalisations</a>

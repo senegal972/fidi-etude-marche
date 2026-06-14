@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avis de Valeur — Optimmo Dom · Conseil Immobilier Antilles</title>
+  <meta name="description" content="Estimation professionnelle de la valeur vénale ou locative de votre bien en Martinique et Guadeloupe. Méthode DVF + DPE + INSEE, rapport structuré, fourchette argumentée." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <style>
+    /* ── Page-specific tokens ───────────────────────────── */
+    :root {
+      --ink: #070F1A;
+      --gold: #C9A84C;
+      --white: #FFFFFF;
+      --slate: #7A8A99;
+      --text: #E8ECF0;
+      --navy: #1A2B3C;
+    }
+
+    /* ── Hero ───────────────────────────────────────────── */
+    .page-hero {
+      min-height: 62vh;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 80px;
+      background: linear-gradient(160deg, #081220 0%, #070F1A 65%);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 900px 600px at 65% 35%, rgba(201,168,76,0.05) 0%, transparent 70%);
+    }
+    .hero-grid-line {
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: rgba(201,168,76,0.07);
+    }
+    .hero-grid-line:nth-child(1) { left: 25%; }
+    .hero-grid-line:nth-child(2) { left: 50%; }
+    .hero-grid-line:nth-child(3) { left: 75%; }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-breadcrumb {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-bottom: 20px;
+    }
+    .hero-breadcrumb a { color: var(--gold); transition: opacity 0.2s; }
+    .hero-breadcrumb a:hover { opacity: 0.7; }
+    .hero-breadcrumb span { margin: 0 10px; }
+    .hero-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.35);
+      padding: 6px 16px;
+      margin-bottom: 28px;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(40px, 6vw, 80px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      max-width: 820px;
+      margin-bottom: 24px;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-subtitle {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--slate);
+      max-width: 580px;
+      line-height: 1.65;
+    }
+    .hero-rule {
+      width: 80px;
+      height: 1px;
+      background: var(--gold);
+      margin: 32px 0;
+    }
+
+    /* ── Sections ───────────────────────────────────────── */
+    section { padding: 100px 0; }
+    section:nth-child(even) { background: #080F1B; }
+    .section-header { margin-bottom: 60px; }
+    .section-header.centered { text-align: center; }
+    .section-header.centered .gold-rule { margin-left: auto; margin-right: auto; }
+
+    /* ── Qu'est-ce qu'un avis de valeur ────────────────── */
+    .adv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .adv-card {
+      padding: 52px 48px;
+      position: relative;
+    }
+    .adv-card-avis { background: var(--navy); border-top: 2px solid var(--gold); }
+    .adv-card-expertise { background: #0D1A2B; border-top: 2px solid rgba(122,138,153,0.3); }
+    .adv-card-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      margin-bottom: 24px;
+    }
+    .badge-gold { background: rgba(201,168,76,0.12); color: var(--gold); }
+    .badge-slate { background: rgba(122,138,153,0.1); color: var(--slate); }
+    .adv-card-title {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .adv-card-text {
+      font-size: 15px;
+      color: var(--text);
+      opacity: 0.85;
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+    .adv-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .adv-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 14px;
+      color: var(--text);
+      opacity: 0.8;
+      line-height: 1.55;
+    }
+    .adv-list li.pro::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .adv-list li.con::before {
+      content: '—';
+      color: var(--slate);
+      flex-shrink: 0;
+    }
+
+    /* ── Méthode — 3 colonnes ───────────────────────────── */
+    .methode-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .methode-card {
+      background: var(--navy);
+      padding: 48px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .methode-card:hover { background: #1F3347; }
+    .methode-num {
+      font-family: var(--serif);
+      font-size: 56px;
+      font-weight: 300;
+      color: rgba(201,168,76,0.15);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+    .methode-title {
+      font-family: var(--serif);
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+    .methode-title em { font-style: italic; color: var(--gold); }
+    .methode-text {
+      font-size: 14px;
+      color: var(--text);
+      opacity: 0.8;
+      line-height: 1.7;
+    }
+
+    /* ── Sources de données — badges ────────────────────── */
+    .sources-section { background: var(--ink); }
+    .sources-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 48px;
+    }
+    .source-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--navy);
+      border: 1px solid rgba(201,168,76,0.15);
+      padding: 14px 22px;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .source-badge:hover {
+      border-color: rgba(201,168,76,0.4);
+      background: #1F3347;
+    }
+    .source-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .source-badge-name {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .source-badge-desc {
+      font-size: 11px;
+      color: var(--slate);
+    }
+
+    /* ── Livrable ───────────────────────────────────────── */
+    .livrable-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .livrable-text p {
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+    .livrable-mockup {
+      background: #0A1828;
+      border: 1px solid rgba(201,168,76,0.2);
+      padding: 0;
+      font-family: var(--sans);
+    }
+    .mockup-header {
+      background: var(--navy);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .mockup-logo {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--gold);
+    }
+    .mockup-doc-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-left: auto;
+    }
+    .mockup-body { padding: 28px; }
+    .mockup-section { margin-bottom: 20px; }
+    .mockup-section-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .mockup-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .mockup-key { font-size: 12px; color: var(--slate); }
+    .mockup-val { font-size: 12px; color: var(--text); font-weight: 700; }
+    .mockup-val.gold { color: var(--gold); }
+    .mockup-fourchette {
+      background: rgba(201,168,76,0.06);
+      border: 1px solid rgba(201,168,76,0.2);
+      padding: 16px 20px;
+      margin-top: 16px;
+      text-align: center;
+    }
+    .mockup-fourchette-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-bottom: 8px;
+    }
+    .mockup-fourchette-value {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--gold);
+    }
+    .mockup-fourchette-range {
+      font-size: 12px;
+      color: var(--slate);
+      margin-top: 4px;
+    }
+    .mockup-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+      padding: 3px 8px;
+      margin: 2px;
+    }
+
+    /* ── Partenaires panel ──────────────────────────────── */
+    .partenaires-panel {
+      background: linear-gradient(135deg, #0F1F30 0%, #0A1828 100%);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-left: 4px solid var(--gold);
+      padding: 60px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: center;
+    }
+    .partenaires-panel-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(201,168,76,0.1);
+      padding: 5px 12px;
+      margin-bottom: 16px;
+    }
+    .partenaires-panel h3 {
+      font-family: var(--serif);
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+    .partenaires-panel p {
+      font-size: 15px;
+      color: var(--text);
+      opacity: 0.8;
+      line-height: 1.7;
+      max-width: 540px;
+    }
+    .partenaires-cta { flex-shrink: 0; }
+    .partenaires-price {
+      font-family: var(--serif);
+      font-size: 13px;
+      color: var(--slate);
+      margin-top: 12px;
+      text-align: center;
+    }
+    .partenaires-price strong { color: var(--gold); }
+
+    /* ── FAQ ────────────────────────────────────────────── */
+    .faq-list { display: flex; flex-direction: column; gap: 2px; }
+    .faq-item {
+      background: var(--navy);
+      border-left: 2px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .faq-item:hover { border-left-color: var(--gold); background: #1F3347; }
+    .faq-question {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--white);
+      padding: 28px 36px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .faq-icon {
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--gold);
+      font-size: 18px;
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease-out); }
+    .faq-item.open .faq-answer { max-height: 400px; }
+    .faq-answer-inner {
+      padding: 0 36px 28px;
+      font-size: 15px;
+      color: var(--text);
+      opacity: 0.85;
+      line-height: 1.75;
+    }
+
+    /* ── CTA ────────────────────────────────────────────── */
+    .cta-section {
+      background: linear-gradient(135deg, #0A1828 0%, #070F1A 100%);
+      padding: 120px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 400px;
+      background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
+    }
+    .cta-content { position: relative; z-index: 2; }
+    .cta-section h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .cta-section h2 em { font-style: italic; color: var(--gold); }
+    .cta-section p {
+      font-size: 16px;
+      color: var(--slate);
+      max-width: 500px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── Reveal animation ───────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── Responsive ─────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .adv-grid { grid-template-columns: 1fr; }
+      .methode-grid { grid-template-columns: 1fr; }
+      .livrable-wrapper { grid-template-columns: 1fr; }
+      .partenaires-panel { grid-template-columns: 1fr; gap: 32px; }
+      .partenaires-panel { padding: 40px 32px; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 72px 0; }
+      .adv-card { padding: 36px 28px; }
+      .methode-card { padding: 36px 28px; }
+      .faq-question { font-size: 17px; padding: 22px 24px; }
+      .faq-answer-inner { padding: 0 24px 22px; }
+      .sources-badges { gap: 8px; }
+      .source-badge { padding: 10px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     NAV
+══════════════════════════════════════════════════════ -->
+<nav class="nav opaque" id="nav">
+  <a href="../index.html" class="nav-logo">
+    <div class="nav-logo-mark">OD</div>
+    <div>
+      <span class="nav-logo-text">Optimmo Dom</span>
+      <span class="nav-logo-sub">Conseil Immobilier Antilles</span>
+    </div>
+  </a>
+  <div class="nav-right">
+    <a href="../espace-partenaires/" class="nav-cta-btn">Espace Partenaires</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="menu-overlay">
+  <div>
+    <ul class="menu-overlay-nav">
+      <li><a href="../index.html">Accueil</a></li>
+      <li><a href="../services.html">Services</a></li>
+      <li><a href="../catalogue.html">Catalogue</a></li>
+      <li><a href="../realisations.html">Réalisations</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+      <li><a href="../espace-partenaires/">Espace Partenaires</a></li>
+    </ul>
+    <div class="menu-overlay-footer">
+      <div class="menu-overlay-contact">
+        <div>+596 696 00 00 00</div>
+        <div><a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════ -->
+<section class="page-hero">
+  <div class="hero-grid-line"></div>
+  <div class="hero-grid-line"></div>
+  <div class="hero-grid-line"></div>
+  <div class="container hero-content">
+    <div class="hero-breadcrumb">
+      <a href="../services.html">Services</a>
+      <span>›</span>
+      Avis de Valeur
+    </div>
+    <div class="hero-tag">Estimation professionnelle argumentée</div>
+    <h1 class="hero-title">Avis de <em>Valeur</em></h1>
+    <div class="hero-rule"></div>
+    <p class="hero-subtitle">Estimation professionnelle et argumentée de la valeur vénale ou locative de votre bien aux Antilles</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     QU'EST-CE QU'UN AVIS DE VALEUR ?
+══════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Définition</div>
+      <div class="gold-rule"></div>
+      <h2 class="section-title">Avis de valeur vs. <em>expertise judiciaire</em></h2>
+    </div>
+    <div class="adv-grid">
+      <div class="adv-card adv-card-avis reveal">
+        <span class="adv-card-badge badge-gold">Avis de valeur — notre prestation</span>
+        <h3 class="adv-card-title">L'avis de valeur vénale</h3>
+        <p class="adv-card-text">
+          L'avis de valeur est une estimation professionnelle, non certifiée, établie par un conseiller immobilier à partir d'une analyse rigoureuse du marché local, des données transactionnelles et des caractéristiques intrinsèques du bien. Il n'a pas de valeur légalement opposable en justice, mais il est reconnu et suffisant pour la grande majorité des transactions amiables, des successions non contentieuses, des partages entre héritiers, des renégociations de prêt ou des déclarations fiscales ISF/IFI en dehors de tout contrôle fiscal litigieux.
+        </p>
+        <ul class="adv-list">
+          <li class="pro">Délai rapide : 5 à 10 jours ouvrés</li>
+          <li class="pro">Coût accessible — adapté aux particuliers et professionnels</li>
+          <li class="pro">Suffisant pour toute vente amiable, succession non contentieuse</li>
+          <li class="pro">Données DVF, DPE, INSEE, Carte des Loyers intégrées</li>
+          <li class="pro">Fourchette argumentée avec tableau de comparables</li>
+          <li class="pro">Couverture Martinique et Guadeloupe</li>
+        </ul>
+      </div>
+      <div class="adv-card adv-card-expertise reveal reveal-delay-2">
+        <span class="adv-card-badge badge-slate">Expertise judiciaire — autre prestataire</span>
+        <h3 class="adv-card-title">L'expertise judiciaire certifiée</h3>
+        <p class="adv-card-text">
+          L'expertise immobilière certifiée est réalisée par un expert judiciaire agréé auprès d'une Cour d'appel ou titulaire d'une certification REV (Recognised European Valuer). Son rapport a valeur de preuve en justice et est requis dans les situations de contentieux : expropriation, divorce avec désaccord, succession contestée, défaut de remboursement. Sa réalisation prend plusieurs semaines et son coût est significativement plus élevé.
+        </p>
+        <ul class="adv-list">
+          <li class="con">Délai long : 4 à 8 semaines</li>
+          <li class="con">Coût élevé (honoraires expert judiciaire)</li>
+          <li class="con">Nécessaire uniquement en cas de contentieux judiciaire</li>
+          <li class="con">Expropriation, divorce contentieux, succession bloquée</li>
+          <li class="con">Contrôle fiscal avec redressement immobilier</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     NOTRE MÉTHODE
+══════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Approche analytique</div>
+      <div class="gold-rule"></div>
+      <h2 class="section-title">Notre <em>méthode</em></h2>
+    </div>
+    <div class="methode-grid">
+      <div class="methode-card reveal">
+        <div class="methode-num">01</div>
+        <h3 class="methode-title">Comparaison <em>directe</em></h3>
+        <p class="methode-text">
+          Analyse des transactions DVF (Demandes de Valeurs Foncières — base Étalab) récentes dans un rayon de 500 m à 2 km autour du bien, filtrant les biens de même type (maison / appartement), de surface comparable (± 20%) et vendus dans les 24 derniers mois. Calcul du prix médian au m² pondéré par la similarité. La comparaison directe est la méthode de référence du marché antillais, où les données de transactions sont plus fragmentées qu'en métropole.
+        </p>
+      </div>
+      <div class="methode-card reveal reveal-delay-1">
+        <div class="methode-num">02</div>
+        <h3 class="methode-title">Capitalisation <em>locative</em></h3>
+        <p class="methode-text">
+          Détermination du loyer de marché à partir de la Carte des Loyers DHUP 2025 (loyers d'annonce au m² par commune et type de bien). Application du taux de rendement locatif brut observé localement (généralement 4,5% à 6,5% aux Antilles selon la localisation). Valeur vénale par capitalisation = loyer annuel net / taux de capitalisation. Cette approche est particulièrement fiable pour les biens à vocation locative ou les zones où les transactions comparables sont rares.
+        </p>
+      </div>
+      <div class="methode-card reveal reveal-delay-2">
+        <div class="methode-num">03</div>
+        <h3 class="methode-title">Ajustements <em>qualitatifs</em></h3>
+        <p class="methode-text">
+          Application de correctifs argumentés sur la valeur de référence : étiquette DPE (décote de 5 à 15% pour les logements classés F ou G), exposition et vue mer (prime de 10 à 30% pour un vis-à-vis mer confirmé), état général du bien, qualité de l'accès, nuisances sonores, présence en zone inondable PPRi, et score de services de proximité (commerces, écoles, transports). Chaque ajustement est explicité et chiffré dans le rapport.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     SOURCES DE DONNÉES
+══════════════════════════════════════════════════════ -->
+<section class="sources-section">
+  <div class="container">
+    <div class="section-header centered reveal">
+      <div class="section-label">Données publiques ouvertes</div>
+      <div class="gold-rule centered"></div>
+      <h2 class="section-title">Des sources de données <em>officielles</em></h2>
+    </div>
+    <div class="sources-badges reveal">
+      <div class="source-badge">
+        <div class="source-badge-dot"></div>
+        <div>
+          <div class="source-badge-name">DVF Étalab</div>
+          <div class="source-badge-desc">Transactions immobilières</div>
+        </div>
+      </div>
+      <div class="source-badge">
+        <div class="source-badge-dot"></div>
+        <div>
+          <div class="source-badge-name">DPE ADEME</div>
+          <div class="source-badge-desc">Performance énergétique</div>
+        </div>
+      </div>
+      <div class="source-badge">
+        <div class="source-badge-dot"></div>
+        <div>
+          <div class="source-badge-name">INSEE Filosofi</div>
+          <div class="source-badge-desc">Revenus & niveau de vie</div>
+        </div>
+      </div>
+      <div class="source-badge">
+        <div class="source-badge-dot"></div>
+        <div>
+          <div class="source-badge-name">Carte des Loyers DHUP</div>
+          <div class="source-badge-desc">Loyers d'annonce 2025</div>
+        </div>
+      </div>
+      <div class="source-badge">
+        <div class="source-badge-dot"></div>
+        <div>
+          <div class="source-badge-name">IGN Cadastre</div>
+          <div class="source-badge-desc">Sections & parcelles</div>
+        </div>
+      </div>
+      <div class="source-badge">
+        <div class="source-badge-dot"></div>
+        <div>
+          <div class="source-badge-name">Géorisques</div>
+          <div class="source-badge-desc">Risques naturels</div>
+        </div>
+      </div>
+      <div class="source-badge">
+        <div class="source-badge-dot"></div>
+        <div>
+          <div class="source-badge-name">BAN Adresse</div>
+          <div class="source-badge-desc">Géocodage officiel</div>
+        </div>
+      </div>
+      <div class="source-badge">
+        <div class="source-badge-dot"></div>
+        <div>
+          <div class="source-badge-name">GéoAPI INSEE</div>
+          <div class="source-badge-desc">Données territoriales</div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center; font-size:13px; color:var(--slate); margin-top:40px; font-style:italic;">
+      Toutes les données mobilisées sont issues de sources publiques officielles françaises — aucune donnée d'estimation commerciale ou d'agrégateur privé.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     LIVRABLE TYPE
+══════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Ce que vous recevez</div>
+      <div class="gold-rule"></div>
+      <h2 class="section-title">Votre <em>livrable</em></h2>
+    </div>
+    <div class="livrable-wrapper">
+      <div class="livrable-text reveal">
+        <p>
+          L'avis de valeur Optimmo Dom vous est remis sous forme d'un <strong style="color:var(--gold)">rapport PDF structuré</strong>, à la fois complet et lisible pour un non-spécialiste. Il ne s'agit pas d'une simple valeur chiffrée : chaque conclusion est adossée à une analyse factuelle reproductible, permettant à votre notaire, votre banque ou vos héritiers de comprendre et d'accepter le raisonnement.
+        </p>
+        <p>
+          Le rapport comprend une synthèse exécutive d'une page (idéale pour les partages successoraux), une carte de localisation avec le périmètre d'analyse, un tableau des transactions comparables (DVF), les ajustements qualitatifs motivés, et la fourchette de valeur finale — valeur basse / valeur centrale / valeur haute — avec justification de chaque borne.
+        </p>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:32px;">
+          <div style="display:flex; gap:12px; align-items:center; font-size:14px; color:var(--text); opacity:0.85;">
+            <span style="color:var(--gold); font-weight:700; font-size:16px;">→</span>
+            Rapport PDF complet — 12 à 20 pages argumentées
+          </div>
+          <div style="display:flex; gap:12px; align-items:center; font-size:14px; color:var(--text); opacity:0.85;">
+            <span style="color:var(--gold); font-weight:700; font-size:16px;">→</span>
+            Synthèse exécutive 1 page — prête à transmettre
+          </div>
+          <div style="display:flex; gap:12px; align-items:center; font-size:14px; color:var(--text); opacity:0.85;">
+            <span style="color:var(--gold); font-weight:700; font-size:16px;">→</span>
+            Tableau des comparables DVF avec filtres détaillés
+          </div>
+          <div style="display:flex; gap:12px; align-items:center; font-size:14px; color:var(--text); opacity:0.85;">
+            <span style="color:var(--gold); font-weight:700; font-size:16px;">→</span>
+            Carte de localisation et périmètre d'analyse
+          </div>
+          <div style="display:flex; gap:12px; align-items:center; font-size:14px; color:var(--text); opacity:0.85;">
+            <span style="color:var(--gold); font-weight:700; font-size:16px;">→</span>
+            Délai de remise : 5 à 10 jours ouvrés
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="livrable-mockup">
+          <div class="mockup-header">
+            <span class="mockup-logo">Optimmo Dom</span>
+            <span class="mockup-doc-title">Avis de Valeur — Confidentiel</span>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-section">
+              <div class="mockup-section-title">Identification du bien</div>
+              <div class="mockup-row"><span class="mockup-key">Type</span><span class="mockup-val">Villa individuelle</span></div>
+              <div class="mockup-row"><span class="mockup-key">Surface habitable</span><span class="mockup-val">178 m²</span></div>
+              <div class="mockup-row"><span class="mockup-key">Terrain</span><span class="mockup-val">620 m²</span></div>
+              <div class="mockup-row"><span class="mockup-key">DPE</span><span class="mockup-val">Classe C</span></div>
+              <div class="mockup-row"><span class="mockup-key">Commune</span><span class="mockup-val">Le Gosier, 97190</span></div>
+            </div>
+            <div class="mockup-section">
+              <div class="mockup-section-title">Analyse des comparables DVF</div>
+              <div class="mockup-row"><span class="mockup-key">Transactions analysées</span><span class="mockup-val">14 ventes</span></div>
+              <div class="mockup-row"><span class="mockup-key">Rayon</span><span class="mockup-val">1,2 km</span></div>
+              <div class="mockup-row"><span class="mockup-key">Prix médian m²</span><span class="mockup-val gold">2 840 €/m²</span></div>
+              <div class="mockup-row"><span class="mockup-key">Loyer marché</span><span class="mockup-val">12,40 €/m²/mois</span></div>
+            </div>
+            <div class="mockup-section">
+              <div class="mockup-section-title">Ajustements qualitatifs</div>
+              <div class="mockup-row"><span class="mockup-key">Vue mer partielle</span><span class="mockup-val gold">+ 8%</span></div>
+              <div class="mockup-row"><span class="mockup-key">Accès et environnement</span><span class="mockup-val">+ 2%</span></div>
+              <div class="mockup-row"><span class="mockup-key">Hors zone inondable</span><span class="mockup-val">+ 3%</span></div>
+            </div>
+            <div class="mockup-fourchette">
+              <div class="mockup-fourchette-label">Fourchette de valeur vénale estimée</div>
+              <div class="mockup-fourchette-value">520 000 — 570 000 €</div>
+              <div class="mockup-fourchette-range">Valeur centrale : 545 000 € · 3 059 €/m²</div>
+            </div>
+            <div style="margin-top:16px;">
+              <span class="mockup-tag">DVF Étalab</span>
+              <span class="mockup-tag">DPE ADEME</span>
+              <span class="mockup-tag">Loyers DHUP 2025</span>
+              <span class="mockup-tag">Géorisques</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     ESPACE PARTENAIRES
+══════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="reveal">
+      <div class="partenaires-panel">
+        <div>
+          <span class="partenaires-panel-badge">Espace Partenaires</span>
+          <h3>Outils d'analyse en ligne<br>pour les professionnels</h3>
+          <p>
+            Les professionnels partenaires d'Optimmo Dom accèdent à nos outils d'analyse immobilière en ligne : requêtes DVF géolocalisées, données DPE et diagnostic énergétique, analyse des services de proximité OSM, loyers de marché DHUP et génération automatisée d'avis de valeur structurés. Un gain de temps considérable pour les agents, notaires et conseils en gestion de patrimoine intervenant aux Antilles.
+          </p>
+        </div>
+        <div class="partenaires-cta">
+          <a href="../espace-partenaires/" class="btn-gold">Accéder à l'espace</a>
+          <div class="partenaires-price">Plans à partir de <strong>29 €/mois</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Questions fréquentes</div>
+      <div class="gold-rule"></div>
+      <h2 class="section-title">Vos questions sur <em>l'avis de valeur</em></h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-question">
+          Quelle est la valeur légale d'un avis de valeur ?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Un avis de valeur n'est pas un document certifié par un expert judiciaire agréé, il n'est donc pas opposable en justice dans un contentieux. En revanche, il est pleinement valable et reconnu dans tous les cas de transactions amiables (vente de gré à gré), de successions non contentieuses, de partages à l'amiable entre héritiers, de déclarations fiscales IFI ou de dossiers de crédit immobilier. Les notaires, les banques et les services fiscaux acceptent couramment les avis de valeur établis par des professionnels de l'immobilier dans ces contextes. Pour toute situation judiciaire contentieuse, seule une expertise certifiée par un expert inscrit près la Cour d'appel est requise.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          En combien de temps livrez-vous l'avis de valeur ?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Notre délai standard est de 5 à 10 jours ouvrés à compter de la réception de l'ensemble des informations nécessaires (adresse complète, type de bien, surface, année de construction, DPE existant ou à commander, description de l'état général et des éventuels travaux). En cas d'urgence (succession à régler rapidement, offre d'achat reçue), nous proposons une formule express avec livraison sous 48 à 72 heures. Contactez-nous pour connaître la disponibilité et les conditions de cette option.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          Couvrez-vous la Guadeloupe et la Martinique ?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Oui, notre couverture géographique s'étend à l'ensemble du territoire martiniquais et guadeloupéen, y compris les communes de l'archipel guadeloupéen (Grande-Terre, Basse-Terre, Marie-Galante, Les Saintes). Notre base de données transactionnelles DVF couvre toutes les communes de ces deux départements. Pour les dépendances (Saint-Martin, Saint-Barthélemy), nous proposons une analyse sur devis avec adaptation méthodologique au marché local.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     CTA
+══════════════════════════════════════════════════════ -->
+<section class="cta-section">
+  <div class="container cta-content">
+    <div class="reveal">
+      <div class="section-label" style="margin-bottom:16px; text-align:center;">Estimation professionnelle</div>
+      <h2>Faites estimer votre bien<br>aux <em>Antilles</em></h2>
+      <p>Un avis de valeur précis, argumenté et livré rapidement — pour prendre les meilleures décisions patrimoniales.</p>
+      <div class="cta-actions">
+        <a href="../contact.html" class="btn-gold">Demander un avis de valeur</a>
+        <a href="../espace-partenaires/" class="btn-ghost">Espace Partenaires</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Optimmo Dom</div>
+        <div class="footer-brand-sub">Conseil Immobilier Antilles</div>
+        <p class="footer-brand-desc">Expertise immobilière haut de gamme en Martinique et Guadeloupe. Réseau Sextant France.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social">f</a>
+          <a href="#" class="footer-social">in</a>
+          <a href="#" class="footer-social">ig</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="conseil-immobilier.html">Conseil Immobilier</a></li>
+          <li><a href="succession.html">Succession &amp; Indivision</a></li>
+          <li><a href="valorisation.html">Valorisation</a></li>
+          <li><a href="foncier.html">Ingénierie Foncière</a></li>
+          <li><a href="construction.html">Construction</a></li>
+          <li><a href="avis-de-valeur.html">Avis de Valeur</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Territoires</h4>
+        <ul class="footer-links">
+          <li><a href="#">Martinique</a></li>
+          <li><a href="#">Guadeloupe</a></li>
+          <li><a href="#">Fort-de-France</a></li>
+          <li><a href="#">Pointe-à-Pitre</a></li>
+          <li><a href="#">Le Gosier</a></li>
+          <li><a href="#">Le Lamentin</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a></li>
+          <li><a href="tel:+596696000000">+596 696 00 00 00</a></li>
+          <li><a href="../contact.html">Formulaire de contact</a></li>
+          <li><a href="../espace-partenaires/">Espace Partenaires</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Optimmo Dom · Réseau Sextant France · <a href="#">Mentions légales</a></p>
+      <p>Conseil immobilier expert en Martinique et Guadeloupe</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const hamburger = document.getElementById('hamburger');
+  const overlay = document.getElementById('menu-overlay');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+  hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); overlay.classList.toggle('open'); document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : ''; });
+  document.querySelectorAll('#menu-overlay a').forEach(a => a.addEventListener('click', () => { hamburger.classList.remove('active'); overlay.classList.remove('open'); document.body.style.overflow = ''; }));
+  document.querySelectorAll('.reveal').forEach(el => { new IntersectionObserver(([e]) => e.isIntersecting && e.target.classList.add('in'), { threshold: 0.12 }).observe(el); });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-question').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Conseil immobilier expert en Martinique et Guadeloupe — acquisition, vente, investissement locatif, défiscalisation Pinel Outre-Mer. Optimmo Dom, réseau Sextant France." />
+  <meta property="og:title" content="Conseil Immobilier — Optimmo Dom" />
+  <meta property="og:description" content="Accompagnement personnalisé pour tous vos projets immobiliers aux Antilles." />
+  <meta property="og:type" content="website" />
+  <title>Conseil Immobilier — Optimmo Dom · Martinique & Guadeloupe</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/shared.css" />
+
+  <style>
+    /* ============================================
+       CONSEIL-IMMOBILIER.HTML — Page-specific styles
+    ============================================ */
+
+    :root {
+      --ink: #070F1A;
+      --gold: #C9A84C;
+      --white: #FFFFFF;
+      --slate: #7A8A99;
+      --text: #E8ECF0;
+      --navy: #1A2B3C;
+      --serif: 'Cormorant Garamond', serif;
+      --sans: 'Lato', sans-serif;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.6);
+    }
+    .breadcrumb span:last-child { color: var(--gold); }
+
+    /* ---- Approach Section ---- */
+    .approach-section {
+      background: var(--ink);
+      padding: 100px 0;
+    }
+    .approach-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+    .approach-card {
+      text-align: center;
+      padding: 48px 32px;
+      background: rgba(26,43,60,0.5);
+      border: 1px solid rgba(201,168,76,0.12);
+      border-top: 3px solid var(--gold);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .approach-card:hover {
+      transform: translateY(-4px);
+      border-top-color: var(--gold);
+      border-color: rgba(201,168,76,0.3);
+    }
+    .approach-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      font-size: 28px;
+      color: var(--gold);
+    }
+    .approach-card h3 {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--text);
+      margin: 0 0 16px;
+    }
+    .approach-card p {
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--slate);
+      margin: 0;
+    }
+
+    /* ---- What We Do Section ---- */
+    .what-we-do {
+      background: #08111F;
+      padding: 120px 0;
+    }
+    .what-we-do-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .service-detail-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 80px 0;
+      border-bottom: 1px solid rgba(201,168,76,0.08);
+    }
+    .service-detail-row:last-child { border-bottom: none; }
+    .service-detail-row.reverse .detail-visual { order: 2; }
+    .service-detail-row.reverse .detail-content { order: 1; }
+
+    .detail-visual {
+      position: relative;
+    }
+    .detail-placeholder {
+      background: linear-gradient(135deg, #1A2B3C 0%, #243447 100%);
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(201,168,76,0.15);
+    }
+    .detail-placeholder span {
+      font-family: var(--serif);
+      font-size: 13px;
+      color: rgba(201,168,76,0.35);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .detail-service-label {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .detail-content h3 {
+      font-family: var(--serif);
+      font-size: 40px;
+      font-weight: 400;
+      color: var(--text);
+      margin: 0 0 24px;
+      line-height: 1.2;
+    }
+    .detail-content p {
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--slate);
+      margin: 0 0 16px;
+    }
+    .detail-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 0;
+    }
+    .detail-bullets li {
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--text);
+      padding: 10px 0 10px 28px;
+      position: relative;
+      border-bottom: 1px solid rgba(201,168,76,0.08);
+    }
+    .detail-bullets li:last-child { border-bottom: none; }
+    .detail-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 14px;
+    }
+
+    /* ---- Why Choose Section ---- */
+    .why-choose {
+      background: var(--navy);
+      padding: 100px 0;
+    }
+    .why-choose-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 80px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
+    .check-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .checklist-item p {
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text);
+      margin: 0;
+    }
+    .checklist-item strong {
+      display: block;
+      color: var(--white);
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    /* ---- FAQ Section ---- */
+    .faq-section {
+      background: var(--ink);
+      padding: 100px 0;
+    }
+    .faq-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .faq-list {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 28px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      text-align: left;
+      gap: 24px;
+    }
+    .faq-question span {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .faq-arrow {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 18px;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .faq-item.open .faq-arrow {
+      transform: rotate(45deg);
+      background: rgba(201,168,76,0.12);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 400px;
+    }
+    .faq-answer-inner {
+      padding: 0 0 28px;
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--slate);
+    }
+
+    /* ---- CTA Section ---- */
+    .cta-section {
+      background: linear-gradient(135deg, #0D1B2A 0%, #1A2B3C 100%);
+      padding: 100px 0;
+      text-align: center;
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+    .cta-section .section-label { margin-bottom: 24px; }
+    .cta-section h2 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 300;
+      color: var(--white);
+      margin: 0 0 24px;
+      line-height: 1.2;
+    }
+    .cta-section h2 em { color: var(--gold); font-style: italic; }
+    .cta-section p {
+      font-family: var(--sans);
+      font-size: 16px;
+      color: var(--slate);
+      margin: 0 0 48px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 900px) {
+      .approach-grid { grid-template-columns: 1fr; gap: 24px; }
+      .service-detail-row {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 60px 0;
+      }
+      .service-detail-row.reverse .detail-visual { order: 0; }
+      .service-detail-row.reverse .detail-content { order: 0; }
+      .checklist-grid { grid-template-columns: 1fr; gap: 0; }
+    }
+    @media (max-width: 600px) {
+      .approach-section,
+      .what-we-do,
+      .why-choose,
+      .faq-section,
+      .cta-section { padding: 64px 0; }
+      .detail-content h3 { font-size: 30px; }
+      .faq-question span { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav opaque" id="nav">
+    <a href="../index.html" class="nav-logo">
+      <div class="nav-logo-mark">OD</div>
+      <div>
+        <span class="nav-logo-text">Optimmo Dom</span>
+        <span class="nav-logo-sub">Conseil Immobilier Antilles</span>
+      </div>
+    </a>
+    <div class="nav-right">
+      <a href="../espace-partenaires/" class="nav-cta-btn">Espace Partenaires</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="menu-overlay">
+    <div>
+      <ul class="menu-overlay-nav">
+        <li><a href="../index.html">Accueil</a></li>
+        <li><a href="../services.html">Services</a></li>
+        <li><a href="../catalogue.html">Catalogue</a></li>
+        <li><a href="../realisations.html">Réalisations</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../espace-partenaires/">Espace Partenaires</a></li>
+      </ul>
+      <div class="menu-overlay-footer">
+        <div class="menu-overlay-contact">
+          <div>+596 696 00 00 00</div>
+          <div><a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <span>Services</span>
+        <span>›</span>
+        <span>Conseil Immobilier</span>
+      </div>
+      <div class="section-label">Service Phare</div>
+      <h1>Conseil <em>Immobilier</em></h1>
+      <p class="page-hero-sub">Votre partenaire de confiance pour tous vos projets immobiliers en Martinique et Guadeloupe</p>
+    </div>
+  </section>
+
+  <!-- NOTRE APPROCHE -->
+  <section class="approach-section reveal">
+    <div class="container">
+      <div class="approach-header">
+        <div class="section-label">Notre méthode</div>
+        <div class="gold-rule"></div>
+        <h2 class="section-title">Notre <em>Approche</em></h2>
+        <p style="font-family:var(--sans);font-size:16px;color:var(--slate);max-width:560px;margin:0 auto;line-height:1.8;">Trois piliers fondamentaux guident chacune de nos interventions pour garantir votre satisfaction et la sécurité de votre transaction.</p>
+      </div>
+      <div class="approach-grid">
+        <div class="approach-card reveal">
+          <div class="approach-icon">◎</div>
+          <h3>Analyse du Marché Local</h3>
+          <p>Nous exploitons les données DVF, les statistiques de la Caisse des Dépôts et notre connaissance terrain pour vous offrir une vision précise du marché immobilier antillais, quartier par quartier, commune par commune.</p>
+        </div>
+        <div class="approach-card reveal">
+          <div class="approach-icon">◈</div>
+          <h3>Négociation Experte</h3>
+          <p>Membre du réseau Sextant France, nous mettons à votre service plus de 20 ans d'expertise en négociation immobilière pour obtenir les meilleures conditions, que vous soyez acheteur ou vendeur.</p>
+        </div>
+        <div class="approach-card reveal">
+          <div class="approach-icon">◇</div>
+          <h3>Suivi Juridique Complet</h3>
+          <p>De la promesse de vente à l'acte authentique, nous coordonnons notaires, banques et administrations pour une transaction sécurisée et sereine, même depuis la métropole.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CE QUE NOUS FAISONS -->
+  <section class="what-we-do">
+    <div class="container">
+      <div class="what-we-do-header reveal">
+        <div class="section-label">Nos domaines d'intervention</div>
+        <div class="gold-rule"></div>
+        <h2 class="section-title">Ce Que Nous <em>Faisons</em></h2>
+      </div>
+
+      <!-- (a) Acquisition -->
+      <div class="service-detail-row reveal">
+        <div class="detail-visual">
+          <div class="detail-placeholder">
+            <span>Acquisition Immobilière</span>
+          </div>
+        </div>
+        <div class="detail-content">
+          <span class="detail-service-label">Pour les acheteurs</span>
+          <h3>Acquisition Immobilière</h3>
+          <p>L'acquisition d'un bien en Martinique ou en Guadeloupe comporte des spécificités que seul un conseiller local peut anticiper : droits de préemption des collectivités, zones inconstructibles liées aux PPRN (Plan de Prévention des Risques Naturels), accès difficile en zones littorales soumises à la loi Littoral.</p>
+          <p>Nous analysons chaque bien sous tous ses aspects : juridique, technique, fiscal et environnemental. Vous bénéficiez d'un accompagnement complet, des premières visites jusqu'à la remise des clés, quel que soit votre lieu de résidence.</p>
+          <ul class="detail-bullets">
+            <li>Recherche ciblée selon vos critères (zone, budget, surface, usage)</li>
+            <li>Vérification des titres de propriété et des servitudes</li>
+            <li>Négociation du prix d'acquisition au meilleur niveau</li>
+            <li>Coordination notariale et suivi jusqu'à l'acte authentique</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- (b) Vente -->
+      <div class="service-detail-row reverse reveal">
+        <div class="detail-visual">
+          <div class="detail-placeholder">
+            <span>Vente & Mise en Marché</span>
+          </div>
+        </div>
+        <div class="detail-content">
+          <span class="detail-service-label">Pour les vendeurs</span>
+          <h3>Vente et Mise en Marché</h3>
+          <p>Vendre un bien immobilier aux Antilles demande une stratégie adaptée au marché local et une visibilité maximale. Grâce au réseau Sextant France et à nos outils digitaux, votre bien est exposé à une audience nationale et internationale de clients qualifiés.</p>
+          <p>Nous réalisons une estimation précise basée sur les transactions DVF récentes, préparons votre bien à la vente (home staging, diagnostics obligatoires) et orchestrons les visites pour obtenir le meilleur prix dans les meilleurs délais.</p>
+          <ul class="detail-bullets">
+            <li>Estimation à valeur de marché basée sur les données DVF actualisées</li>
+            <li>Dossier de vente complet (diagnostics, photos professionnelles, visite 360°)</li>
+            <li>Diffusion multicanal (Sextant France, portails nationaux, réseaux sociaux)</li>
+            <li>Négociation et suivi jusqu'à la signature de l'acte authentique</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- (c) Investissement locatif -->
+      <div class="service-detail-row reveal">
+        <div class="detail-visual">
+          <div class="detail-placeholder">
+            <span>Investissement Locatif</span>
+          </div>
+        </div>
+        <div class="detail-content">
+          <span class="detail-service-label">Pour les investisseurs</span>
+          <h3>Investissement Locatif</h3>
+          <p>Les Antilles offrent un marché locatif dynamique, porté par le tourisme haut de gamme, la demande de logements de qualité et les dispositifs fiscaux favorables à l'Outre-Mer. Nous identifions les opportunités à fort rendement locatif, que ce soit en location longue durée, saisonnière ou para-hôtelière.</p>
+          <p>Notre analyse intègre les données de la Carte des Loyers DHUP, les tendances de fréquentation touristique et les projections de rendement net pour vous offrir une vision complète de la rentabilité de votre investissement.</p>
+          <ul class="detail-bullets">
+            <li>Sélection des biens à fort potentiel locatif (rendement brut &gt; 5%)</li>
+            <li>Étude de rendement détaillée (brut, net, net-net) sur mesure</li>
+            <li>Accompagnement dans la mise en location (bail, gestion, assurance)</li>
+            <li>Partenariats avec gestionnaires locatifs certifiés en Martinique et Guadeloupe</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- (d) Pinel OM -->
+      <div class="service-detail-row reverse reveal">
+        <div class="detail-visual">
+          <div class="detail-placeholder">
+            <span>Défiscalisation Pinel OM</span>
+          </div>
+        </div>
+        <div class="detail-content">
+          <span class="detail-service-label">Optimisation fiscale</span>
+          <h3>Défiscalisation Pinel Outre-Mer</h3>
+          <p>Le dispositif Pinel Outre-Mer offre des avantages fiscaux significativement supérieurs au Pinel métropolitain : jusqu'à 32 % de réduction d'impôt sur 12 ans pour un investissement dans un logement neuf en Martinique ou en Guadeloupe. Optimmo Dom identifie les programmes éligibles et structure votre investissement pour maximiser l'avantage fiscal.</p>
+          <p>Notre connaissance des promoteurs locaux, des zonages éligibles et des conditions de ressources des locataires vous garantit un investissement conforme, sécurisé et fiscalement optimisé dès la première année.</p>
+          <ul class="detail-bullets">
+            <li>Identification des programmes neufs éligibles Pinel Outre-Mer</li>
+            <li>Calcul personnalisé de l'avantage fiscal selon votre tranche d'imposition</li>
+            <li>Coordination avec votre expert-comptable ou conseiller en gestion de patrimoine</li>
+            <li>Suivi sur toute la durée de l'engagement locatif (6, 9 ou 12 ans)</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- POURQUOI CHOISIR OPTIMMO DOM -->
+  <section class="why-choose reveal">
+    <div class="container">
+      <div class="why-choose-header">
+        <div class="section-label">Nos atouts</div>
+        <div class="gold-rule"></div>
+        <h2 class="section-title">Pourquoi Choisir <em>Optimmo Dom</em></h2>
+        <p style="font-family:var(--sans);font-size:16px;color:var(--slate);max-width:560px;margin:24px auto 0;line-height:1.8;">Six raisons qui font la différence quand vous choisissez de nous confier votre projet immobilier aux Antilles.</p>
+      </div>
+      <div class="checklist-grid">
+        <div class="checklist-item">
+          <div class="check-icon">✓</div>
+          <p><strong>Réseau Sextant France</strong>3 000+ agents partenaires et un portefeuille de biens exclusifs à l'échelle nationale.</p>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">✓</div>
+          <p><strong>Spécialistes des DOM</strong>Connaissance approfondie des spécificités juridiques, fiscales et coutumières des Antilles.</p>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">✓</div>
+          <p><strong>Données de marché fiables</strong>Accès aux données DVF, Caisse des Dépôts, INSEE et Carte des Loyers pour des estimations précises.</p>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">✓</div>
+          <p><strong>Présence bilocale</strong>Équipes dédiées en Martinique ET en Guadeloupe pour une réactivité optimale sur les deux territoires.</p>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">✓</div>
+          <p><strong>Service à distance</strong>Accompagnement complet possible depuis la métropole : visioconférence, procuration, reporting régulier.</p>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon">✓</div>
+          <p><strong>Honoraires transparents</strong>Tarifs clairs, annoncés avant tout engagement, alignés sur vos intérêts et sans frais cachés.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section reveal">
+    <div class="container">
+      <div class="faq-header">
+        <div class="section-label">Questions fréquentes</div>
+        <div class="gold-rule"></div>
+        <h2 class="section-title">Vos <em>Questions</em></h2>
+      </div>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Quels sont vos honoraires ?</span>
+            <div class="faq-arrow">+</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Nos honoraires sont conformes aux barèmes professionnels en vigueur, et toujours présentés de façon transparente avant tout engagement. Pour une acquisition, les honoraires sont généralement inclus dans le prix affiché et supportés par le vendeur. Pour une mise en vente, nous vous proposons des formules adaptées à votre situation et à la complexité du bien. Contactez-nous pour un devis personnalisé gratuit et sans engagement.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Combien de temps prend une transaction immobilière aux Antilles ?</span>
+            <div class="faq-arrow">+</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Le délai moyen d'une transaction en Martinique ou en Guadeloupe est de 3 à 6 mois, de la signature du compromis à l'acte authentique. Ce délai peut être allongé en cas de bien en indivision, de financement complexe ou de purge de droits de préemption des collectivités. Notre équipe anticipe ces délais dès le départ et vous accompagne à chaque étape pour éviter les blocages et les mauvaises surprises.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Puis-je investir depuis la métropole ?</span>
+            <div class="faq-arrow">+</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Absolument. Une grande partie de nos clients résident en métropole ou à l'étranger. Nous organisons des visites en visioconférence avec retransmission en direct, préparons des dossiers complets incluant photos haute définition, vidéos et tous les diagnostics, et pouvons agir par procuration pour les étapes qui requièrent votre présence physique. Notre équipe bilocale (Martinique + Guadeloupe) est votre relais local de confiance, disponible en continu.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section reveal">
+    <div class="container">
+      <div class="section-label">Passez à l'action</div>
+      <h2>Prêt à concrétiser votre projet <em>immobilier</em> ?</h2>
+      <p>Nos conseillers sont à votre disposition pour un premier échange gratuit et sans engagement. Votre projet mérite une attention experte.</p>
+      <div class="cta-buttons">
+        <a href="../contact.html" class="btn-gold">Prendre rendez-vous</a>
+        <a href="../espace-partenaires/" class="btn-ghost">Espace Partenaires</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand-name">Optimmo Dom</div>
+          <div class="footer-brand-sub">Conseil Immobilier Antilles</div>
+          <p class="footer-brand-desc">Expertise immobilière haut de gamme en Martinique et Guadeloupe. Réseau Sextant France.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social">f</a>
+            <a href="#" class="footer-social">in</a>
+            <a href="#" class="footer-social">ig</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="conseil-immobilier.html">Conseil Immobilier</a></li>
+            <li><a href="succession.html">Succession &amp; Indivision</a></li>
+            <li><a href="valorisation.html">Valorisation</a></li>
+            <li><a href="foncier.html">Ingénierie Foncière</a></li>
+            <li><a href="construction.html">Construction</a></li>
+            <li><a href="avis-de-valeur.html">Avis de Valeur</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Territoires</h4>
+          <ul class="footer-links">
+            <li><a href="#">Martinique</a></li>
+            <li><a href="#">Guadeloupe</a></li>
+            <li><a href="#">Fort-de-France</a></li>
+            <li><a href="#">Pointe-à-Pitre</a></li>
+            <li><a href="#">Le Gosier</a></li>
+            <li><a href="#">Le Lamentin</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:contact@fidiconseil.com">contact@fidiconseil.com</a></li>
+            <li><a href="tel:+596696000000">+596 696 00 00 00</a></li>
+            <li><a href="../contact.html">Formulaire de contact</a></li>
+            <li><a href="../espace-partenaires/">Espace Partenaires</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Optimmo Dom · Réseau Sextant France · <a href="#">Mentions légales</a></p>
+        <p>Conseil immobilier expert en Martinique et Guadeloupe</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav
+    const nav = document.getElementById('nav');
+    const hamburger = document.getElementById('hamburger');
+    const overlay = document.getElementById('menu-overlay');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); overlay.classList.toggle('open'); document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : ''; });
+    document.querySelectorAll('#menu-overlay a').forEach(a => a.addEventListener('click', () => { hamburger.classList.remove('active'); overlay.classList.remove('open'); document.body.style.overflow = ''; }));
+    document.querySelectorAll('.reveal').forEach(el => { new IntersectionObserver(([e]) => e.isIntersecting && e.target.classList.add('in'), { threshold: 0.12 }).observe(el); });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+        btn.setAttribute('aria-expanded', !isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
