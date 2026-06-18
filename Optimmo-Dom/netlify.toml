@@ -1,0 +1,91 @@
+[build]
+  publish   = "."
+  functions = "netlify/functions"
+  command   = "npm install --omit=dev --no-audit --no-fund"
+
+[functions."paypal-subscription"]
+  timeout = 20
+
+[functions."paypal-order"]
+  timeout = 15
+
+[functions."paypal-webhook"]
+  timeout = 15
+
+# ── Auth & Paiements Espace Partenaires ──────────────────────────────────────
+[[redirects]]
+  from   = "/api/auth/register"
+  to     = "/.netlify/functions/auth-register"
+  status = 200
+
+[[redirects]]
+  from   = "/api/auth/login"
+  to     = "/.netlify/functions/auth-login"
+  status = 200
+
+[[redirects]]
+  from   = "/api/auth/me"
+  to     = "/.netlify/functions/auth-me"
+  status = 200
+
+[[redirects]]
+  from   = "/api/auth/logout"
+  to     = "/.netlify/functions/auth-logout"
+  status = 200
+
+[[redirects]]
+  from   = "/api/paypal/subscription"
+  to     = "/.netlify/functions/paypal-subscription"
+  status = 200
+
+[[redirects]]
+  from   = "/api/paypal/order"
+  to     = "/.netlify/functions/paypal-order"
+  status = 200
+
+[[redirects]]
+  from   = "/api/paypal/webhook"
+  to     = "/.netlify/functions/paypal-webhook"
+  status = 200
+
+# ── Raccourcis pages publiques ────────────────────────────────────────────────
+[[redirects]]
+  from   = "/services"
+  to     = "/services.html"
+  status = 302
+
+[[redirects]]
+  from   = "/catalogue"
+  to     = "/catalogue.html"
+  status = 302
+
+[[redirects]]
+  from   = "/realisations"
+  to     = "/realisations.html"
+  status = 302
+
+[[redirects]]
+  from   = "/contact"
+  to     = "/contact.html"
+  status = 302
+
+[[redirects]]
+  from   = "/espace-partenaires"
+  to     = "/espace-partenaires/"
+  status = 302
+
+[[redirects]]
+  from   = "/mentions-legales"
+  to     = "/mentions-legales.html"
+  status = 302
+
+[[redirects]]
+  from   = "/rgpd"
+  to     = "/rgpd.html"
+  status = 302
+
+# ── Fallback ─────────────────────────────────────────────────────────────────
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200

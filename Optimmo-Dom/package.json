@@ -1,0 +1,14 @@
+{
+  "name": "optimmo-dom",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Optimmo Dom — Site web et Espace Partenaires",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "check": "for f in netlify/functions/*.mjs; do node --check \"$f\"; done"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}
