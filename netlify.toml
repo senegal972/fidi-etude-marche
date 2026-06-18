@@ -134,44 +134,44 @@
 # ── Racine du domaine → site vitrine Optimmo Dom ──────────────────────────────
 [[redirects]]
   from   = "/"
-  to     = "/optimodum-website/"
+  to     = "/Optimmo-Dom/"
   status = 302
   force  = true
 
 # Raccourcis propres vers les pages publiques (fidiconseil.com/services, etc.)
 [[redirects]]
   from   = "/services"
-  to     = "/optimodum-website/services.html"
+  to     = "/Optimmo-Dom/services.html"
   status = 302
 [[redirects]]
   from   = "/catalogue"
-  to     = "/optimodum-website/catalogue.html"
+  to     = "/Optimmo-Dom/catalogue.html"
   status = 302
 [[redirects]]
   from   = "/realisations"
-  to     = "/optimodum-website/realisations.html"
+  to     = "/Optimmo-Dom/realisations.html"
   status = 302
 [[redirects]]
   from   = "/contact"
-  to     = "/optimodum-website/contact.html"
+  to     = "/Optimmo-Dom/contact.html"
   status = 302
 [[redirects]]
   from   = "/espace-partenaires"
-  to     = "/optimodum-website/espace-partenaires/"
+  to     = "/Optimmo-Dom/espace-partenaires/"
   status = 302
 
 # Pages légales
 [[redirects]]
   from   = "/mentions-legales"
-  to     = "/optimodum-website/mentions-legales.html"
+  to     = "/Optimmo-Dom/mentions-legales.html"
   status = 302
 [[redirects]]
   from   = "/rgpd"
-  to     = "/optimodum-website/rgpd.html"
+  to     = "/Optimmo-Dom/rgpd.html"
   status = 302
 
 # ── Fallback : toute URL non trouvée → site Optimmo Dom (pas l'app) ──────────
 [[redirects]]
   from   = "/*"
-  to     = "/optimodum-website/index.html"
+  to     = "/Optimmo-Dom/index.html"
   status = 200
