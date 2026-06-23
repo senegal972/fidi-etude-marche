@@ -10,8 +10,8 @@
 
 | Composant | Emplacement | Dépend de |
 |-----------|-------------|-----------|
-| Site public | `optimodum-website/*.html` | — |
-| Espace Partenaires (front) | `optimodum-website/espace-partenaires/*.html` | API auth + PayPal |
+| Site public | `Optimmo-Dom/*.html` | — |
+| Espace Partenaires (front) | `Optimmo-Dom/espace-partenaires/*.html` | API auth + PayPal |
 | API Auth | `netlify/functions/auth-*.mjs` | `JWT_SECRET`, Netlify Blobs |
 | API Paiements | `netlify/functions/paypal-*.mjs` | identifiants PayPal |
 | Outils d'analyse | `netlify/functions/{analyse,transactions,…}.mjs` | (clés optionnelles) |
@@ -129,7 +129,7 @@ Reporter les trois IDs `P-XXXX` dans `PAYPAL_PLAN_ID_BASIC/PRO/PREMIUM`.
 
 Le paiement **one-shot** (accès 30 jours) utilise les PayPal Smart Buttons côté
 navigateur. Renseigner le **même Client ID public** dans la balise meta de
-`optimodum-website/espace-partenaires/paiement.html` :
+`Optimmo-Dom/espace-partenaires/paiement.html` :
 
 ```html
 <meta name="paypal-client-id" content="VOTRE_CLIENT_ID_PUBLIC" />
@@ -214,7 +214,7 @@ git push origin main
 
 | Vérification | Comment |
 |--------------|---------|
-| Site public | Ouvrir `https://fidiconseil.com/optimodum-website/` |
+| Site public | Ouvrir `https://fidiconseil.com/` (sert le dossier `Optimmo-Dom/`) |
 | Connexion | `/espace-partenaires/` → identifiants → redirection tableau de bord |
 | Tableau de bord | Les outils s'affichent verrouillés/déverrouillés selon le plan |
 | Abonnement | Cliquer « Choisir Pro » → redirection PayPal → retour `paiement-succes.html` |
@@ -296,5 +296,5 @@ Chez **Gandi** → domaine → **Enregistrements DNS (LiveDNS)** → ajouter :
   `www` → apex ou inversement, au choix).
 - Mettre à jour la variable d'environnement `BASE_URL=https://fidiconseil.com`.
 - Vérifier que `https://fidiconseil.com` redirige vers le site Optimmo Dom
-  (`/optimodum-website/`, cf. règle de redirection du `netlify.toml`).
+  (dossier `/Optimmo-Dom/`, cf. règle de redirection du `netlify.toml`).
 - Mettre à jour les **return_url / webhook PayPal** sur le domaine définitif.

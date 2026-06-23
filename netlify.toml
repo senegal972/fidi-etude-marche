@@ -123,39 +123,55 @@
   to     = "/.netlify/functions/paypal-webhook"
   status = 200
 
+# ── Application Étude de Marché (URL propre, séparée du site) ─────────────────
+# L'app DVF/DPE/analyse vit à la racine (/index.html).
+# On lui donne une URL propre /etude-marche pour l'espace partenaires.
+[[redirects]]
+  from   = "/etude-marche"
+  to     = "/index.html"
+  status = 200
+
 # ── Racine du domaine → site vitrine Optimmo Dom ──────────────────────────────
-# fidiconseil.com sert le site Optimmo Dom. L'outil d'analyse historique reste
-# accessible directement sur /index.html (utilisé par le tableau de bord).
 [[redirects]]
   from   = "/"
-  to     = "/optimodum-website/"
+  to     = "/Optimmo-Dom/"
   status = 302
   force  = true
 
 # Raccourcis propres vers les pages publiques (fidiconseil.com/services, etc.)
 [[redirects]]
   from   = "/services"
-  to     = "/optimodum-website/services.html"
+  to     = "/Optimmo-Dom/services.html"
   status = 302
 [[redirects]]
   from   = "/catalogue"
-  to     = "/optimodum-website/catalogue.html"
+  to     = "/Optimmo-Dom/catalogue.html"
   status = 302
 [[redirects]]
   from   = "/realisations"
-  to     = "/optimodum-website/realisations.html"
+  to     = "/Optimmo-Dom/realisations.html"
   status = 302
 [[redirects]]
   from   = "/contact"
-  to     = "/optimodum-website/contact.html"
+  to     = "/Optimmo-Dom/contact.html"
   status = 302
 [[redirects]]
   from   = "/espace-partenaires"
-  to     = "/optimodum-website/espace-partenaires/"
+  to     = "/Optimmo-Dom/espace-partenaires/"
   status = 302
 
-# ── SPA fallback : toute URL non trouvée → index.html ─────────────────────────
+# Pages légales
+[[redirects]]
+  from   = "/mentions-legales"
+  to     = "/Optimmo-Dom/mentions-legales.html"
+  status = 302
+[[redirects]]
+  from   = "/rgpd"
+  to     = "/Optimmo-Dom/rgpd.html"
+  status = 302
+
+# ── Fallback : toute URL non trouvée → site Optimmo Dom (pas l'app) ──────────
 [[redirects]]
   from   = "/*"
-  to     = "/index.html"
+  to     = "/Optimmo-Dom/index.html"
   status = 200

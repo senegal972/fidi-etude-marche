@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1620" viewBox="0 0 1080 1620" font-family="'Lato','Segoe UI',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0A1422"/>
+      <stop offset="1" stop-color="#070F1A"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#C9A84C"/>
+      <stop offset="1" stop-color="#E8C96A"/>
+    </linearGradient>
+    <linearGradient id="goldV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E8C96A"/>
+      <stop offset="1" stop-color="#C9A84C"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1080" height="1620" fill="url(#bg)"/>
+  <rect x="40" y="40" width="1000" height="1540" rx="10" fill="none" stroke="#1E2D40" stroke-width="1.5"/>
+
+  <!-- HEADER -->
+  <text x="540" y="128" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="58" fill="#FFFFFF" letter-spacing="6">OPTIMMO <tspan fill="url(#gold)">DOM</tspan></text>
+  <line x1="450" y1="156" x2="630" y2="156" stroke="url(#gold)" stroke-width="1.5"/>
+  <text x="540" y="196" text-anchor="middle" font-size="17" fill="#9FB0C0" letter-spacing="4" font-weight="700">AUDIT TECHNIQUE &amp; PROPOSITION D'OPTIMISATION</text>
+
+  <!-- SCORE GAUGE -->
+  <g transform="translate(540,330)">
+    <circle r="92" fill="none" stroke="#1E2D40" stroke-width="14"/>
+    <circle r="92" fill="none" stroke="url(#goldV)" stroke-width="14" stroke-linecap="round"
+            stroke-dasharray="404 578" transform="rotate(-90)"/>
+    <text x="0" y="6" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="62" fill="#FFFFFF">70</text>
+    <text x="0" y="40" text-anchor="middle" font-size="15" fill="#9FB0C0" letter-spacing="2">SCORE ACTUEL / 100</text>
+  </g>
+  <text x="540" y="470" text-anchor="middle" font-size="18" fill="#C9A84C" letter-spacing="1">Base saine — fort potentiel d'amélioration</text>
+
+  <!-- 3 PILIERS -->
+  <!-- helper rows -->
+  <g transform="translate(80,520)">
+
+    <!-- PILIER 1 : SEO -->
+    <rect x="0" y="0" width="920" height="300" rx="8" fill="#0D1A2B" stroke="#1E2D40"/>
+    <rect x="0" y="0" width="6" height="300" rx="3" fill="url(#goldV)"/>
+    <text x="36" y="58" font-family="'Cormorant Garamond',serif" font-size="40" fill="#FFFFFF">01 — SEO &amp; Visibilité</text>
+    <text x="36" y="92" font-size="17" fill="#7A8A99" letter-spacing="1">Être trouvé sur Google aux Antilles</text>
+
+    <text x="40"  y="142" font-size="19" fill="#E8ECF0">⚠  Aucune image de partage social (og:image)</text>
+    <text x="40"  y="178" font-size="19" fill="#E8ECF0">⚠  Aucune donnée structurée (RealEstateAgent)</text>
+    <text x="40"  y="214" font-size="19" fill="#E8ECF0">⚠  Pas de sitemap.xml ni robots.txt</text>
+    <text x="40"  y="250" font-size="19" fill="#E8ECF0">⚠  URLs canoniques absentes</text>
+    <text x="40"  y="286" font-size="17" fill="#C9A84C" font-weight="700">→ Liens partagés enrichis + référencement local renforcé</text>
+  </g>
+
+  <g transform="translate(80,850)">
+    <!-- PILIER 2 : PERFORMANCE -->
+    <rect x="0" y="0" width="920" height="270" rx="8" fill="#0D1A2B" stroke="#1E2D40"/>
+    <rect x="0" y="0" width="6" height="270" rx="3" fill="url(#goldV)"/>
+    <text x="36" y="58" font-family="'Cormorant Garamond',serif" font-size="40" fill="#FFFFFF">02 — Performance</text>
+    <text x="36" y="92" font-size="17" fill="#7A8A99" letter-spacing="1">Vitesse d'affichage &amp; fluidité</text>
+
+    <text x="40" y="142" font-size="19" fill="#E8ECF0">⚠  CSS dupliqué en ligne sur chaque page (~1200 lignes)</text>
+    <text x="40" y="178" font-size="19" fill="#E8ECF0">⚠  Image héro non préchargée (affichage principal lent)</text>
+    <text x="40" y="214" font-size="19" fill="#E8ECF0">⚠  Images sans format moderne / dimensions optimales</text>
+    <text x="40" y="252" font-size="17" fill="#C9A84C" font-weight="700">→ Feuille de style partagée &amp; mise en cache + préchargement</text>
+  </g>
+
+  <g transform="translate(80,1150)">
+    <!-- PILIER 3 : CONVERSION -->
+    <rect x="0" y="0" width="920" height="270" rx="8" fill="#0D1A2B" stroke="#1E2D40"/>
+    <rect x="0" y="0" width="6" height="270" rx="3" fill="url(#goldV)"/>
+    <text x="36" y="58" font-family="'Cormorant Garamond',serif" font-size="40" fill="#FFFFFF">03 — Conversion &amp; UX</text>
+    <text x="36" y="92" font-size="17" fill="#7A8A99" letter-spacing="1">Transformer le visiteur en contact</text>
+
+    <text x="40" y="142" font-size="19" fill="#E8ECF0">⚠  Boutons clés non cliquables (en attente de pages)</text>
+    <text x="40" y="178" font-size="19" fill="#E8ECF0">⚠  Pas de favicon / theme-color / aperçu mobile</text>
+    <text x="40" y="214" font-size="19" fill="#E8ECF0">○  Parcours de contact à fluidifier</text>
+    <text x="40" y="252" font-size="17" fill="#C9A84C" font-weight="700">→ Identité complète + appels à l'action actifs &amp; mesurables</text>
+  </g>
+
+  <!-- FOOTER -->
+  <line x1="80" y1="1470" x2="1000" y2="1470" stroke="#1E2D40"/>
+  <text x="540" y="1520" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="30" fill="#FFFFFF">Direction proposée : <tspan fill="url(#gold)">même élégance, plus de visibilité &amp; de vitesse</tspan></text>
+  <text x="540" y="1556" text-anchor="middle" font-size="15" fill="#7A8A99" letter-spacing="2">Charte « Caribbean Luxury » conservée — aucune refonte visuelle imposée</text>
+</svg>
