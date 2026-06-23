@@ -4,10 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Optimmo Dom — Expert en conseil immobilier, valorisation de patrimoine et dénouement successoral en Martinique et Guadeloupe. Franck Fidi & réseau Sextant." />
-  <meta property="og:title" content="Optimmo Dom — L'excellence immobilière aux Antilles" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#070F1A" />
+
+  <!-- Open Graph / Partage social -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="Optimmo Dom" />
+  <meta property="og:title"       content="Optimmo Dom — L'excellence immobilière aux Antilles" />
   <meta property="og:description" content="Conseil, valorisation patrimoniale, développement foncier, avis de valeur. Martinique & Guadeloupe." />
-  <meta property="og:type" content="website" />
+  <meta property="og:url"         content="https://www.optimmo-dom.fr/" />
+  <meta property="og:image"       content="https://www.optimmo-dom.fr/assets/og-home.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale"      content="fr_FR" />
+
+  <!-- Twitter / X Cards -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Optimmo Dom — L'excellence immobilière aux Antilles" />
+  <meta name="twitter:description" content="Conseil, valorisation patrimoniale, développement foncier, avis de valeur. Martinique & Guadeloupe." />
+  <meta name="twitter:image"       content="https://www.optimmo-dom.fr/assets/og-home.jpg" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.optimmo-dom.fr/" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
   <title>Optimmo Dom — L'excellence immobilière aux Antilles</title>
+
+  <!-- Performance : préchargement de l'image héro -->
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=1920&q=85" fetchpriority="high" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1204,6 +1232,32 @@
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
   </style>
+
+  <!-- Données structurées — RealEstateAgent (SEO local Martinique / Guadeloupe) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    "name": "Optimmo Dom",
+    "description": "Expert en conseil immobilier, valorisation de patrimoine et dénouement successoral en Martinique et Guadeloupe.",
+    "url": "https://www.optimmo-dom.fr/",
+    "logo": "https://www.optimmo-dom.fr/favicon.svg",
+    "image": "https://www.optimmo-dom.fr/assets/og-home.jpg",
+    "email": "contact@fidiconseil.com",
+    "areaServed": [
+      { "@type": "State", "name": "Martinique", "addressCountry": "FR" },
+      { "@type": "State", "name": "Guadeloupe", "addressCountry": "FR" }
+    ],
+    "knowsAbout": [
+      "Conseil immobilier", "Avis de valeur vénale", "Valorisation patrimoniale",
+      "Développement foncier", "Succession et héritage immobilier",
+      "Études de marché immobilier", "Investissement locatif Antilles"
+    ],
+    "sameAs": [
+      "https://fidiconseil.com"
+    ]
+  }
+  </script>
 </head>
 <body>
 

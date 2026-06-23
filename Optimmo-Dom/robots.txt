@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Espace partenaires — pas d'indexation
+Disallow: /espace-partenaires/
+Disallow: /netlify/
+
+Sitemap: https://www.optimmo-dom.fr/sitemap.xml
