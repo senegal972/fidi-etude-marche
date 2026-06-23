@@ -1,0 +1,48 @@
+name: Sync → Optimmo-Dom
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Optimmo-Dom/**"
+      - "netlify/functions/_auth.mjs"
+      - "netlify/functions/_paypal.mjs"
+      - "netlify/functions/auth-*.mjs"
+      - "netlify/functions/paypal-*.mjs"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fidi-etude-marche
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push Optimmo-Dom/ → senegal972/Optimmo-Dom
+        env:
+          TOKEN: ${{ secrets.OPTIMMO_DOM_TOKEN }}
+        run: |
+          git config --global user.name  "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Clone le dépôt cible
+          git clone --depth=1 \
+            "https://x-access-token:${TOKEN}@github.com/senegal972/Optimmo-Dom.git" \
+            /tmp/optimmo-dom
+
+          # Synchronise le contenu (hors .git)
+          find /tmp/optimmo-dom -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          cp -R Optimmo-Dom/. /tmp/optimmo-dom/
+
+          # Commit + push si changements
+          cd /tmp/optimmo-dom
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Aucun changement — dépôt déjà à jour."
+            exit 0
+          fi
+          COMMIT_MSG=$(cd $GITHUB_WORKSPACE && git log -1 --pretty="%s" HEAD)
+          git commit -m "sync: ${COMMIT_MSG}"
+          git push origin main
+          echo "✅ Optimmo-Dom mis à jour → Netlify va redéployer."
