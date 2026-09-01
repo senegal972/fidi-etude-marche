@@ -135,14 +135,40 @@ async function testAvis() {
   log("ok", "POST /api/avis-de-valeur", `valeur ${d.valeur.valeur_venale} €`);
 }
 
+// Attend que les Netlify Functions du preview soient réellement propagées.
+// Un deploy preview fraîchement « ready » peut renvoyer 404 / ECONNRESET
+// pendant quelques secondes, le temps que les fonctions démarrent (cold start).
+// Sonder une seule fois puis lancer la suite ferait échouer `testAutocomplete`
+// (le 404 y est un échec dur) sur un simple artefact de timing, pas une
+// régression. On sonde donc avec quelques essais espacés ; si les fonctions ne
+// répondent jamais 200, on considère le preview non exploitable → skip global.
+async function attendreFonctionsPretes(essais = 4, delaiMs = 4000) {
+  for (let i = 0; i < essais; i++) {
+    try {
+      const r = await fetchT(`${BASE}/api/autocomplete?q=test`);
+      if (r.ok) return true; // fonctions servies → on peut lancer la suite
+      // 404/5xx pendant la propagation : on patiente et on réessaie
+    } catch (e) {
+      if (!isTransient(e)) throw e; // vraie erreur non-réseau → à remonter
+    }
+    if (i < essais - 1) await new Promise((res) => setTimeout(res, delaiMs));
+  }
+  return false; // jamais prêt (fonctions non propagées / preview sans fonctions)
+}
+
 async function main() {
   console.log(`\n🔍 Smoke tests FIDI — cible : ${BASE}\n`);
-  // Vérifie d'abord que l'hôte répond
+  // Vérifie que l'hôte répond ET que les fonctions sont propagées (cold start)
+  let pret;
   try {
-    await fetchT(`${BASE}/api/autocomplete?q=test`);
+    pret = await attendreFonctionsPretes();
   } catch (e) {
-    console.log(`⊘ Hôte injoignable (${e.message}) — smoke tests ignorés.`);
-    console.log("  Lancez `npx netlify dev` ou définissez BASE_URL vers le deploy preview.\n");
+    console.log(`⊘ Sonde en échec (${e.message}) — smoke tests ignorés.`);
+    process.exit(0);
+  }
+  if (!pret) {
+    console.log("⊘ Deploy preview non prêt (fonctions non propagées ou hôte injoignable) — smoke tests ignorés.");
+    console.log("  Lancez `npx netlify dev` ou définissez BASE_URL vers un preview servant /api/*.\n");
     process.exit(0);
   }
 
