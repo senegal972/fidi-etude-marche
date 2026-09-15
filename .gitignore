@@ -47,3 +47,9 @@ credentials.json
 
 # Worktrees temporaires agents
 .claude/worktrees/
+
+# Ruflo — artefacts runtime générés par le CLI (@claude-flow/cli)
+# régénérés à chaque exécution, ne doivent pas être versionnés
+.claude-flow/
+.claude/proven-config.json
+.claude/.proven-config-version
