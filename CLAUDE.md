@@ -159,6 +159,21 @@ Orchestrateur → dvf-analyst + dpe-analyst (parallèle)
 | `/deploy-check` | Vérifie la configuration avant déploiement Netlify |
 | `/debug-function` | Diagnostique une fonction Netlify défaillante |
 
+### Plugins Ruflo additionnels
+
+Skills et commandes issus des plugins Ruflo `security-audit`, `testgen` et
+`observability` (via `@claude-flow/cli`) :
+
+| Commande | Description |
+|----------|-------------|
+| `/audit` | Audit de sécurité du projet (scan CVE, STRIDE) — `security scan` |
+| `/testgen` | Génère des tests pour un fichier/module (analyse de couverture, TDD) |
+| `/observe` | Observabilité : traces d'exécution, métriques, corrélation télémétrie |
+
+Skills associés : `security-scan`, `dependency-check` (sécurité) ·
+`tdd-workflow`, `tdd-repair`, `test-gaps` (tests) ·
+`observe-metrics`, `observe-trace` (observabilité).
+
 ## Déploiement
 
 ```bash
