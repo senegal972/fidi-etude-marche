@@ -1,6 +1,6 @@
 # FIDI · Étude de Marché Immobilier — Guide Claude Code
 
-> Orchestration ruflo v3.6 · Projet senegal972/fidi-etude-marche
+> Orchestration Ruflo v3.38.20 (ex Claude Flow) · Projet senegal972/fidi-etude-marche
 
 ## Architecture du projet
 

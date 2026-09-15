@@ -4,7 +4,7 @@
   "customInstructions": "Tu travailles sur FIDI · Étude de Marché Immobilier, une SPA + Netlify Functions analysant les données immobilières françaises publiques (DVF, DPE, Géorisques, BAN). Utilise toujours le format ESM pour les fichiers .mjs. Teste les fonctions API avec des adresses réelles françaises. Ne casse jamais les fonctions existantes. Coordonne les agents spécialisés selon la configuration .agents/config.toml.",
   "env": {
     "RUFLO_PROJECT": "fidi-etude-marche",
-    "RUFLO_VERSION": "3.6",
+    "RUFLO_VERSION": "3.38.20",
     "NODE_ENV": "development"
   },
   "features": {
