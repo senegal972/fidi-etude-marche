@@ -21,7 +21,7 @@
   function esc(s) {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
   function formatDateFR(iso) {
     if (!iso) return '';
@@ -928,7 +928,7 @@
         '<div class="av-lib-sub">' + esc((m.type ? m.type + ' · ' : '') + (m.commune || '') + (m.date ? ' · ' + m.date : '')) + '</div>' +
         '<div class="av-lib-val">' + (m.valeur || '—') + '</div></div>' +
         '<div class="av-lib-act">' +
-        '<button class="btn btn-sm btn-primary" onclick="AvisValeur.open(\'' + esc(m.ref).replace(/'/g, "\\'") + '\')">Ouvrir</button>' +
+        '<button class="btn btn-sm btn-primary" data-avis-open="' + esc(m.ref) + '">Ouvrir</button>' +
         '</div></div>';
     }).join('') : '<div class="av-tip" style="padding:1rem;text-align:center;">Aucun avis sauvegardé pour le moment.</div>';
     root.innerHTML = '<div class="modal fade" id="avisLibModal" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content">' +
@@ -937,6 +937,11 @@
       '<div class="modal-body" id="avisLibBody">' + rows + '</div>' +
       '<div class="modal-footer"><button class="btn btn-sm btn-outline-primary" onclick="AvisValeur.open()">+ Nouvel avis</button></div>' +
       '</div></div></div>';
+    // Ouverture d'un avis sauvegardé — via data-attribut + listener (pas d'onclick
+    // inline interpolant la référence utilisateur, contexte JS-dans-HTML fragile).
+    root.querySelectorAll('[data-avis-open]').forEach(function (btn) {
+      btn.addEventListener('click', function () { open(btn.getAttribute('data-avis-open')); });
+    });
     var el = document.getElementById('avisLibModal');
     el.addEventListener('hidden.bs.modal', function () { el.remove(); });
     new bootstrap.Modal(el).show();
