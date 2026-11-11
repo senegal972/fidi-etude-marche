@@ -7,17 +7,19 @@
   <meta name="description" content="Maximiser la valeur de votre patrimoine immobilier en Martinique et Guadeloupe. Stratégies de rénovation ciblée, optimisation locative et revalorisation foncière." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/shared.css" />
   <style>
     /* ── Page-specific tokens ───────────────────────────── */
     :root {
-      --ink: #070F1A;
+      --ink: #0A1826;
       --gold: #C9A84C;
+      --accent:    #2BB9DA;
+      --accent-lt: #5FD0EA;
       --white: #FFFFFF;
       --slate: #7A8A99;
       --text: #E8ECF0;
-      --navy: #1A2B3C;
+      --navy: #10243A;
     }
 
     /* ── Hero ───────────────────────────────────────────── */
@@ -26,7 +28,7 @@
       display: flex;
       align-items: flex-end;
       padding-bottom: 80px;
-      background: linear-gradient(160deg, #0A1828 0%, #070F1A 60%), url('');
+      background: linear-gradient(160deg, #0A1828 0%, #0A1826 60%), url('');
       background-size: cover;
       background-position: center;
       position: relative;
@@ -36,10 +38,10 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 70% 60% at 80% 40%, rgba(201,168,76,0.07) 0%, transparent 70%);
+      background: radial-gradient(ellipse 70% 60% at 80% 40%, rgba(43,185,218,0.07) 0%, transparent 70%);
     }
     .hero-breadcrumb {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 0.75rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -51,8 +53,8 @@
       text-decoration: none;
       transition: color 0.2s;
     }
-    .hero-breadcrumb a:hover { color: var(--gold); }
-    .hero-breadcrumb span { color: var(--gold); margin: 0 8px; }
+    .hero-breadcrumb a:hover { color: var(--accent); }
+    .hero-breadcrumb span { color: var(--accent); margin: 0 8px; }
     .page-hero h1 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2.8rem, 6vw, 5rem);
@@ -62,11 +64,11 @@
       margin: 0 0 24px;
     }
     .page-hero h1 em {
-      color: var(--gold);
+      color: var(--accent);
       font-style: italic;
     }
     .page-hero-sub {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: clamp(1rem, 2vw, 1.2rem);
       font-weight: 300;
       color: var(--text);
@@ -95,7 +97,7 @@
       top: 120px;
     }
     .contexte-text p {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 1.05rem;
       line-height: 1.85;
       color: var(--text);
@@ -107,15 +109,15 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: rgba(201,168,76,0.08);
-      border: 1px solid rgba(201,168,76,0.25);
+      background: rgba(43,185,218,0.08);
+      border: 1px solid rgba(43,185,218,0.25);
       border-radius: 4px;
       padding: 10px 18px;
-      font-family: 'Lato', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 0.82rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 30px;
     }
 
@@ -128,21 +130,21 @@
     }
     .levier-card {
       background: rgba(26,43,60,0.6);
-      border: 1px solid rgba(201,168,76,0.15);
-      border-top: 3px solid var(--gold);
+      border: 1px solid rgba(43,185,218,0.15);
+      border-top: 3px solid var(--accent);
       padding: 36px 30px;
       transition: border-color 0.3s, transform 0.3s;
     }
     .levier-card:hover {
-      border-color: rgba(201,168,76,0.4);
+      border-color: rgba(43,185,218,0.4);
       transform: translateY(-4px);
     }
     .levier-icon {
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      background: rgba(201,168,76,0.1);
-      border: 1px solid rgba(201,168,76,0.3);
+      background: rgba(43,185,218,0.1);
+      border: 1px solid rgba(43,185,218,0.3);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -157,7 +159,7 @@
       margin: 0 0 14px;
     }
     .levier-card p {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 0.92rem;
       line-height: 1.75;
       color: var(--text);
@@ -178,7 +180,7 @@
       top: 0;
       bottom: 0;
       width: 1px;
-      background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.1));
+      background: linear-gradient(to bottom, var(--accent), rgba(43,185,218,0.1));
     }
     .timeline-item {
       display: flex;
@@ -194,14 +196,14 @@
       height: 60px;
       border-radius: 50%;
       background: var(--ink);
-      border: 2px solid var(--gold);
+      border: 2px solid var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.5rem;
       font-weight: 600;
-      color: var(--gold);
+      color: var(--accent);
       position: relative;
       z-index: 1;
     }
@@ -213,7 +215,7 @@
       margin: 12px 0 10px;
     }
     .timeline-content p {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 0.92rem;
       line-height: 1.75;
       color: var(--text);
@@ -229,8 +231,8 @@
       margin-top: 56px;
     }
     .stat-card {
-      background: rgba(201,168,76,0.05);
-      border: 1px solid rgba(201,168,76,0.12);
+      background: rgba(43,185,218,0.05);
+      border: 1px solid rgba(43,185,218,0.12);
       padding: 48px 36px;
       text-align: center;
     }
@@ -240,12 +242,12 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2.8rem, 5vw, 4rem);
       font-weight: 300;
-      color: var(--gold);
+      color: var(--accent);
       line-height: 1;
       margin-bottom: 12px;
     }
     .stat-label {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 0.88rem;
       line-height: 1.55;
       color: var(--text);
@@ -263,7 +265,7 @@
       margin-top: 56px;
     }
     .diff-text p {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 1.05rem;
       line-height: 1.85;
       color: var(--text);
@@ -280,8 +282,8 @@
       align-items: flex-start;
       gap: 16px;
       padding: 16px 0;
-      border-bottom: 1px solid rgba(201,168,76,0.1);
-      font-family: 'Lato', sans-serif;
+      border-bottom: 1px solid rgba(43,185,218,0.1);
+      font-family: 'Montserrat', sans-serif;
       font-size: 0.95rem;
       color: var(--text);
       opacity: 0.88;
@@ -289,7 +291,7 @@
     }
     .diff-list li::before {
       content: '◆';
-      color: var(--gold);
+      color: var(--accent);
       font-size: 0.6rem;
       margin-top: 6px;
       flex-shrink: 0;
@@ -297,9 +299,9 @@
 
     /* ── CTA strip ──────────────────────────────────────── */
     .cta-strip {
-      background: linear-gradient(135deg, #0D1F33 0%, #070F1A 100%);
-      border-top: 1px solid rgba(201,168,76,0.2);
-      border-bottom: 1px solid rgba(201,168,76,0.2);
+      background: linear-gradient(135deg, #0D1F33 0%, #0A1826 100%);
+      border-top: 1px solid rgba(43,185,218,0.2);
+      border-bottom: 1px solid rgba(43,185,218,0.2);
       padding: 80px 0;
       text-align: center;
     }
@@ -310,9 +312,9 @@
       color: var(--white);
       margin: 0 0 16px;
     }
-    .cta-strip h2 em { color: var(--gold); font-style: italic; }
+    .cta-strip h2 em { color: var(--accent); font-style: italic; }
     .cta-strip p {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 1rem;
       color: var(--text);
       opacity: 0.72;
@@ -454,7 +456,7 @@
       <div class="section-label">Méthode</div>
       <div class="gold-rule" style="margin:16px auto;"></div>
       <h2 class="section-title">Notre processus<br>en <em>4 étapes</em></h2>
-      <p style="font-family:'Lato',sans-serif; color:var(--text); opacity:0.72; font-size:0.98rem; line-height:1.7; margin-top:16px;">
+      <p style="font-family:'Montserrat',sans-serif; color:var(--text); opacity:0.72; font-size:0.98rem; line-height:1.7; margin-top:16px;">
         Un accompagnement structuré de l'audit initial jusqu'à la concrétisation de la plus-value.
       </p>
     </div>

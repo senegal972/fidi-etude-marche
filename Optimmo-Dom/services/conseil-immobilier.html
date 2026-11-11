@@ -11,7 +11,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/shared.css" />
 
   <style>
@@ -20,14 +20,16 @@
     ============================================ */
 
     :root {
-      --ink: #070F1A;
+      --ink: #0A1826;
       --gold: #C9A84C;
+      --accent:    #2BB9DA;
+      --accent-lt: #5FD0EA;
       --white: #FFFFFF;
       --slate: #7A8A99;
       --text: #E8ECF0;
-      --navy: #1A2B3C;
+      --navy: #10243A;
       --serif: 'Cormorant Garamond', serif;
-      --sans: 'Lato', sans-serif;
+      --sans: 'Montserrat', sans-serif;
     }
 
     /* Breadcrumb */
@@ -41,9 +43,9 @@
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(201,168,76,0.6);
+      color: rgba(43,185,218,0.6);
     }
-    .breadcrumb span:last-child { color: var(--gold); }
+    .breadcrumb span:last-child { color: var(--accent); }
 
     /* ---- Approach Section ---- */
     .approach-section {
@@ -63,27 +65,27 @@
       text-align: center;
       padding: 48px 32px;
       background: rgba(26,43,60,0.5);
-      border: 1px solid rgba(201,168,76,0.12);
-      border-top: 3px solid var(--gold);
+      border: 1px solid rgba(43,185,218,0.12);
+      border-top: 3px solid var(--accent);
       transition: transform 0.3s ease, border-color 0.3s ease;
     }
     .approach-card:hover {
       transform: translateY(-4px);
-      border-top-color: var(--gold);
-      border-color: rgba(201,168,76,0.3);
+      border-top-color: var(--accent);
+      border-color: rgba(43,185,218,0.3);
     }
     .approach-icon {
       width: 72px;
       height: 72px;
       border-radius: 50%;
-      background: rgba(201,168,76,0.08);
-      border: 1px solid rgba(201,168,76,0.3);
+      background: rgba(43,185,218,0.08);
+      border: 1px solid rgba(43,185,218,0.3);
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 28px;
       font-size: 28px;
-      color: var(--gold);
+      color: var(--accent);
     }
     .approach-card h3 {
       font-family: var(--serif);
@@ -115,7 +117,7 @@
       gap: 80px;
       align-items: center;
       padding: 80px 0;
-      border-bottom: 1px solid rgba(201,168,76,0.08);
+      border-bottom: 1px solid rgba(43,185,218,0.08);
     }
     .service-detail-row:last-child { border-bottom: none; }
     .service-detail-row.reverse .detail-visual { order: 2; }
@@ -130,12 +132,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(201,168,76,0.15);
+      border: 1px solid rgba(43,185,218,0.15);
     }
     .detail-placeholder span {
       font-family: var(--serif);
       font-size: 13px;
-      color: rgba(201,168,76,0.35);
+      color: rgba(43,185,218,0.35);
       letter-spacing: 0.2em;
       text-transform: uppercase;
     }
@@ -147,7 +149,7 @@
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 16px;
     }
     .detail-content h3 {
@@ -176,14 +178,14 @@
       color: var(--text);
       padding: 10px 0 10px 28px;
       position: relative;
-      border-bottom: 1px solid rgba(201,168,76,0.08);
+      border-bottom: 1px solid rgba(43,185,218,0.08);
     }
     .detail-bullets li:last-child { border-bottom: none; }
     .detail-bullets li::before {
       content: '→';
       position: absolute;
       left: 0;
-      color: var(--gold);
+      color: var(--accent);
       font-size: 14px;
     }
 
@@ -208,19 +210,19 @@
       align-items: flex-start;
       gap: 16px;
       padding: 20px 0;
-      border-bottom: 1px solid rgba(201,168,76,0.1);
+      border-bottom: 1px solid rgba(43,185,218,0.1);
     }
     .check-icon {
       flex-shrink: 0;
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: rgba(201,168,76,0.12);
-      border: 1px solid rgba(201,168,76,0.4);
+      background: rgba(43,185,218,0.12);
+      border: 1px solid rgba(43,185,218,0.4);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--gold);
+      color: var(--accent);
       font-size: 13px;
       font-weight: 700;
       margin-top: 2px;
@@ -253,7 +255,7 @@
       margin: 0 auto;
     }
     .faq-item {
-      border-bottom: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(43,185,218,0.15);
     }
     .faq-question {
       width: 100%;
@@ -279,17 +281,17 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      border: 1px solid rgba(201,168,76,0.3);
+      border: 1px solid rgba(43,185,218,0.3);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--gold);
+      color: var(--accent);
       font-size: 18px;
       transition: transform 0.3s ease, background 0.3s ease;
     }
     .faq-item.open .faq-arrow {
       transform: rotate(45deg);
-      background: rgba(201,168,76,0.12);
+      background: rgba(43,185,218,0.12);
     }
     .faq-answer {
       max-height: 0;
@@ -312,7 +314,7 @@
       background: linear-gradient(135deg, #0D1B2A 0%, #1A2B3C 100%);
       padding: 100px 0;
       text-align: center;
-      border-top: 1px solid rgba(201,168,76,0.15);
+      border-top: 1px solid rgba(43,185,218,0.15);
     }
     .cta-section .section-label { margin-bottom: 24px; }
     .cta-section h2 {
@@ -323,7 +325,7 @@
       margin: 0 0 24px;
       line-height: 1.2;
     }
-    .cta-section h2 em { color: var(--gold); font-style: italic; }
+    .cta-section h2 em { color: var(--accent); font-style: italic; }
     .cta-section p {
       font-family: var(--sans);
       font-size: 16px;

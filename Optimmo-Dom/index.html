@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Optimmo Dom — Expert en conseil immobilier, valorisation de patrimoine et dénouement successoral en Martinique et Guadeloupe. Franck Fidi & réseau Sextant." />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#070F1A" />
+  <meta name="theme-color" content="#0A1826" />
 
   <!-- Open Graph / Partage social -->
   <meta property="og:type"        content="website" />
   <meta property="og:site_name"   content="Optimmo Dom" />
   <meta property="og:title"       content="Optimmo Dom — L'excellence immobilière aux Antilles" />
   <meta property="og:description" content="Conseil, valorisation patrimoniale, développement foncier, avis de valeur. Martinique & Guadeloupe." />
-  <meta property="og:url"         content="https://www.optimmo-dom.fr/" />
-  <meta property="og:image"       content="https://www.optimmo-dom.fr/assets/og-home.jpg" />
+  <meta property="og:url"         content="https://www.optimmodom.com/" />
+  <meta property="og:image"       content="https://www.optimmodom.com/assets/og-home.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale"      content="fr_FR" />
@@ -22,10 +22,10 @@
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Optimmo Dom — L'excellence immobilière aux Antilles" />
   <meta name="twitter:description" content="Conseil, valorisation patrimoniale, développement foncier, avis de valeur. Martinique & Guadeloupe." />
-  <meta name="twitter:image"       content="https://www.optimmo-dom.fr/assets/og-home.jpg" />
+  <meta name="twitter:image"       content="https://www.optimmodom.com/assets/og-home.jpg" />
 
   <!-- Canonical -->
-  <link rel="canonical" href="https://www.optimmo-dom.fr/" />
+  <link rel="canonical" href="https://www.optimmodom.com/" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -39,18 +39,20 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     /* ============================================
        TOKENS — Caribbean Luxury
     ============================================ */
     :root {
-      --ink:       #070F1A;
-      --ink-mid:   #0D1A2B;
-      --navy:      #1A2B3C;
+      --ink:       #0A1826;
+      --ink-mid:   #0D1F33;
+      --navy:      #10243A;
       --navy-mid:  #243447;
       --gold:      #C9A84C;
+      --accent:    #2BB9DA;
+      --accent-lt: #5FD0EA;
       --gold-lt:   #E8C96A;
       --gold-pale: #F5EDD4;
       --green:     #1E4D40;
@@ -60,7 +62,7 @@
       --text:      #E8ECF0;
 
       --serif: 'Cormorant Garamond', Georgia, serif;
-      --sans:  'Lato', system-ui, sans-serif;
+      --sans:  'Montserrat', system-ui, sans-serif;
 
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
@@ -105,11 +107,11 @@
       transform: translateY(12px);
       animation: preReveal 800ms 200ms var(--ease-out) forwards;
     }
-    .preloader-logo em { color: var(--gold); font-style: normal; }
+    .preloader-logo em { color: var(--accent); font-style: normal; }
     .preloader-line {
       width: 0;
       height: 1px;
-      background: var(--gold);
+      background: var(--accent);
       animation: preLineGrow 700ms 600ms ease forwards;
     }
     .preloader-sub {
@@ -174,7 +176,7 @@
     #menu-overlay.open .menu-overlay-nav li:nth-child(4) a { transform: none; transition-delay: 260ms; }
     #menu-overlay.open .menu-overlay-nav li:nth-child(5) a { transform: none; transition-delay: 320ms; }
     #menu-overlay.open .menu-overlay-nav li:nth-child(6) a { transform: none; transition-delay: 380ms; }
-    .menu-overlay-nav a:hover { color: var(--gold); }
+    .menu-overlay-nav a:hover { color: var(--accent); }
     .menu-overlay-footer {
       display: flex;
       gap: 40px;
@@ -185,7 +187,7 @@
       font-size: 14px;
       color: var(--slate);
     }
-    .menu-overlay-contact a { color: var(--gold); }
+    .menu-overlay-contact a { color: var(--accent); }
 
     /* ============================================
        NAVIGATION BAR
@@ -202,9 +204,9 @@
       transition: background 400ms ease, box-shadow 400ms ease;
     }
     .nav.scrolled {
-      background: rgba(7,15,26,0.92);
+      background: rgba(10,24,38,0.92);
       backdrop-filter: blur(16px);
-      box-shadow: 0 1px 0 rgba(201,168,76,0.15);
+      box-shadow: 0 1px 0 rgba(43,185,218,0.15);
     }
     .nav-logo {
       display: flex;
@@ -214,16 +216,16 @@
     }
     .nav-logo-mark {
       width: 38px; height: 38px;
-      border: 1px solid var(--gold);
+      border: 1px solid var(--accent);
       display: flex; align-items: center; justify-content: center;
       font-family: var(--serif);
       font-size: 18px;
       font-weight: 500;
-      color: var(--gold);
+      color: var(--accent);
       transition: background 300ms, color 300ms;
     }
     .nav-logo:hover .nav-logo-mark {
-      background: var(--gold);
+      background: var(--accent);
       color: var(--ink);
     }
     .nav-logo-text {
@@ -240,7 +242,7 @@
       font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       opacity: 0.75;
     }
     .nav-right {
@@ -251,16 +253,16 @@
     }
     .nav-cta-btn {
       padding: 9px 24px;
-      border: 1px solid var(--gold);
+      border: 1px solid var(--accent);
       font-family: var(--sans);
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--white);
       transition: background 300ms, color 300ms;
     }
-    .nav-cta-btn:hover { background: var(--gold); color: var(--ink); }
+    .nav-cta-btn:hover { background: var(--accent); color: var(--ink); }
     .hamburger {
       width: 32px; height: 24px;
       display: flex;
@@ -314,7 +316,7 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(7,15,26,0.45) 0%, rgba(7,15,26,0.18) 38%, rgba(7,15,26,0.72) 100%),
+        linear-gradient(180deg, rgba(10,24,38,0.66) 0%, rgba(10,24,38,0.22) 38%, rgba(10,24,38,0.90) 100%),
         var(--fond-actif) center/cover no-repeat;
       transform: scale(1.06);
       transition: transform 8s ease;
@@ -340,13 +342,13 @@
       transform: translateY(20px);
       animation: revealUp 700ms 1400ms var(--ease-out) forwards;
     }
-    .hero-eyebrow-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+    .hero-eyebrow-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
     .hero-eyebrow span {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.24em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--white);
     }
     .hero-title {
       font-family: var(--serif);
@@ -368,14 +370,14 @@
     .hero-title .line:nth-child(1) .line-inner { animation: lineReveal 900ms 1600ms var(--ease-out) forwards; }
     .hero-title .line:nth-child(2) .line-inner { animation: lineReveal 900ms 1750ms var(--ease-out) forwards; }
     .hero-title .line:nth-child(3) .line-inner { animation: lineReveal 900ms 1900ms var(--ease-out) forwards; }
-    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-title em { font-style: italic; color: var(--accent); }
     @keyframes lineReveal { to { transform: translateY(0); } }
     @keyframes revealUp { to { opacity: 1; transform: none; } }
 
     .hero-divider {
       width: 0;
       height: 1px;
-      background: var(--gold);
+      background: var(--accent);
       margin-bottom: 28px;
       animation: heroLine 700ms 2600ms ease forwards;
     }
@@ -400,7 +402,7 @@
     .btn-gold {
       display: inline-flex; align-items: center; gap: 12px;
       padding: 16px 36px;
-      background: var(--gold);
+      background: var(--accent);
       color: var(--ink);
       font-family: var(--sans);
       font-size: 11px;
@@ -409,7 +411,7 @@
       text-transform: uppercase;
       transition: background 300ms, transform 300ms;
     }
-    .btn-gold:hover { background: var(--gold-lt); transform: translateY(-2px); }
+    .btn-gold:hover { background: var(--accent-lt); transform: translateY(-2px); }
     .btn-ghost {
       display: inline-flex; align-items: center; gap: 12px;
       padding: 15px 35px;
@@ -422,7 +424,7 @@
       text-transform: uppercase;
       transition: border-color 300ms, background 300ms;
     }
-    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
     .hero-scroll-hint {
       position: absolute;
       bottom: 36px; right: 48px;
@@ -441,7 +443,7 @@
     }
     .scroll-line {
       width: 1px; height: 60px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
+      background: linear-gradient(to bottom, var(--accent), transparent);
       animation: scrollPulse 2s ease-in-out infinite;
     }
     @keyframes scrollPulse {
@@ -458,11 +460,11 @@
       font-weight: 700;
       letter-spacing: 0.24em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
     }
     .gold-rule {
       width: 60px; height: 1px;
-      background: var(--gold);
+      background: var(--accent);
       margin: 18px 0 28px;
     }
     .gold-rule.centered { margin: 18px auto 28px; }
@@ -473,7 +475,7 @@
       line-height: 1.15;
       letter-spacing: -0.01em;
     }
-    .section-title em { font-style: italic; color: var(--gold); }
+    .section-title em { font-style: italic; color: var(--accent); }
 
     /* Scroll reveal */
     .reveal {
@@ -507,7 +509,7 @@
       font-family: var(--serif);
       font-size: 44px;
       font-weight: 300;
-      color: var(--gold);
+      color: var(--accent);
       line-height: 1;
     }
     .trust-lbl {
@@ -543,23 +545,23 @@
       position: absolute;
       bottom: 0; left: 0;
       width: 100%; height: 2px;
-      background: var(--gold);
+      background: var(--accent);
       transform: scaleX(0);
       transform-origin: left;
       transition: transform 400ms var(--ease-out);
     }
-    .service-item:hover { background: rgba(201,168,76,0.04); }
+    .service-item:hover { background: rgba(43,185,218,0.04); }
     .service-item:hover::before { transform: scaleX(1); }
     .service-num {
       font-family: var(--serif);
       font-size: 72px;
       font-weight: 300;
-      color: rgba(201,168,76,0.1);
+      color: rgba(43,185,218,0.1);
       line-height: 1;
       margin-bottom: 24px;
       transition: color 350ms;
     }
-    .service-item:hover .service-num { color: rgba(201,168,76,0.2); }
+    .service-item:hover .service-num { color: rgba(43,185,218,0.2); }
     .service-icon-char {
       font-size: 28px;
       margin-bottom: 20px;
@@ -582,7 +584,7 @@
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       opacity: 0;
       transform: translateX(-8px);
       transition: opacity 300ms, transform 300ms;
@@ -634,7 +636,7 @@
     .flip-card-front-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(7,15,26,0.9) 0%, transparent 50%);
+      background: linear-gradient(to top, rgba(10,24,38,0.9) 0%, transparent 50%);
       padding: 28px;
       display: flex;
       flex-direction: column;
@@ -645,7 +647,7 @@
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 6px;
     }
     .card-name {
@@ -659,7 +661,7 @@
       font-family: var(--serif);
       font-size: 28px;
       font-weight: 300;
-      color: var(--gold-lt);
+      color: var(--accent-lt);
     }
     .flip-card-back {
       background: var(--navy);
@@ -674,7 +676,7 @@
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 16px;
     }
     .card-back-name {
@@ -707,7 +709,7 @@
     }
     .sextant-agent {
       font-size: 11px;
-      color: var(--gold);
+      color: var(--accent);
       display: flex;
       align-items: center;
       gap: 6px;
@@ -715,7 +717,7 @@
     .sextant-dot {
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: var(--gold);
+      background: var(--accent);
     }
     .card-cta {
       font-size: 11px;
@@ -727,7 +729,7 @@
       border: 1px solid rgba(255,255,255,0.25);
       transition: border-color 300ms, color 300ms;
     }
-    .card-cta:hover { border-color: var(--gold); color: var(--gold); }
+    .card-cta:hover { border-color: var(--accent); color: var(--accent); }
 
     /* ============================================
        ABOUT — Split Parallax
@@ -756,7 +758,7 @@
       position: absolute;
       bottom: -32px; right: -32px;
       width: 160px; height: 160px;
-      background: var(--gold);
+      background: var(--accent);
       z-index: -1;
     }
     .about-accent-num {
@@ -765,7 +767,7 @@
       font-family: var(--serif);
       font-size: 160px;
       font-weight: 300;
-      color: rgba(201,168,76,0.08);
+      color: rgba(43,185,218,0.08);
       line-height: 1;
       pointer-events: none;
       user-select: none;
@@ -784,7 +786,7 @@
       font-weight: 300;
       color: var(--white);
       padding: 28px 0 28px 28px;
-      border-left: 2px solid var(--gold);
+      border-left: 2px solid var(--accent);
       margin: 36px 0;
       line-height: 1.5;
     }
@@ -796,7 +798,7 @@
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       margin-top: 24px;
       transition: gap 300ms;
     }
@@ -837,17 +839,17 @@
     }
     .team-avatar-initial {
       width: 80px; height: 80px;
-      border: 1px solid var(--gold);
+      border: 1px solid var(--accent);
       display: flex; align-items: center; justify-content: center;
       font-family: var(--serif);
       font-size: 36px;
       font-weight: 300;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 24px;
       transition: background 300ms, color 300ms;
     }
     .team-card:hover .team-avatar-initial {
-      background: var(--gold);
+      background: var(--accent);
       color: var(--ink);
     }
     .team-role-label {
@@ -855,7 +857,7 @@
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 8px;
     }
     .team-name {
@@ -880,12 +882,12 @@
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       padding: 10px 20px;
-      border: 1px solid rgba(201,168,76,0.35);
+      border: 1px solid rgba(43,185,218,0.35);
       transition: background 300ms, border-color 300ms;
     }
-    .team-sextant:hover { background: rgba(201,168,76,0.1); border-color: var(--gold); }
+    .team-sextant:hover { background: rgba(43,185,218,0.1); border-color: var(--accent); }
 
     /* ============================================
        TERRITORY — Map Section
@@ -945,6 +947,31 @@
     .territory-info { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.65; }
 
     /* ============================================
+       ACCÈS & APPLICATIONS
+    ============================================ */
+    .acces { padding: 120px 0; background: var(--ink-mid); }
+    .acces-head { max-width: 720px; margin-bottom: 56px; }
+    .acces-desc { margin-top: 18px; color: #A9B8C6; font-size: 16px; }
+    .acces-grid, .apps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 24px; }
+    .acces-card, .app-card {
+      display: flex; flex-direction: column; gap: 14px; padding: 34px 30px;
+      background: var(--navy); border: 1px solid rgba(238,243,247,0.10); border-radius: 4px;
+      transition: border-color 300ms;
+    }
+    .acces-card.featured { border-color: var(--accent); }
+    .acces-card:hover, .app-card:hover { border-color: rgba(43,185,218,0.55); }
+    .acces-card p, .app-texte { color: #A9B8C6; font-size: 15px; }
+    .acces-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #A9B8C6; }
+    .acces-titre, .app-nom { font-family: var(--serif); font-size: 29px; font-weight: 500; color: var(--white); line-height: 1.15; }
+    .app-card { background: var(--ink); }
+    .app-famille { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+    .app-lien {
+      margin-top: auto; padding: 12px 0; align-self: flex-start;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+    }
+    .app-lien:hover { color: var(--accent-lt); }
+
+    /* ============================================
        TOOLS TEASER — Dark Cinematic
     ============================================ */
     .tools {
@@ -960,7 +987,7 @@
       font-family: var(--serif);
       font-size: 140px;
       font-weight: 300;
-      color: rgba(201,168,76,0.03);
+      color: rgba(43,185,218,0.03);
       letter-spacing: 0.1em;
       pointer-events: none;
       white-space: nowrap;
@@ -996,7 +1023,7 @@
       content: '';
       width: 5px; height: 5px;
       border-radius: 50%;
-      background: var(--gold);
+      background: var(--accent);
       flex-shrink: 0;
     }
     .plans-grid {
@@ -1012,8 +1039,8 @@
       position: relative;
     }
     .plan-card.featured {
-      border-color: var(--gold);
-      background: rgba(201,168,76,0.06);
+      border-color: var(--accent);
+      background: rgba(43,185,218,0.06);
     }
     .plan-card.featured::before {
       content: 'Populaire';
@@ -1024,7 +1051,7 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--ink);
-      background: var(--gold);
+      background: var(--accent);
       padding: 4px 12px;
     }
     .plan-card:hover:not(.featured) {
@@ -1036,7 +1063,7 @@
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 12px;
     }
     .plan-price {
@@ -1064,7 +1091,7 @@
     }
     .plan-features li::before {
       content: '✓';
-      color: var(--gold);
+      color: var(--accent);
       font-size: 11px;
     }
 
@@ -1085,7 +1112,7 @@
       font-family: var(--serif);
       font-size: clamp(100px, 18vw, 260px);
       font-weight: 300;
-      color: rgba(201,168,76,0.03);
+      color: rgba(43,185,218,0.03);
       white-space: nowrap;
       pointer-events: none;
       user-select: none;
@@ -1112,8 +1139,8 @@
     .btn-gold-border {
       display: inline-flex; align-items: center; gap: 12px;
       padding: 15px 35px;
-      border: 1px solid var(--gold);
-      color: var(--gold);
+      border: 1px solid var(--accent);
+      color: var(--accent);
       font-family: var(--sans);
       font-size: 11px;
       font-weight: 700;
@@ -1121,7 +1148,7 @@
       text-transform: uppercase;
       transition: background 300ms, color 300ms;
     }
-    .btn-gold-border:hover { background: var(--gold); color: var(--ink); }
+    .btn-gold-border:hover { background: var(--accent); color: var(--ink); }
 
     /* ============================================
        FOOTER
@@ -1151,7 +1178,7 @@
       font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       opacity: 0.7;
       margin-bottom: 20px;
     }
@@ -1171,13 +1198,13 @@
       color: var(--slate);
       transition: border-color 300ms, color 300ms;
     }
-    .footer-social:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-social:hover { border-color: var(--accent); color: var(--accent); }
     .footer-col h4 {
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 24px;
     }
     .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
@@ -1195,8 +1222,8 @@
       gap: 12px;
     }
     .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.25); }
-    .footer-bottom a { color: rgba(201,168,76,0.7); transition: color 300ms; }
-    .footer-bottom a:hover { color: var(--gold); }
+    .footer-bottom a { color: rgba(43,185,218,0.7); transition: color 300ms; }
+    .footer-bottom a:hover { color: var(--accent); }
 
     /* ============================================
        RESPONSIVE
@@ -1240,9 +1267,9 @@
     "@type": "RealEstateAgent",
     "name": "Optimmo Dom",
     "description": "Expert en conseil immobilier, valorisation de patrimoine et dénouement successoral en Martinique et Guadeloupe.",
-    "url": "https://www.optimmo-dom.fr/",
-    "logo": "https://www.optimmo-dom.fr/favicon.svg",
-    "image": "https://www.optimmo-dom.fr/assets/og-home.jpg",
+    "url": "https://www.optimmodom.com/",
+    "logo": "https://www.optimmodom.com/favicon.svg",
+    "image": "https://www.optimmodom.com/assets/og-home.jpg",
     "email": "contact@fidiconseil.com",
     "areaServed": [
       { "@type": "State", "name": "Martinique", "addressCountry": "FR" },
@@ -1276,7 +1303,8 @@
         <li><a href="#catalogue" onclick="closeMenu()">Catalogue</a></li>
         <li><a href="#about" onclick="closeMenu()">À propos</a></li>
         <li><a href="#equipe" onclick="closeMenu()">L'équipe</a></li>
-        <li><a href="#outils" onclick="closeMenu()">Espace partenaires</a></li>
+        <li><a href="#outils" onclick="closeMenu()">Applications</a></li>
+        <li><a href="/espace-partenaires" onclick="closeMenu()">Mon espace</a></li>
         <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
       </ul>
       <div class="menu-overlay-footer">
@@ -1298,7 +1326,7 @@
       </div>
     </a>
     <div class="nav-right">
-      <a href="/espace-partenaires" class="nav-cta-btn">Espace partenaires</a>
+      <a href="/espace-partenaires" class="nav-cta-btn">Mon espace</a>
       <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
         <span></span><span></span><span></span>
       </button>
@@ -1359,7 +1387,7 @@
         </div>
         <div class="trust-item">
           <div class="trust-num" style="font-size:20px; padding-top:6px">Partenaire</div>
-          <div class="trust-lbl" style="color:var(--gold)">Sextant France</div>
+          <div class="trust-lbl" style="color:var(--accent)">Sextant France</div>
         </div>
       </div>
     </div>
@@ -1677,80 +1705,84 @@
     </div>
   </section>
 
-  <!-- TOOLS TEASER -->
+  <!-- ACCÈS — trois portes d'entrée -->
+  <section class="acces" id="acces">
+    <div class="container">
+      <div class="acces-head reveal">
+        <div class="section-label">Un site, trois portes d'entrée</div>
+        <div class="gold-rule"></div>
+        <h2 class="section-title" style="color:var(--white)">À chacun <em>son accès</em></h2>
+        <p class="acces-desc">Le site reste librement consultable. Les applications s'ouvrent depuis un espace personnel unique, selon votre profil.</p>
+      </div>
+      <div class="acces-grid">
+        <article class="acces-card reveal">
+          <div class="acces-tag">Accès libre</div>
+          <h3 class="acces-titre">Grand public</h3>
+          <p>Services, catalogue de biens, réalisations et prise de contact. Aucun compte nécessaire.</p>
+          <a href="#services" class="app-lien">Parcourir le site →</a>
+        </article>
+        <article class="acces-card featured reveal">
+          <div class="acces-tag">Compte validé par Optimmo Dom</div>
+          <h3 class="acces-titre">Membres du réseau</h3>
+          <p>Les applications qui vous sont attribuées, réunies sur un seul tableau de bord. Chaque application garde sa propre facturation.</p>
+          <a href="/espace-partenaires" class="app-lien">Accéder à mon espace →</a>
+        </article>
+        <article class="acces-card reveal">
+          <div class="acces-tag">Compte libre</div>
+          <h3 class="acces-titre">Clients hors réseau</h3>
+          <p>Un produit vous intéresse ? Créez un compte et souscrivez uniquement à l'application dont vous avez besoin.</p>
+          <a href="/espace-partenaires/inscription" class="app-lien">Créer un compte →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLICATIONS -->
   <section class="tools" id="outils">
     <div class="container">
-      <div class="tools-inner">
-        <div class="tools-text reveal">
-          <div class="section-label">Espace partenaires</div>
-          <div class="gold-rule"></div>
-          <h2 class="section-title" style="color:var(--white)">
-            Des outils <em>professionnels</em><br>exclusifs
-          </h2>
-          <p class="tools-desc">
-            Suite d'outils d'analyse immobilière développée pour les professionnels —
-            adossée aux données publiques françaises (DVF, ADEME, Géorisques, INSEE)
-            et calibrée pour le marché antillais.
-          </p>
-          <ul class="tools-features">
-            <li>Avis de valeur vénale complet et argumenté (PDF)</li>
-            <li>Étude de marché — transactions DVF, DPE, risques naturels</li>
-            <li>Loyers de marché et rendements locatifs Martinique/Guadeloupe</li>
-            <li>Analyse des permis de construire (SITADEL)</li>
-            <li>Bibliothèque de documents professionnels partagés</li>
-            <li>Accès aux catalogues Sextant des conseillers (plan Premium)</li>
-          </ul>
-          <span class="btn-gold" style="margin-top:36px;cursor:default">
-            Accéder à l'espace partenaires
-          </span>
-        </div>
-        <div class="reveal">
-          <div class="plans-grid">
-            <div class="plan-card">
-              <div class="plan-name">Basic</div>
-              <div class="plan-price">29 <sub>€/mois</sub></div>
-              <ul class="plan-features">
-                <li>Études de marché</li>
-                <li>Données DVF</li>
-                <li>Rapports PDF</li>
-                <li>Loyers de marché</li>
-              </ul>
-            </div>
-            <div class="plan-card featured">
-              <div class="plan-name">Pro</div>
-              <div class="plan-price">79 <sub>€/mois</sub></div>
-              <ul class="plan-features">
-                <li>Tout Basic inclus</li>
-                <li>Avis de valeur</li>
-                <li>Analyse DPE complète</li>
-                <li>Analyse risques</li>
-                <li>Messagerie &amp; docs</li>
-              </ul>
-            </div>
-            <div class="plan-card">
-              <div class="plan-name">Premium</div>
-              <div class="plan-price">149 <sub>€/mois</sub></div>
-              <ul class="plan-features">
-                <li>Tout Pro inclus</li>
-                <li>Accès Sextant agents</li>
-                <li>Projets partagés</li>
-                <li>Support prioritaire</li>
-              </ul>
-            </div>
-            <div class="plan-card">
-              <div class="plan-name">À la demande</div>
-              <div class="plan-price" style="font-size:26px">dès 9 <sub>€</sub></div>
-              <ul class="plan-features">
-                <li>Avis de valeur — 19 €</li>
-                <li>Étude de marché — 29 €</li>
-                <li>Rapport DVF — 9 €</li>
-              </ul>
-            </div>
-          </div>
-          <p style="margin-top:20px; font-size:12px; color:var(--slate); text-align:center">
-            Sans engagement · Paiement sécurisé PayPal · Annulation à tout moment
-          </p>
-        </div>
+      <div class="acces-head reveal">
+        <div class="section-label">La suite Optimmo Dom</div>
+        <div class="gold-rule"></div>
+        <h2 class="section-title" style="color:var(--white)">Nos <em>applications</em></h2>
+        <p class="acces-desc">Adossées aux données publiques françaises et calibrées pour le marché antillais. Chaque application se souscrit séparément.</p>
+      </div>
+      <div class="apps-grid">
+          <article class="app-card reveal">
+            <div class="app-famille">Marché</div>
+            <h3 class="app-nom">Étude de marché</h3>
+            <p class="app-texte">Transactions DVF, DPE, risques, loyers et revenus autour d'une adresse.</p>
+            <a href="/espace-partenaires" class="app-lien">Y accéder →</a>
+          </article>
+          <article class="app-card reveal">
+            <div class="app-famille">Estimation</div>
+            <h3 class="app-nom">Avis de valeur</h3>
+            <p class="app-texte">Valeur vénale argumentée, comparables et contrôle par capitalisation.</p>
+            <a href="/espace-partenaires" class="app-lien">Y accéder →</a>
+          </article>
+          <article class="app-card reveal">
+            <div class="app-famille">Foncier</div>
+            <h3 class="app-nom">Analyse de capacité</h3>
+            <p class="app-texte">Potentiel constructible d'un terrain avant engagement.</p>
+            <a href="/espace-partenaires" class="app-lien">Y accéder →</a>
+          </article>
+          <article class="app-card reveal">
+            <div class="app-famille">Mise en valeur</div>
+            <h3 class="app-nom">Home Staging PRO</h3>
+            <p class="app-texte">Préparer et présenter un bien pour accélérer sa vente.</p>
+            <a href="/espace-partenaires" class="app-lien">Y accéder →</a>
+          </article>
+          <article class="app-card reveal">
+            <div class="app-famille">Recherche</div>
+            <h3 class="app-nom">Immo Search</h3>
+            <p class="app-texte">Recherche de biens ciblée pour vos clients acquéreurs.</p>
+            <a href="/espace-partenaires" class="app-lien">Y accéder →</a>
+          </article>
+          <article class="app-card reveal">
+            <div class="app-famille">Relation client</div>
+            <h3 class="app-nom">Fiche découverte</h3>
+            <p class="app-texte">Recueil structuré du projet et des critères de chaque client.</p>
+            <a href="/espace-partenaires" class="app-lien">Y accéder →</a>
+          </article>
       </div>
     </div>
   </section>
@@ -1772,7 +1804,7 @@
         <div class="cta-actions">
           <a href="/contact" class="btn-gold">Nous contacter</a>
           <a href="/catalogue" class="btn-ghost">Parcourir le catalogue</a>
-          <a href="/espace-partenaires/inscription" class="btn-gold-border">Devenir partenaire</a>
+          <a href="/espace-partenaires/inscription" class="btn-gold-border">Créer un compte</a>
         </div>
       </div>
     </div>
@@ -1813,7 +1845,7 @@
             <li><a href="/realisations">Réalisations</a></li>
             <li><a href="/actualites">Actualités marché</a></li>
             <li><a href="/equipe">L'équipe</a></li>
-            <li><a href="/espace-partenaires">Espace partenaires</a></li>
+            <li><a href="/espace-partenaires">Mon espace</a></li>
           </ul>
         </div>
         <div>
@@ -1906,7 +1938,7 @@
       draw() {
         ctx.save()
         ctx.globalAlpha = this.life * this.opacity
-        ctx.fillStyle = '#C9A84C'
+        ctx.fillStyle = '#2BB9DA'
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
         ctx.fill()

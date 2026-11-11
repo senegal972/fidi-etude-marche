@@ -5,7 +5,7 @@
 
 import {
   jsonResp, handleOptions, dbGet, dbSet,
-  verifyPassword, signJWT, normalizeEmail,
+  verifyPassword, signJWT, normalizeEmail, effectiveRole,
 } from "./_auth.mjs";
 
 const MAX_ATTEMPTS = 5;
@@ -58,7 +58,7 @@ export async function handler(event) {
       email: user.email,
       nom: user.nom,
       prenom: user.prenom,
-      role: user.role,
+      role: effectiveRole(user),
       plan: planActive ? user.plan : null,
       plan_expires_at: planActive ? user.plan_expires_at : null,
     },

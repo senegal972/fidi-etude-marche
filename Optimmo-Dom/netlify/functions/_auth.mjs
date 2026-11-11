@@ -58,6 +58,12 @@ export async function dbDelete(storeName, key) {
   try { await s.delete(key); return true; } catch (e) { return false; }
 }
 
+export async function dbList(storeName) {
+  const s = await getStore(storeName);
+  if (!s) return [];
+  try { const { blobs } = await s.list(); return blobs.map((b) => b.key); } catch (e) { return []; }
+}
+
 // ── Mots de passe (scrypt) ────────────────────────────────────────────────────
 export function hashPassword(password) {
   const salt = randomBytes(16).toString("hex");
@@ -160,6 +166,43 @@ export async function checkToolAccess(user, tool) {
   }
 
   return { authorized: false, required_plan: required, current_plan: planOk ? user.plan : null };
+}
+
+// ── Rôles & applications (portail « Mon espace ») ────────────────────────────
+// Rôles : "admin" (toutes les applications + gestion), "reseau" (applications
+// attribuées par l'administrateur), "client" (compte libre, hors réseau).
+// Chaque application garde sa propre facturation : le portail n'ouvre que le lien.
+export const ROLES = ["admin", "reseau", "client"];
+
+// `url: null` = adresse de l'application pas encore renseignée.
+export const APPS = {
+  etude_marche:     { nom: "Étude de marché",     famille: "Marché",          url: "https://fidi-etude-marche.netlify.app", texte: "Transactions DVF, DPE, risques, loyers et revenus autour d'une adresse." },
+  avis_valeur:      { nom: "Avis de valeur",      famille: "Estimation",      url: null, texte: "Valeur vénale argumentée, comparables et contrôle par capitalisation." },
+  analyse_capacite: { nom: "Analyse de capacité", famille: "Foncier",         url: null, texte: "Potentiel constructible d'un terrain avant engagement." },
+  home_staging:     { nom: "Home Staging PRO",    famille: "Mise en valeur",  url: null, texte: "Préparer et présenter un bien pour accélérer sa vente." },
+  immo_search:      { nom: "Immo Search",         famille: "Recherche",       url: null, texte: "Recherche de biens ciblée pour vos clients acquéreurs." },
+  fiche_decouverte: { nom: "Fiche découverte",    famille: "Relation client", url: null, texte: "Recueil structuré du projet et des critères de chaque client." },
+};
+
+export function adminEmails() {
+  return String(process.env.ADMIN_EMAILS || "").split(",").map((e) => e.trim().toLowerCase()).filter(Boolean);
+}
+
+export function effectiveRole(user) {
+  if (!user) return null;
+  if (user.role === "admin" || adminEmails().includes(String(user.email || "").toLowerCase())) return "admin";
+  return user.role === "reseau" ? "reseau" : "client"; // "partenaire" (ancien rôle) → client
+}
+
+// Liste des applications vues par un utilisateur. L'adresse n'est transmise
+// que si l'accès est ouvert (admin, ou application attribuée).
+export function userApplications(user) {
+  const role = effectiveRole(user);
+  const attribuees = Array.isArray(user?.apps) ? user.apps : [];
+  return Object.entries(APPS).map(([id, app]) => {
+    const acces = role === "admin" || attribuees.includes(id);
+    return { id, nom: app.nom, famille: app.famille, texte: app.texte, acces, disponible: !!app.url, url: acces ? app.url : null };
+  });
 }
 
 // ── Validation ────────────────────────────────────────────────────────────────
