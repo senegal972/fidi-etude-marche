@@ -1,7 +1,7 @@
 // GET /api/auth/me — Profil de l'utilisateur connecté + droits outils
 // Auth : Bearer token ou cookie optimmo_jwt.
 
-import { jsonResp, handleOptions, checkAuth, checkToolAccess, TOOL_REQUIRED_PLAN } from "./_auth.mjs";
+import { jsonResp, handleOptions, checkAuth, checkToolAccess, TOOL_REQUIRED_PLAN, effectiveRole, userApplications } from "./_auth.mjs";
 
 export async function handler(event) {
   const opts = handleOptions(event);
@@ -28,10 +28,11 @@ export async function handler(event) {
       email: user.email,
       nom: user.nom,
       prenom: user.prenom,
-      role: user.role,
+      role: effectiveRole(user),
       plan: planActive ? user.plan : null,
       plan_expires_at: planActive ? user.plan_expires_at : null,
     },
     outils,
+    applications: userApplications(user),
   });
 }

@@ -8,14 +8,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/shared.css" />
 
   <style>
     body { background: var(--ink); display: flex; min-height: 100vh; align-items: center; justify-content: center; padding: 40px 24px; }
     .confirm {
       max-width: 480px; width: 100%; text-align: center;
-      background: var(--ink-mid); border: 1px solid rgba(201,168,76,0.18);
+      background: var(--ink-mid); border: 1px solid rgba(43,185,218,0.18);
       padding: 56px 48px;
     }
     .confirm-icon {
@@ -24,14 +24,14 @@
     }
     .confirm-icon.ok { border: 2px solid var(--success); }
     .confirm-icon.ko { border: 2px solid var(--error); }
-    .confirm-icon.load { border: 2px solid rgba(201,168,76,0.2); border-top-color: var(--gold); animation: spin 800ms linear infinite; }
+    .confirm-icon.load { border: 2px solid rgba(43,185,218,0.2); border-top-color: var(--accent); animation: spin 800ms linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .confirm-icon svg { width: 28px; height: 28px; }
     .confirm-icon.ok svg { color: var(--success); }
     .confirm-icon.ko svg { color: var(--error); }
-    .confirm-label { font-size: 10px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .confirm-label { font-size: 10px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
     .confirm-title { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--white); margin-bottom: 14px; line-height: 1.2; }
-    .confirm-title em { font-style: italic; color: var(--gold); }
+    .confirm-title em { font-style: italic; color: var(--accent); }
     .confirm-text { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 32px; }
     .confirm-actions { display: flex; flex-direction: column; gap: 12px; }
   </style>

@@ -5,7 +5,7 @@
 import { randomUUID } from "node:crypto";
 import {
   jsonResp, handleOptions, dbGet, dbSet,
-  hashPassword, normalizeEmail, isValidEmail,
+  hashPassword, normalizeEmail, isValidEmail, adminEmails,
 } from "./_auth.mjs";
 
 export async function handler(event) {
@@ -24,6 +24,15 @@ export async function handler(event) {
   if (!password || password.length < 8) return jsonResp(400, { error: "Mot de passe : 8 caractères minimum" });
   if (!nom?.trim() || !prenom?.trim()) return jsonResp(400, { error: "Nom et prénom requis" });
 
+  // Un email administrateur ne peut être enregistré qu'avec le code d'installation
+  // (variable Netlify ADMIN_SETUP_CODE) : empêche un tiers de créer le compte avant son propriétaire.
+  if (adminEmails().includes(email)) {
+    const code = process.env.ADMIN_SETUP_CODE;
+    if (!code || body.code_admin !== code) {
+      return jsonResp(403, { error: "Ce compte nécessite un code d'installation administrateur", code_requis: true });
+    }
+  }
+
   const existing = await dbGet("optimmo-users", email);
   if (existing) return jsonResp(409, { error: "Un compte existe déjà avec cet email" });
 
@@ -38,7 +47,8 @@ export async function handler(event) {
     territoire: body.territoire || null,
     salt,
     hash,
-    role: "partenaire",
+    role: "client",
+    apps: [],
     plan: null,
     plan_expires_at: null,
     actif: true,

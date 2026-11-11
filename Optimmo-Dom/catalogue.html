@@ -6,28 +6,28 @@
   <meta name="description" content="Catalogue immobilier Optimmo Dom — Biens d'exception en Martinique et Guadeloupe. Villas, appartements, terrains et maisons de maître. Réseau Sextant." />
   <title>Catalogue — Optimmo Dom · Biens d'exception aux Antilles</title>
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#070F1A" />
+  <meta name="theme-color" content="#0A1826" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Optimmo Dom" />
   <meta property="og:title" content="Catalogue — Optimmo Dom | Biens immobiliers Antilles" />
   <meta property="og:description" content="Découvrez notre sélection de biens immobiliers en Martinique et Guadeloupe : villas, appartements, terrains constructibles." />
-  <meta property="og:url" content="https://www.optimmo-dom.fr/catalogue" />
-  <meta property="og:image" content="https://www.optimmo-dom.fr/assets/og-home.jpg" />
+  <meta property="og:url" content="https://www.optimmodom.com/catalogue" />
+  <meta property="og:image" content="https://www.optimmodom.com/assets/og-home.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="fr_FR" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Catalogue — Optimmo Dom | Biens immobiliers Antilles" />
   <meta name="twitter:description" content="Découvrez notre sélection de biens immobiliers en Martinique et Guadeloupe : villas, appartements, terrains constructibles." />
-  <meta name="twitter:image" content="https://www.optimmo-dom.fr/assets/og-home.jpg" />
-  <link rel="canonical" href="https://www.optimmo-dom.fr/catalogue" />
+  <meta name="twitter:image" content="https://www.optimmodom.com/assets/og-home.jpg" />
+  <link rel="canonical" href="https://www.optimmodom.com/catalogue" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="alternate icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/shared.css" />
 
   <style>
@@ -35,11 +35,13 @@
        PAGE-SPECIFIC TOKENS & RESETS
     ============================================ */
     :root {
-      --ink:       #070F1A;
-      --ink-mid:   #0D1A2B;
-      --navy:      #1A2B3C;
+      --ink:       #0A1826;
+      --ink-mid:   #0D1F33;
+      --navy:      #10243A;
       --navy-mid:  #243447;
       --gold:      #C9A84C;
+      --accent:    #2BB9DA;
+      --accent-lt: #5FD0EA;
       --gold-lt:   #E8C96A;
       --gold-pale: #F5EDD4;
       --green:     #1E4D40;
@@ -49,7 +51,7 @@
       --text:      #E8ECF0;
 
       --serif: 'Cormorant Garamond', Georgia, serif;
-      --sans:  'Lato', system-ui, sans-serif;
+      --sans:  'Montserrat', system-ui, sans-serif;
 
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
@@ -112,13 +114,13 @@
     #menu-overlay.open .menu-overlay-nav li:nth-child(4) a { transform: none; transition-delay: 260ms; }
     #menu-overlay.open .menu-overlay-nav li:nth-child(5) a { transform: none; transition-delay: 320ms; }
     #menu-overlay.open .menu-overlay-nav li:nth-child(6) a { transform: none; transition-delay: 380ms; }
-    .menu-overlay-nav a:hover { color: var(--gold); }
-    .menu-overlay-nav a.active-link { color: var(--gold); }
+    .menu-overlay-nav a:hover { color: var(--accent); }
+    .menu-overlay-nav a.active-link { color: var(--accent); }
     .menu-overlay-footer {
       display: flex; gap: 40px; align-items: center; flex-wrap: wrap;
     }
     .menu-overlay-contact { font-size: 14px; color: var(--slate); }
-    .menu-overlay-contact a { color: var(--gold); }
+    .menu-overlay-contact a { color: var(--accent); }
 
     /* ============================================
        NAVIGATION BAR
@@ -132,29 +134,29 @@
       align-items: center;
       justify-content: space-between;
       height: 76px;
-      background: rgba(7,15,26,0.97);
-      box-shadow: 0 1px 0 rgba(201,168,76,0.12);
+      background: rgba(10,24,38,0.97);
+      box-shadow: 0 1px 0 rgba(43,185,218,0.12);
       transition: background 400ms ease, box-shadow 400ms ease;
     }
     .nav.scrolled {
-      background: rgba(7,15,26,0.97);
+      background: rgba(10,24,38,0.97);
       backdrop-filter: blur(16px);
-      box-shadow: 0 1px 0 rgba(201,168,76,0.2);
+      box-shadow: 0 1px 0 rgba(43,185,218,0.2);
     }
     .nav-logo {
       display: flex; align-items: center; gap: 14px; z-index: 910;
     }
     .nav-logo-mark {
       width: 38px; height: 38px;
-      border: 1px solid var(--gold);
+      border: 1px solid var(--accent);
       display: flex; align-items: center; justify-content: center;
       font-family: var(--serif);
       font-size: 14px; font-weight: 500;
-      color: var(--gold);
+      color: var(--accent);
       letter-spacing: 0.04em;
       transition: background 300ms, color 300ms;
     }
-    .nav-logo:hover .nav-logo-mark { background: var(--gold); color: var(--ink); }
+    .nav-logo:hover .nav-logo-mark { background: var(--accent); color: var(--ink); }
     .nav-logo-text {
       font-family: var(--serif);
       font-size: 20px; font-weight: 400;
@@ -165,21 +167,21 @@
       font-family: var(--sans);
       font-size: 9px; font-weight: 700;
       letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--gold); opacity: 0.75;
+      color: var(--accent); opacity: 0.75;
     }
     .nav-right {
       display: flex; align-items: center; gap: 32px; z-index: 910;
     }
     .nav-cta-btn {
       padding: 9px 24px;
-      border: 1px solid var(--gold);
+      border: 1px solid var(--accent);
       font-family: var(--sans);
       font-size: 11px; font-weight: 700;
       letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       transition: background 300ms, color 300ms;
     }
-    .nav-cta-btn:hover { background: var(--gold); color: var(--ink); }
+    .nav-cta-btn:hover { background: var(--accent); color: var(--ink); }
     .hamburger {
       width: 32px; height: 24px;
       display: flex; flex-direction: column;
@@ -201,7 +203,7 @@
     .page-hero {
       padding: 148px 0 80px;
       background: var(--ink-mid);
-      border-bottom: 1px solid rgba(201,168,76,0.1);
+      border-bottom: 1px solid rgba(43,185,218,0.1);
       position: relative;
       overflow: hidden;
     }
@@ -211,7 +213,7 @@
       font-family: var(--serif);
       font-size: clamp(80px, 14vw, 160px);
       font-weight: 300;
-      color: rgba(201,168,76,0.04);
+      color: rgba(43,185,218,0.04);
       white-space: nowrap;
       pointer-events: none; user-select: none; line-height: 1;
     }
@@ -225,7 +227,7 @@
       text-transform: uppercase; color: var(--slate);
       transition: color 250ms;
     }
-    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb a:hover { color: var(--accent); }
     .breadcrumb-sep {
       width: 16px; height: 1px;
       background: rgba(255,255,255,0.2);
@@ -233,7 +235,7 @@
     }
     .breadcrumb span {
       font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--gold);
+      text-transform: uppercase; color: var(--accent);
     }
     .page-hero-title {
       font-family: var(--serif);
@@ -244,7 +246,7 @@
       letter-spacing: -0.02em;
       margin-bottom: 20px;
     }
-    .page-hero-title em { font-style: italic; color: var(--gold); }
+    .page-hero-title em { font-style: italic; color: var(--accent); }
     .page-hero-sub {
       font-size: 17px; font-weight: 300;
       color: rgba(255,255,255,0.55);
@@ -253,7 +255,7 @@
     }
     .page-hero-divider {
       width: 60px; height: 1px;
-      background: var(--gold);
+      background: var(--accent);
       margin: 28px 0;
     }
 
@@ -264,7 +266,7 @@
       position: sticky;
       top: 76px;
       z-index: 500;
-      background: rgba(7,15,26,0.97);
+      background: rgba(10,24,38,0.97);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(255,255,255,0.07);
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
@@ -308,9 +310,9 @@
       color: var(--white);
     }
     .filter-btn.active {
-      border-color: var(--gold);
-      color: var(--gold);
-      background: rgba(201,168,76,0.08);
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(43,185,218,0.08);
     }
     .filter-select {
       padding: 6px 32px 6px 14px;
@@ -327,7 +329,7 @@
       transition: border-color 200ms, color 200ms;
     }
     .filter-select:focus {
-      border-color: var(--gold);
+      border-color: var(--accent);
       color: var(--white);
     }
     .filter-select option { background: var(--navy); color: var(--white); }
@@ -347,12 +349,12 @@
       display: flex; align-items: center; gap: 6px;
       flex-shrink: 0;
     }
-    .filter-reset:hover { color: var(--gold); }
+    .filter-reset:hover { color: var(--accent); }
     .filter-count-badge {
       display: inline-flex; align-items: center; justify-content: center;
       width: 18px; height: 18px;
       border-radius: 50%;
-      background: var(--gold);
+      background: var(--accent);
       color: var(--ink);
       font-size: 9px; font-weight: 700;
       line-height: 1;
@@ -364,7 +366,7 @@
       font-size: 12px; color: var(--slate);
       white-space: nowrap; flex-shrink: 0;
     }
-    .result-count strong { color: var(--gold); font-weight: 700; }
+    .result-count strong { color: var(--accent); font-weight: 700; }
     .view-toggle {
       display: flex; gap: 4px; flex-shrink: 0;
     }
@@ -378,9 +380,9 @@
       transition: border-color 200ms, color 200ms, background 200ms;
     }
     .view-btn.active {
-      border-color: var(--gold);
-      color: var(--gold);
-      background: rgba(201,168,76,0.08);
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(43,185,218,0.08);
     }
     .view-btn:hover:not(.active) {
       border-color: rgba(255,255,255,0.2);
@@ -414,11 +416,11 @@
       max-height: calc(100vh - 76px - 68px - 48px);
       overflow-y: auto;
       scrollbar-width: thin;
-      scrollbar-color: rgba(201,168,76,0.3) transparent;
+      scrollbar-color: rgba(43,185,218,0.3) transparent;
     }
     .sidebar::-webkit-scrollbar { width: 3px; }
     .sidebar::-webkit-scrollbar-track { background: transparent; }
-    .sidebar::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+    .sidebar::-webkit-scrollbar-thumb { background: rgba(43,185,218,0.3); border-radius: 3px; }
 
     .sidebar-section {
       margin-bottom: 36px;
@@ -429,7 +431,7 @@
     .sidebar-section-title {
       font-size: 9px; font-weight: 700;
       letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 18px;
     }
     .sidebar-check-list {
@@ -451,8 +453,8 @@
       position: relative;
     }
     .sidebar-check-item input[type="checkbox"]:checked {
-      background: var(--gold);
-      border-color: var(--gold);
+      background: var(--accent);
+      border-color: var(--accent);
     }
     .sidebar-check-item input[type="checkbox"]:checked::after {
       content: '';
@@ -494,9 +496,9 @@
       -webkit-appearance: none; appearance: none;
       width: 16px; height: 16px;
       border-radius: 50%;
-      background: var(--gold);
+      background: var(--accent);
       border: 2px solid var(--ink);
-      box-shadow: 0 0 0 1px var(--gold);
+      box-shadow: 0 0 0 1px var(--accent);
       cursor: pointer;
       transition: transform 200ms;
     }
@@ -504,7 +506,7 @@
     input[type="range"]::-moz-range-thumb {
       width: 16px; height: 16px;
       border-radius: 50%;
-      background: var(--gold);
+      background: var(--accent);
       border: 2px solid var(--ink);
       cursor: pointer;
     }
@@ -512,7 +514,7 @@
     .sidebar-apply-btn {
       width: 100%;
       padding: 11px 0;
-      background: var(--gold);
+      background: var(--accent);
       color: var(--ink);
       font-family: var(--sans);
       font-size: 11px; font-weight: 700;
@@ -521,7 +523,7 @@
       margin-top: 8px;
       transition: background 250ms, transform 200ms;
     }
-    .sidebar-apply-btn:hover { background: var(--gold-lt); transform: translateY(-1px); }
+    .sidebar-apply-btn:hover { background: var(--accent-lt); transform: translateY(-1px); }
 
     /* ============================================
        PROPERTY GRID
@@ -541,7 +543,7 @@
     }
     .prop-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.12);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(43,185,218,0.12);
     }
     .prop-card.hidden { display: none; }
 
@@ -567,11 +569,11 @@
     .prop-badge-territory {
       display: inline-block;
       padding: 4px 10px;
-      background: rgba(7,15,26,0.75);
+      background: rgba(10,24,38,0.75);
       backdrop-filter: blur(8px);
       font-size: 9px; font-weight: 700;
       letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
     }
     .prop-badge-status {
       display: inline-block;
@@ -598,7 +600,7 @@
     .prop-price {
       font-family: var(--serif);
       font-size: 28px; font-weight: 300;
-      color: var(--gold-lt);
+      color: var(--accent-lt);
       line-height: 1;
       margin-bottom: 10px;
       letter-spacing: -0.01em;
@@ -628,7 +630,7 @@
     .prop-location-dot {
       width: 4px; height: 4px;
       border-radius: 50%;
-      background: var(--gold);
+      background: var(--accent);
       flex-shrink: 0;
     }
     .prop-footer {
@@ -640,12 +642,12 @@
     }
     .prop-agent {
       display: flex; align-items: center; gap: 7px;
-      font-size: 11px; color: var(--gold);
+      font-size: 11px; color: var(--accent);
     }
     .prop-agent-dot {
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: var(--gold);
+      background: var(--accent);
     }
     .prop-cta {
       font-size: 11px; font-weight: 700;
@@ -656,7 +658,7 @@
       transition: border-color 250ms, color 250ms;
       white-space: nowrap;
     }
-    .prop-cta:hover { border-color: var(--gold); color: var(--gold); }
+    .prop-cta:hover { border-color: var(--accent); color: var(--accent); }
 
     /* Empty state */
     .no-results {
@@ -669,7 +671,7 @@
     .no-results-icon {
       font-family: var(--serif);
       font-size: 64px; font-weight: 300;
-      color: rgba(201,168,76,0.15);
+      color: rgba(43,185,218,0.15);
       margin-bottom: 20px;
       line-height: 1;
     }
@@ -711,7 +713,7 @@
     }
     .map-message-icon {
       width: 56px; height: 56px;
-      border: 1px solid rgba(201,168,76,0.3);
+      border: 1px solid rgba(43,185,218,0.3);
       display: flex; align-items: center; justify-content: center;
       margin-bottom: 4px;
     }
@@ -733,8 +735,8 @@
     .map-dot-inner {
       width: 12px; height: 12px;
       border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 0 4px rgba(201,168,76,0.2), 0 0 20px rgba(201,168,76,0.3);
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(43,185,218,0.2), 0 0 20px rgba(43,185,218,0.3);
       animation: mapPulse 2.5s ease-in-out infinite;
       cursor: pointer;
     }
@@ -744,7 +746,7 @@
       left: 50%;
       transform: translateX(-50%);
       background: var(--navy);
-      border: 1px solid rgba(201,168,76,0.3);
+      border: 1px solid rgba(43,185,218,0.3);
       padding: 5px 10px;
       font-size: 11px; white-space: nowrap;
       color: var(--white);
@@ -754,8 +756,8 @@
     }
     .map-dot:hover .map-dot-label { opacity: 1; }
     @keyframes mapPulse {
-      0%, 100% { box-shadow: 0 0 0 4px rgba(201,168,76,0.2), 0 0 20px rgba(201,168,76,0.3); }
-      50% { box-shadow: 0 0 0 8px rgba(201,168,76,0.1), 0 0 32px rgba(201,168,76,0.4); }
+      0%, 100% { box-shadow: 0 0 0 4px rgba(43,185,218,0.2), 0 0 20px rgba(43,185,218,0.3); }
+      50% { box-shadow: 0 0 0 8px rgba(43,185,218,0.1), 0 0 32px rgba(43,185,218,0.4); }
     }
 
     /* ============================================
@@ -805,8 +807,8 @@
       color: var(--white);
     }
     .pagination-num.active {
-      border-color: var(--gold);
-      background: var(--gold);
+      border-color: var(--accent);
+      background: var(--accent);
       color: var(--ink);
     }
 
@@ -836,7 +838,7 @@
       font-family: var(--serif);
       font-size: clamp(80px, 16vw, 220px);
       font-weight: 300;
-      color: rgba(201,168,76,0.025);
+      color: rgba(43,185,218,0.025);
       white-space: nowrap;
       pointer-events: none; user-select: none;
     }
@@ -857,24 +859,24 @@
     .btn-gold-border {
       display: inline-flex; align-items: center; gap: 10px;
       padding: 13px 31px;
-      border: 1px solid var(--gold);
-      color: var(--gold);
+      border: 1px solid var(--accent);
+      color: var(--accent);
       font-family: var(--sans); font-size: 11px; font-weight: 700;
       letter-spacing: 0.14em; text-transform: uppercase;
       transition: background 250ms, color 250ms;
     }
-    .btn-gold-border:hover { background: var(--gold); color: var(--ink); }
+    .btn-gold-border:hover { background: var(--accent); color: var(--ink); }
 
     .btn-gold {
       display: inline-flex; align-items: center; gap: 10px;
       padding: 14px 32px;
-      background: var(--gold); color: var(--ink);
+      background: var(--accent); color: var(--ink);
       font-family: var(--sans); font-size: 11px; font-weight: 700;
       letter-spacing: 0.14em; text-transform: uppercase;
       border: none; cursor: pointer;
       transition: background 250ms, transform 250ms;
     }
-    .btn-gold:hover { background: var(--gold-lt); transform: translateY(-2px); }
+    .btn-gold:hover { background: var(--accent-lt); transform: translateY(-2px); }
     .btn-ghost {
       display: inline-flex; align-items: center; gap: 10px;
       padding: 13px 31px;
@@ -884,22 +886,22 @@
       background: transparent; cursor: pointer;
       transition: border-color 250ms, color 250ms;
     }
-    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
     /* Gold rule utility */
     .gold-rule {
-      width: 60px; height: 1px; background: var(--gold); margin: 16px 0 24px;
+      width: 60px; height: 1px; background: var(--accent); margin: 16px 0 24px;
     }
     .gold-rule.centered { margin-left: auto; margin-right: auto; }
     .section-label {
       font-size: 10px; font-weight: 700; letter-spacing: 0.24em;
-      text-transform: uppercase; color: var(--gold);
+      text-transform: uppercase; color: var(--accent);
     }
     .section-title {
       font-family: var(--serif); font-size: clamp(32px, 4vw, 54px);
       font-weight: 300; line-height: 1.15; letter-spacing: -0.01em; color: var(--white);
     }
-    .section-title em { font-style: italic; color: var(--gold); }
+    .section-title em { font-style: italic; color: var(--accent); }
 
     /* ============================================
        RESPONSIVE
@@ -920,7 +922,7 @@
       .sidebar { display: none; }
       .filter-bar { padding: 0 40px; overflow-x: auto; }
       .filter-bar::-webkit-scrollbar { height: 2px; }
-      .filter-bar::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); }
+      .filter-bar::-webkit-scrollbar-thumb { background: rgba(43,185,218,0.3); }
       .prop-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
@@ -1653,7 +1655,7 @@
           </div>
           <div class="map-message">
             <div class="map-message-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2BB9DA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <h3>Carte interactive</h3>
             <p>Visualisation cartographique Leaflet.js à intégrer — les marqueurs représentent la localisation approximative de chaque bien dans les Antilles françaises.</p>

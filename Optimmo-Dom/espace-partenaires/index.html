@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Espace Partenaires Optimmo Dom — Accédez à vos outils d'analyse immobilière, études de marché et avis de valeur en Martinique et Guadeloupe." />
   <meta property="og:title" content="Espace Partenaires — Optimmo Dom" />
-  <meta property="og:description" content="Connectez-vous à votre espace professionnel Optimmo Dom." />
+  <meta property="og:description" content="Administrateur, membre du réseau ou client : une seule connexion Optimmo Dom." />
   <meta property="og:type" content="website" />
-  <title>Espace Partenaires — Optimmo Dom</title>
+  <title>Mon espace — Optimmo Dom</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/shared.css" />
 
   <style>
@@ -52,8 +52,8 @@
       content: '';
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 10%, rgba(201,168,76,0.05) 0%, transparent 50%);
+        radial-gradient(ellipse at 20% 80%, rgba(43,185,218,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 10%, rgba(43,185,218,0.05) 0%, transparent 50%);
       pointer-events: none;
     }
     .login-left-inner {
@@ -79,13 +79,13 @@
     }
     .left-logo-mark {
       width: 56px; height: 56px;
-      border: 1px solid var(--gold);
+      border: 1px solid var(--accent);
       display: flex; align-items: center; justify-content: center;
       font-family: var(--serif); font-size: 22px; font-weight: 500;
-      color: var(--gold); letter-spacing: 0.04em;
+      color: var(--accent); letter-spacing: 0.04em;
       transition: background 300ms, color 300ms;
     }
-    .left-logo:hover .left-logo-mark { background: var(--gold); color: var(--ink); }
+    .left-logo:hover .left-logo-mark { background: var(--accent); color: var(--ink); }
     .left-logo-name {
       font-family: var(--serif); font-size: 24px;
       font-weight: 300; color: var(--white); letter-spacing: 0.06em;
@@ -93,7 +93,7 @@
     .left-logo-sub {
       font-size: 9px; font-weight: 700;
       letter-spacing: 0.26em; text-transform: uppercase;
-      color: var(--gold); opacity: 0.75;
+      color: var(--accent); opacity: 0.75;
     }
 
     /* Tagline */
@@ -104,7 +104,7 @@
       line-height: 1.55;
       margin-bottom: 44px;
     }
-    .left-tagline em { font-style: normal; color: var(--gold); }
+    .left-tagline em { font-style: normal; color: var(--accent); }
 
     /* Plan teasers */
     .plans { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
@@ -116,18 +116,18 @@
       transition: border-color 300ms, background 300ms;
     }
     .plan:hover {
-      border-color: rgba(201,168,76,0.3);
-      background: rgba(201,168,76,0.03);
+      border-color: rgba(43,185,218,0.3);
+      background: rgba(43,185,218,0.03);
     }
     .plan.highlighted {
-      border-color: var(--gold);
-      background: rgba(201,168,76,0.06);
+      border-color: var(--accent);
+      background: rgba(43,185,218,0.06);
       position: relative;
     }
     .plan.highlighted::after {
       content: 'Populaire';
       position: absolute; top: -1px; right: 16px;
-      background: var(--gold); color: var(--ink);
+      background: var(--accent); color: var(--ink);
       font-size: 9px; font-weight: 700;
       letter-spacing: 0.16em; text-transform: uppercase;
       padding: 3px 10px;
@@ -138,7 +138,7 @@
     }
     .plan-price {
       font-family: var(--sans); font-size: 14px;
-      font-weight: 700; color: var(--gold);
+      font-weight: 700; color: var(--accent);
       white-space: nowrap;
     }
     .plan-price .per { font-size: 10px; font-weight: 400; color: var(--slate); }
@@ -152,7 +152,7 @@
       text-align: center; margin-bottom: 32px;
       line-height: 1.6;
     }
-    .left-ondemand strong { color: var(--gold); font-weight: 700; }
+    .left-ondemand strong { color: var(--accent); font-weight: 700; }
 
     .left-back {
       font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
@@ -160,7 +160,7 @@
       display: flex; align-items: center; gap: 8px;
       transition: color 250ms;
     }
-    .left-back:hover { color: var(--gold); }
+    .left-back:hover { color: var(--accent); }
     .left-back .arrow { transition: transform 250ms; }
     .left-back:hover .arrow { transform: translateX(-3px); }
 
@@ -198,7 +198,7 @@
       letter-spacing: 0.18em; text-transform: uppercase;
       color: var(--slate); margin-bottom: 8px;
     }
-    .field label .req { color: var(--gold); margin-left: 2px; }
+    .field label .req { color: var(--accent); margin-left: 2px; }
     .field-input-wrap { position: relative; }
     .field input[type="email"],
     .field input[type="password"],
@@ -215,8 +215,8 @@
     }
     .field input[type="password"] { padding-right: 50px; }
     .field input:focus {
-      border-color: var(--gold);
-      background: rgba(201,168,76,0.04);
+      border-color: var(--accent);
+      background: rgba(43,185,218,0.04);
     }
     .field input::placeholder { color: var(--slate); opacity: 0.6; }
     .field input.error { border-color: #E55353; }
@@ -235,7 +235,7 @@
       transition: color 250ms;
       line-height: 1;
     }
-    .pwd-toggle:hover { color: var(--gold); }
+    .pwd-toggle:hover { color: var(--accent); }
 
     /* Remember me */
     .remember-row {
@@ -252,7 +252,7 @@
       position: relative;
     }
     .remember-row input[type="checkbox"]:checked {
-      background: var(--gold); border-color: var(--gold);
+      background: var(--accent); border-color: var(--accent);
     }
     .remember-row input[type="checkbox"]:checked::after {
       content: '';
@@ -281,14 +281,14 @@
     /* Submit */
     .btn-login {
       width: 100%; padding: 15px 32px;
-      background: var(--gold); color: var(--ink);
+      background: var(--accent); color: var(--ink);
       font-family: var(--sans); font-size: 12px; font-weight: 700;
       letter-spacing: 0.16em; text-transform: uppercase;
       border: none; cursor: pointer;
       display: flex; align-items: center; justify-content: center; gap: 10px;
       transition: background 250ms, transform 250ms;
     }
-    .btn-login:hover { background: var(--gold-lt); transform: translateY(-2px); }
+    .btn-login:hover { background: var(--accent-lt); transform: translateY(-2px); }
     .btn-login:active { transform: none; }
     .btn-login:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 
@@ -296,7 +296,7 @@
     .spinner {
       display: none;
       width: 16px; height: 16px;
-      border: 2px solid rgba(7,15,26,0.3);
+      border: 2px solid rgba(10,24,38,0.3);
       border-top-color: var(--ink);
       border-radius: 50%;
       animation: spin 600ms linear infinite;
@@ -312,7 +312,7 @@
       margin-top: 14px;
       transition: color 250ms;
     }
-    .forgot-link:hover { color: var(--gold); }
+    .forgot-link:hover { color: var(--accent); }
 
     /* Separator */
     .login-sep {
@@ -342,8 +342,8 @@
       transition: border-color 250ms, color 250ms, background 250ms;
     }
     .btn-register:hover {
-      border-color: var(--gold); color: var(--gold);
-      background: rgba(201,168,76,0.04);
+      border-color: var(--accent); color: var(--accent);
+      background: rgba(43,185,218,0.04);
     }
 
     /* New partner section */
@@ -356,7 +356,7 @@
     .new-partner-label {
       font-size: 10px; font-weight: 700;
       letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 16px;
+      color: var(--accent); margin-bottom: 16px;
     }
     .new-partner-title {
       font-family: var(--serif); font-size: 20px;
@@ -374,19 +374,19 @@
     .new-partner-list li::before {
       content: '';
       width: 4px; height: 4px;
-      border-radius: 50%; background: var(--gold);
+      border-radius: 50%; background: var(--accent);
       flex-shrink: 0;
     }
     .new-partner-link {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 12px; font-weight: 700;
       letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--gold);
-      border-bottom: 1px solid rgba(201,168,76,0.3);
+      color: var(--accent);
+      border-bottom: 1px solid rgba(43,185,218,0.3);
       padding-bottom: 2px;
       transition: border-color 250ms, gap 250ms;
     }
-    .new-partner-link:hover { border-color: var(--gold); gap: 12px; }
+    .new-partner-link:hover { border-color: var(--accent); gap: 12px; }
 
     /* ============================================
        MOBILE — Stack vertically
@@ -487,8 +487,8 @@
     <main class="login-right" aria-labelledby="login-heading">
       <div class="login-right-inner">
 
-        <h1 class="login-title" id="login-heading">Espace<br />Partenaires</h1>
-        <p class="login-subtitle">Connectez-vous à votre espace professionnel</p>
+        <h1 class="login-title" id="login-heading">Mon<br />espace</h1>
+        <p class="login-subtitle">Administrateur, membre du réseau ou client : une seule connexion</p>
 
         <!-- Error message -->
         <div class="login-error" id="login-error" role="alert" aria-live="polite">
@@ -549,8 +549,8 @@
         </div>
 
         <!-- Register -->
-        <button type="button" class="btn-register" onclick="window.location.href='../contact.html?type=partenaire'">
-          Créer un compte partenaire
+        <button type="button" class="btn-register" onclick="window.location.href='./inscription.html'">
+          Créer un compte
         </button>
 
         <!-- New partner section -->

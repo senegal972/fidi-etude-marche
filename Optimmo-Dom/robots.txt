@@ -5,4 +5,4 @@ Allow: /
 Disallow: /espace-partenaires/
 Disallow: /netlify/
 
-Sitemap: https://www.optimmo-dom.fr/sitemap.xml
+Sitemap: https://www.optimmodom.com/sitemap.xml

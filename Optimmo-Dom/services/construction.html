@@ -7,17 +7,19 @@
   <meta name="description" content="Maîtrise d'ouvrage déléguée pour vos projets de construction neuve et rénovation en Martinique et Guadeloupe. Normes PS Antilles, paracyclonique, suivi de chantier." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/shared.css" />
   <style>
     /* ── Page-specific tokens ───────────────────────────── */
     :root {
-      --ink: #070F1A;
+      --ink: #0A1826;
       --gold: #C9A84C;
+      --accent:    #2BB9DA;
+      --accent-lt: #5FD0EA;
       --white: #FFFFFF;
       --slate: #7A8A99;
       --text: #E8ECF0;
-      --navy: #1A2B3C;
+      --navy: #10243A;
     }
 
     /* ── Hero ───────────────────────────────────────────── */
@@ -26,7 +28,7 @@
       display: flex;
       align-items: flex-end;
       padding-bottom: 80px;
-      background: linear-gradient(160deg, #071520 0%, #070F1A 65%);
+      background: linear-gradient(160deg, #071520 0%, #0A1826 65%);
       position: relative;
       overflow: hidden;
     }
@@ -34,13 +36,13 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 1000px 500px at 60% 40%, rgba(201,168,76,0.05) 0%, transparent 70%);
+      background: radial-gradient(ellipse 1000px 500px at 60% 40%, rgba(43,185,218,0.05) 0%, transparent 70%);
     }
     .hero-grid-line {
       position: absolute;
       top: 0; bottom: 0;
       width: 1px;
-      background: rgba(201,168,76,0.07);
+      background: rgba(43,185,218,0.07);
     }
     .hero-grid-line:nth-child(1) { left: 25%; }
     .hero-grid-line:nth-child(2) { left: 50%; }
@@ -54,7 +56,7 @@
       color: var(--slate);
       margin-bottom: 20px;
     }
-    .hero-breadcrumb a { color: var(--gold); transition: opacity 0.2s; }
+    .hero-breadcrumb a { color: var(--accent); transition: opacity 0.2s; }
     .hero-breadcrumb a:hover { opacity: 0.7; }
     .hero-breadcrumb span { margin: 0 10px; }
     .hero-tag {
@@ -63,8 +65,8 @@
       font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--gold);
-      border: 1px solid rgba(201,168,76,0.35);
+      color: var(--accent);
+      border: 1px solid rgba(43,185,218,0.35);
       padding: 6px 16px;
       margin-bottom: 28px;
     }
@@ -78,7 +80,7 @@
       max-width: 820px;
       margin-bottom: 24px;
     }
-    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-title em { font-style: italic; color: var(--accent); }
     .hero-subtitle {
       font-size: 17px;
       font-weight: 300;
@@ -89,7 +91,7 @@
     .hero-rule {
       width: 80px;
       height: 1px;
-      background: var(--gold);
+      background: var(--accent);
       margin: 32px 0;
     }
 
@@ -117,7 +119,7 @@
     .mod-aside {
       background: var(--navy);
       padding: 40px;
-      border-top: 2px solid var(--gold);
+      border-top: 2px solid var(--accent);
     }
     .mod-aside-title {
       font-family: var(--serif);
@@ -131,14 +133,14 @@
       flex-direction: column;
       margin-bottom: 24px;
       padding-bottom: 24px;
-      border-bottom: 1px solid rgba(201,168,76,0.12);
+      border-bottom: 1px solid rgba(43,185,218,0.12);
     }
     .mod-stat:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
     .mod-stat-num {
       font-family: var(--serif);
       font-size: 40px;
       font-weight: 300;
-      color: var(--gold);
+      color: var(--accent);
       line-height: 1;
       margin-bottom: 6px;
     }
@@ -164,18 +166,18 @@
       transition: border-color 0.3s, background 0.3s;
     }
     .mission-item:hover {
-      border-left-color: var(--gold);
+      border-left-color: var(--accent);
       background: #1F3347;
     }
     .mission-icon {
       width: 44px;
       height: 44px;
-      border: 1px solid rgba(201,168,76,0.3);
+      border: 1px solid rgba(43,185,218,0.3);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      color: var(--gold);
+      color: var(--accent);
       font-family: var(--serif);
       font-size: 16px;
       font-weight: 400;
@@ -198,7 +200,7 @@
     /* ── Normes panel ───────────────────────────────────── */
     .normes-panel {
       background: #0A1828;
-      border: 1px solid rgba(201,168,76,0.3);
+      border: 1px solid rgba(43,185,218,0.3);
       padding: 60px;
       position: relative;
     }
@@ -207,14 +209,14 @@
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 2px;
-      background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+      background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
     }
     .normes-panel-label {
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
       margin-bottom: 12px;
     }
     .normes-panel h3 {
@@ -239,8 +241,8 @@
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.1em;
-      color: var(--gold);
-      background: rgba(201,168,76,0.08);
+      color: var(--accent);
+      background: rgba(43,185,218,0.08);
       display: inline-block;
       padding: 4px 10px;
       width: fit-content;
@@ -279,13 +281,13 @@
       font-family: var(--serif);
       font-size: 80px;
       font-weight: 300;
-      color: rgba(201,168,76,0.06);
+      color: rgba(43,185,218,0.06);
       line-height: 1;
     }
     .projet-icon-wrap {
       width: 52px;
       height: 52px;
-      border: 1px solid rgba(201,168,76,0.25);
+      border: 1px solid rgba(43,185,218,0.25);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -294,7 +296,7 @@
     .projet-icon-svg {
       width: 24px;
       height: 24px;
-      stroke: var(--gold);
+      stroke: var(--accent);
       fill: none;
       stroke-width: 1.5;
       stroke-linecap: round;
@@ -307,7 +309,7 @@
       color: var(--white);
       margin-bottom: 14px;
     }
-    .projet-title em { font-style: italic; color: var(--gold); }
+    .projet-title em { font-style: italic; color: var(--accent); }
     .projet-text {
       font-size: 14px;
       color: var(--text);
@@ -341,7 +343,7 @@
       font-family: var(--serif);
       font-size: 120px;
       font-weight: 300;
-      color: rgba(201,168,76,0.15);
+      color: rgba(43,185,218,0.15);
       line-height: 0.6;
       display: block;
       margin-bottom: 32px;
@@ -364,7 +366,7 @@
     .author-rule {
       width: 40px;
       height: 1px;
-      background: var(--gold);
+      background: var(--accent);
       margin-bottom: 12px;
     }
     .author-name {
@@ -372,7 +374,7 @@
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--accent);
     }
     .author-detail {
       font-size: 13px;
@@ -381,7 +383,7 @@
 
     /* ── CTA ────────────────────────────────────────────── */
     .cta-section {
-      background: linear-gradient(135deg, #0A1828 0%, #070F1A 100%);
+      background: linear-gradient(135deg, #0A1828 0%, #0A1826 100%);
       padding: 120px 0;
       text-align: center;
       position: relative;
@@ -393,7 +395,7 @@
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: 800px; height: 400px;
-      background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
+      background: radial-gradient(ellipse, rgba(43,185,218,0.06) 0%, transparent 70%);
     }
     .cta-content { position: relative; z-index: 2; }
     .cta-section h2 {
@@ -403,7 +405,7 @@
       color: var(--white);
       margin-bottom: 16px;
     }
-    .cta-section h2 em { font-style: italic; color: var(--gold); }
+    .cta-section h2 em { font-style: italic; color: var(--accent); }
     .cta-section p {
       font-size: 16px;
       color: var(--slate);
@@ -519,10 +521,10 @@
     <div class="mod-grid">
       <div class="mod-text reveal">
         <p>
-          Construire ou rénover en Martinique et Guadeloupe engage une responsabilité technique et réglementaire particulièrement exigeante. Le territoire antillais est classé en zones sismiques 4 et 5 — les plus élevées du territoire national — et régulièrement exposé à des cyclones de forte intensité. Ces contraintes se traduisent par l'application obligatoire de la réglementation <strong style="color:var(--gold)">PS Antilles 92</strong> pour la résistance parasismique, ainsi que de la norme <strong style="color:var(--gold)">NF P 06-014</strong> pour la résistance aux charges de vent d'origine cyclonique. À cela s'ajoutent les DTU spécifiques à l'Outre-Mer et, pour les constructions neuves, les exigences de la RE 2020 adaptée au climat tropical humide. Maîtriser l'ensemble de ces référentiels normatifs tout en gérant un chantier constitue une mission à part entière.
+          Construire ou rénover en Martinique et Guadeloupe engage une responsabilité technique et réglementaire particulièrement exigeante. Le territoire antillais est classé en zones sismiques 4 et 5 — les plus élevées du territoire national — et régulièrement exposé à des cyclones de forte intensité. Ces contraintes se traduisent par l'application obligatoire de la réglementation <strong style="color:var(--accent)">PS Antilles 92</strong> pour la résistance parasismique, ainsi que de la norme <strong style="color:var(--accent)">NF P 06-014</strong> pour la résistance aux charges de vent d'origine cyclonique. À cela s'ajoutent les DTU spécifiques à l'Outre-Mer et, pour les constructions neuves, les exigences de la RE 2020 adaptée au climat tropical humide. Maîtriser l'ensemble de ces référentiels normatifs tout en gérant un chantier constitue une mission à part entière.
         </p>
         <p>
-          La réalité du secteur du bâtiment aux Antilles ajoute une difficulté supplémentaire : la pénurie chronique d'entreprises qualifiées, la forte sollicitation des prestataires les plus fiables, et des délais d'approvisionnement allongés pour certains matériaux importés. Sans coordination experte entre le maître d'œuvre (architecte ou bureau d'études), les entreprises de gros œuvre, les corps d'état techniques (électricité, plomberie, climatisation) et les finitions, le chantier dérive inévitablement en délais et en coûts. La <strong style="color:var(--gold)">maîtrise d'ouvrage déléguée</strong> (MOD) que nous proposons vous libère de ces contraintes opérationnelles tout en vous gardant décisionnaire sur les choix stratégiques et esthétiques. Nous devenons votre représentant sur le terrain, garant du respect du programme, du budget et des normes.
+          La réalité du secteur du bâtiment aux Antilles ajoute une difficulté supplémentaire : la pénurie chronique d'entreprises qualifiées, la forte sollicitation des prestataires les plus fiables, et des délais d'approvisionnement allongés pour certains matériaux importés. Sans coordination experte entre le maître d'œuvre (architecte ou bureau d'études), les entreprises de gros œuvre, les corps d'état techniques (électricité, plomberie, climatisation) et les finitions, le chantier dérive inévitablement en délais et en coûts. La <strong style="color:var(--accent)">maîtrise d'ouvrage déléguée</strong> (MOD) que nous proposons vous libère de ces contraintes opérationnelles tout en vous gardant décisionnaire sur les choix stratégiques et esthétiques. Nous devenons votre représentant sur le terrain, garant du respect du programme, du budget et des normes.
         </p>
       </div>
       <div class="reveal reveal-delay-2">
@@ -615,7 +617,7 @@
     <div class="reveal">
       <div class="normes-panel">
         <div class="normes-panel-label">Réglementation technique</div>
-        <h3>Normes spécifiques <em style="font-style:italic; color:var(--gold);">Antilles</em></h3>
+        <h3>Normes spécifiques <em style="font-style:italic; color:var(--accent);">Antilles</em></h3>
         <div class="normes-grid">
           <div class="norme-item">
             <span class="norme-code">PS 69 · PS Antilles 92</span>
