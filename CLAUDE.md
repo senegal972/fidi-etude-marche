@@ -7,6 +7,10 @@
 ```
 fidi-etude-marche/
 ├── index.html                    # SPA principale (HTML + JS inline)
+├── saisie.js / saisie.css        # Écran de saisie « Nouvelle étude » (2 colonnes, brouillon, modèles)
+├── marque.js / marque.css        # Module « Mise en page » (marque blanche : enseigne, logo, couleurs)
+├── marque.json                   # Charte par défaut du déploiement (un fichier par client)
+├── avis-valeur.js / .css         # Module Avis de valeur
 ├── manifest.webmanifest          # PWA manifest
 ├── favicon.svg                   # Icône
 ├── netlify.toml                  # Config Netlify (redirections, timeouts)
@@ -98,6 +102,40 @@ Retourne : niveau de vie médian, revenu déclaré médian, part de ménages imp
 ```
 Retourne : `{ valeur: { valeur_venale, fourchette_basse, fourchette_haute, ajustements, capitalisation }, markdown }` — avis de valeur vénale complet (comparaison directe + contrôle par capitalisation)
 
+## Modules d'interface
+
+L'interface est découpée en modules autonomes chargés par `index.html`. **Toute évolution de
+l'écran de saisie ou de l'habillage passe par ces fichiers, pas par du code ajouté dans `index.html`.**
+
+### Écran de saisie — `saisie.js` / `saisie.css`
+- Deux colonnes : contenu de l'étude à gauche (bien, caractéristiques, vérifications),
+  options et récapitulatif en direct à droite.
+- Ne modifie pas `lancerAnalyse()`. **Les identifiants historiques sont un contrat à conserver** :
+  `inputAdresse`, `selectType`, `inputSurface`, `selectPerimetre`, `btnAnalyse`, `optEntreprise`,
+  `inputEntrepriseQ`, `optFinance`, `inputFinanceSiren`, `optPermis`, `btnGeoloc`, `autocompleteList`.
+- Familles de biens, libellés de surface et modèles prédéfinis : constantes `FAMILLES` et `MODELES_BASE`.
+- Sources affichées dans le récapitulatif : constante `SOURCES` — **à mettre à jour quand une source
+  de données est ajoutée** (commande `/add-datasource`).
+- Persistance `localStorage` : `fidi_em_brouillon`, `fidi_em_recentes`, `fidi_em_modeles`,
+  `fidi_em_seq_<année>` (numérotation des références `EM-AAAA-NNN`).
+- Le formulaire se replie en résumé quand `#results-panel` devient visible (MutationObserver).
+
+### Mise en page / marque blanche — `marque.js` / `marque.css` / `marque.json`
+- L'application est destinée à être commercialisée : **aucune enseigne, couleur ou coordonnée
+  ne doit être écrite en dur** dans le HTML, le CSS ou le JS.
+- Priorité des réglages : valeurs par défaut de `marque.js` < `marque.json` (charte du déploiement)
+  < réglages de l'utilisateur (`localStorage`, clé `fidi_marque_perso`, panneau « Mise en page »).
+- Couleurs : utiliser les variables CSS `--fidi-blue`, `--fidi-blue-light`, `--fidi-accent`,
+  `--fidi-accent-hover`, `--fidi-on-accent`, `--fidi-gold`, `--fidi-on-gold`.
+  En JavaScript (Chart.js, Leaflet) : `Marque.couleur('principale'|'accent'|'secondaire')`
+  et `Marque.rgba('principale', 0.1)`.
+- Enseigne et coordonnées : `Marque.get()` → `{ enseigne, produit, baseline, logo, couleurs, coordonnees }`.
+- Impression / PDF : `marque.js` insère `#marquePrint` (en-tête) et `#marquePrintPied` (pied)
+  dans `#results-panel` ; ils ne sont visibles qu'à l'impression.
+- `marque.json` est versionné dans un dépôt public : **ne pas y inscrire de coordonnées personnelles**.
+- Reste à faire : appliquer la charte au document généré par `avis-valeur.js` (couleurs encore en dur)
+  et rattacher la charte au compte utilisateur côté serveur (aujourd'hui : par navigateur).
+
 ## Score de potentiel — Axes de notation
 
 | Axe | Pondération | Critères |
@@ -122,6 +160,9 @@ Retourne : `{ valeur: { valeur_venale, fourchette_basse, fourchette_haute, ajust
 - Timeout API : 8 000 ms par défaut, wrappé dans `fetchTimeout()`
 - CORS : headers `Access-Control-Allow-Origin: *` sur toutes les réponses
 - Pas de build step — le HTML est servi tel quel
+- Interface : un module = un couple `nom.js` + `nom.css` à la racine, en JavaScript sans framework,
+  encapsulé dans une IIFE ; pas de `alert()` pour les contrôles de saisie (message en ligne)
+- Tests statiques de l'interface : `tests/interface.test.mjs` (contrat des identifiants, charte)
 
 ### Variables d'environnement (Netlify)
 | Variable | Usage |

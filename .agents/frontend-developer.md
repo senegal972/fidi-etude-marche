@@ -5,7 +5,9 @@
 
 ## Responsabilités
 
-- Développer et maintenir `index.html` (SPA monolithique HTML/CSS/JS)
+- Développer et maintenir `index.html` (SPA HTML/CSS/JS) et ses modules d'interface
+- Maintenir l'écran de saisie (`saisie.js` / `saisie.css`) sans casser le contrat des identifiants
+- Maintenir le module « Mise en page » (`marque.js` / `marque.css` / `marque.json`) — marque blanche
 - Garantir le rendu responsive (mobile-first)
 - Maintenir la compatibilité PWA (manifest + service worker implicite)
 - Préserver le support impression/PDF natif (`@media print`)
@@ -25,10 +27,12 @@
 ### Variables CSS racine
 ```css
 :root {
-  --fidi-blue: #1a3a6e;
-  --fidi-blue-light: #2652a0;
-  --fidi-accent: #e8491d;
-  --fidi-gold: #f5a623;
+  /* Valeurs par défaut : remplacées à l'exécution par marque.js selon la charte active */
+  --fidi-blue: #0C447C;        /* couleur principale */
+  --fidi-blue-light: #386694;  /* dérivée automatiquement */
+  --fidi-accent: #993C1D;      /* boutons d'action */
+  --fidi-accent-hover: #803218;
+  --fidi-gold: #0F6E56;        /* couleur secondaire */
   --card-shadow: 0 2px 12px rgba(0,0,0,.08);
 }
 ```
@@ -85,11 +89,13 @@ const fmtM2  = n => n != null ? fmt(n) + ' €/m²' : '—';
 
 ## Règles d'or
 
-1. **Jamais de JS externe non CDN** — tout le JS est inline ou CDN jsDelivr/unpkg
+1. **Jamais de JS externe non CDN** — le JS est inline, en module local à la racine (`saisie.js`, `marque.js`, `avis-valeur.js`) ou CDN jsDelivr/unpkg
 2. **Graceful degradation** — si une section n'a pas de données, afficher `—` et non une erreur
 3. **Performance print** — masquer carte Leaflet en impression (`@media print`), afficher `#pdfMapNote`
 4. **Accessibilité** — `title` sur les boutons, `aria-label` si pas de texte visible
 5. **Pas de frameworks JS** — uniquement Bootstrap + Chart.js + Leaflet (pas de React/Vue/etc.)
+6. **Marque blanche** — jamais d'enseigne, de couleur de marque ou de coordonnée en dur : variables CSS `--fidi-*`, `Marque.couleur()`, `Marque.get()` (voir « Modules d'interface » dans `CLAUDE.md`)
+7. **Contrôles de saisie en ligne** — pas de `alert()` ; message dans la page, champ mis en évidence
 
 ## Coordination avec autres agents
 
