@@ -49,3 +49,9 @@ test("modules d'interface — pas de alert() ni de couleur de marque d'origine e
     assert.ok(!/#1a3a6e|#e8491d/i.test(src), `${f} contient une couleur de marque en dur`);
   }
 });
+
+test("avis de valeur — aucune identité ni coordonnée personnelle en dur", () => {
+  const src = lire("avis-valeur.js");
+  assert.ok(!/Franck|sextantfrance|Coridun/i.test(src), "avis-valeur.js contient une identité en dur");
+  assert.ok(src.includes("function charte()"), "avis-valeur.js ne lit plus la charte de marque");
+});

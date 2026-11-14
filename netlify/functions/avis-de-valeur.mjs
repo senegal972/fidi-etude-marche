@@ -217,7 +217,7 @@ ${capitalisation ? `
 Cet avis de valeur est établi le ${today} à partir des données de marché publiques (DVF, DPE ADEME, Géorisques, Carte des loyers DHUP, INSEE Filosofi, OpenStreetMap) et des informations transmises. Il ne constitue pas une expertise immobilière au sens de la Charte de l'Expertise en Évaluation Immobilière, ni un engagement de prix. La valeur peut varier selon les conditions de négociation et des éléments non communiqués. Validité : 3 mois.
 
 ---
-*FIDI · Conseil Immobilier — Avis de valeur généré automatiquement*
+*Avis de valeur généré automatiquement à partir de données publiques*
 `;
 
   return jsonResp(200, {

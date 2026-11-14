@@ -6,7 +6,9 @@
    Ordre de priorité (du plus faible au plus fort) :
      1. DEFAUT ci-dessous (secours si rien d'autre n'est lisible)
      2. /marque.json            → charte du déploiement (un fichier par client)
-     3. localStorage            → réglages faits dans le panneau « Mise en page »
+     3. réglages du panneau « Mise en page » :
+          - utilisateur connecté → charte du compte (/api/marque), retrouvée sur tous ses postes
+          - sinon               → localStorage de ce navigateur
 
    Chargé dans le <head>, sans defer : les couleurs sont posées avant le premier
    affichage. Expose window.Marque (couleur, rgba, get, ouvrir).
@@ -42,6 +44,8 @@
   var perso = lire(K_PERSO) || {};
   var courante = fusion(lire(K_CACHE) || DEFAUT, perso);
   var panneau = null;
+  var compte = null;        // { prenom, nom } si l'utilisateur est connecté à son espace
+  var envoiTimer = null;
 
   // ─── Utilitaires ────────────────────────────────────────────────────────────
   function clone(o) { return JSON.parse(JSON.stringify(o)); }
@@ -114,6 +118,9 @@
     s.setProperty('--fidi-on-gold', encre(c.secondaire));
     s.setProperty('--av-blue', c.principale);
     s.setProperty('--av-blue-light', melange(c.principale, 255, 0.18));
+    s.setProperty('--av-lightblue', melange(c.principale, 255, 0.9));
+    s.setProperty('--av-gold', c.secondaire);
+    s.setProperty('--av-on-gold', encre(c.secondaire));
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', c.principale);
   }
@@ -182,6 +189,69 @@
     ecrire(K_PERSO, perso);
     courante = fusion(base, perso);
     appliquer();
+    planifierEnvoi();
+  }
+
+  // ─── Rattachement au compte ─────────────────────────────────────────────────
+  // Le cookie de session suffit en temps normal ; le jeton sert de repli s'il est bloqué.
+  function entetes(json) {
+    var h = json ? { 'Content-Type': 'application/json' } : {};
+    try { var t = localStorage.getItem('optimmo_token'); if (t) h.Authorization = 'Bearer ' + t; } catch (e) { /* stockage indisponible */ }
+    return h;
+  }
+  function planifierEnvoi() {
+    if (!compte) return;
+    clearTimeout(envoiTimer);
+    envoiTimer = setTimeout(envoyer, 800);
+  }
+  function envoyer() {
+    if (!compte) return;
+    fetch('/api/marque', { method: 'POST', credentials: 'same-origin', headers: entetes(true), body: JSON.stringify(perso) })
+      .then(function (r) {
+        if (r.status === 401) { compte = null; majCompteUi(); etat('Session expirée : réglages conservés dans ce navigateur.'); return; }
+        etat(r.ok ? 'Enregistré dans votre compte.' : 'Enregistré dans ce navigateur ; l\'envoi vers le compte a échoué.');
+      })
+      .catch(function () { etat('Enregistré dans ce navigateur ; l\'envoi vers le compte a échoué.'); });
+  }
+  function chargerCompte() {
+    fetch('/api/marque', { credentials: 'same-origin', headers: entetes(false) })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.compte) return;
+        compte = d.compte;
+        var distante = assainir(d.marque);
+        if (Object.keys(distante).length) {
+          // La charte du compte fait foi : elle remplace les réglages de ce navigateur.
+          perso = distante; ecrire(K_PERSO, perso);
+          courante = fusion(base, perso); appliquer(); remplir();
+        } else if (Object.keys(perso).length) {
+          envoyer(); // première connexion : on rattache au compte les réglages déjà faits ici
+        }
+        majCompteUi();
+      })
+      .catch(function () { /* hors ligne ou service indisponible : on reste en local */ });
+  }
+  function majCompteUi() {
+    var e = document.getElementById('marqueCompte');
+    if (!e) return;
+    e.textContent = '';
+    var i = document.createElement('i');
+    if (compte) {
+      i.className = 'bi bi-person-check me-1';
+      e.appendChild(i);
+      var qui = [compte.prenom, compte.nom].filter(Boolean).join(' ');
+      e.appendChild(document.createTextNode('Charte rattachée à votre compte' + (qui ? ' (' + qui + ')' : '') +
+        ' : vous la retrouvez sur tous vos postes.'));
+    } else {
+      i.className = 'bi bi-laptop me-1';
+      e.appendChild(i);
+      e.appendChild(document.createTextNode('Charte enregistrée dans ce navigateur. '));
+      var a = document.createElement('a');
+      a.href = '/espace-partenaires'; a.textContent = 'Connectez-vous à votre espace';
+      e.appendChild(a);
+      e.appendChild(document.createTextNode(' pour la retrouver sur tous vos postes.'));
+    }
+    e.classList.toggle('est-connecte', !!compte);
   }
   function fusionBrute(a, b) {
     var r = clone(a || {});
@@ -213,6 +283,7 @@
       '<div class="marque-etat" id="marqueEtat" aria-live="polite">Les réglages s\'appliquent immédiatement.</div></div>' +
       '<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button></div>' +
       '<div class="offcanvas-body">' +
+        '<p class="marque-compte" id="marqueCompte"></p>' +
         '<h3 class="marque-section">Charte de couleurs</h3>' +
         '<div class="marque-chartes" id="marqueChartes"></div>' +
         '<div class="marque-couleurs">' + couleur('mqPrincipale', 'Principale') + couleur('mqAccent', 'Accent') +
@@ -239,9 +310,8 @@
           '<input type="file" class="d-none" id="mqImportFichier" accept="application/json,.json"/>' +
           '<button type="button" class="btn btn-sm btn-outline-danger ms-auto" id="mqRetablir">Rétablir la charte par défaut</button>' +
         '</div>' +
-        '<p class="marque-note">Les réglages sont enregistrés dans ce navigateur. Le fichier exporté peut être importé ' +
-        'sur un autre poste, ou déposé à la racine du site sous le nom <code>marque.json</code> pour devenir la charte ' +
-        'par défaut de tous les utilisateurs.</p>' +
+        '<p class="marque-note">Le fichier exporté peut être importé sur un autre poste, ou déposé à la racine du site ' +
+        'sous le nom <code>marque.json</code> pour devenir la charte par défaut de tous les utilisateurs.</p>' +
       '</div>';
     document.body.appendChild(el);
 
@@ -290,6 +360,7 @@
       perso = {}; ecrire(K_PERSO, perso);
       courante = fusion(base, perso); appliquer(); remplir();
       etat('Charte par défaut rétablie.');
+      planifierEnvoi();
     });
     return el;
   }
@@ -363,6 +434,7 @@
       perso = propre; ecrire(K_PERSO, perso);
       courante = fusion(base, perso); appliquer(); remplir();
       etat('Charte importée.');
+      planifierEnvoi();
     };
     lecteur.readAsText(fichier);
   }
@@ -370,6 +442,7 @@
   function ouvrir() {
     if (!panneau) panneau = construirePanneau();
     remplir();
+    majCompteUi();
     bootstrap.Offcanvas.getOrCreateInstance(panneau).show();
   }
 
@@ -384,6 +457,7 @@
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (j) { if (j) { base = fusion(DEFAUT, j); courante = fusion(base, perso); appliquer(); remplir(); } })
       .catch(function () { /* charte de déploiement absente : on garde le défaut */ });
+    chargerCompte();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', demarrer);
   else demarrer();
@@ -391,6 +465,8 @@
   window.Marque = {
     get: function () { return clone(courante); },
     couleur: function (nom) { return courante.couleurs[nom] || courante.couleurs.principale; },
+    encre: function (nom) { return encre(window.Marque.couleur(nom)); },
+    teinte: function (nom, t) { return melange(window.Marque.couleur(nom), 255, t); },
     rgba: function (nom, alpha) { return 'rgba(' + rgb(window.Marque.couleur(nom)).join(',') + ',' + alpha + ')'; },
     ouvrir: ouvrir
   };

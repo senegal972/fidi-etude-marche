@@ -37,11 +37,25 @@
   }
   function clone(x) { return JSON.parse(JSON.stringify(x)); }
 
+  // ── Charte de marque (module « Mise en page », marque.js) ───
+  // L'avis reprend l'enseigne, le logo, les couleurs et les coordonnées de la charte active.
+  // Repli sur des valeurs neutres si marque.js n'est pas chargé.
+  function charte() {
+    var M = window.Marque, m = M ? M.get() : null;
+    return {
+      p: M ? M.couleur('principale') : '#1a3a6e',
+      s: M ? M.couleur('secondaire') : '#b8860b',
+      sTexte: M ? M.encre('secondaire') : '#fff',
+      clair: M ? M.teinte('principale', 0.9) : '#eaf0f8',
+      enseigne: m ? m.enseigne : '', logo: m ? m.logo : '', coord: (m && m.coordonnees) || {}
+    };
+  }
+
   // ── Modèle par défaut ───────────────────────────────────────
   function defaultData() {
-    var y = new Date().getFullYear();
+    var y = new Date().getFullYear(), C = charte();
     return {
-      metadata: { ref: 'FIDI-AV-' + y + '-001', date: new Date().toISOString().slice(0, 10), lieuEtablissement: 'Fort-de-France' },
+      metadata: { ref: 'AV-' + y + '-001', date: new Date().toISOString().slice(0, 10), lieuEtablissement: '' },
       bien: {
         type: 'Appartement', adresse: '', cp: '', commune: '', immeuble: '', etage: '',
         surfaceCarrez: '', surfaceShob: '', sejour: '', terrasse: '', parking: '',
@@ -75,9 +89,10 @@
       conclusion: { texte: '', potentielBas: '', potentielHaut: '' },
       reserves: "Le présent avis a été établi sur la base des informations communiquées par le mandant et des données publiques de marché. Il n'engage le rédacteur qu'à hauteur d'un avis indicatif. Il ne se substitue ni à une expertise judiciaire, ni à un rapport d'évaluation au sens de la Charte de l'Expertise en Évaluation Immobilière.\n\nLa valeur retenue est susceptible d'évoluer en fonction : (i) d'éventuels diagnostics techniques défavorables (amiante, termites, électricité, DPE, ERP – risques cycloniques et sismiques en Martinique) non encore portés à notre connaissance ; (ii) de l'état réel du locataire en place (régularité des paiements, durée de bail résiduelle, indexation IRL) ; (iii) de l'évolution du marché immobilier local sur les 12 prochains mois.\n\nAucune visite physique du bien n'a été matérialisée par procès-verbal contradictoire ; l'avis repose sur les éléments documentaires transmis.",
       signataire: {
-        nom: 'Franck FIDI', fonction: 'Mandataire en immobilier',
-        email: 'franck.fidi@sextantfrance.fr', societe: 'OPTIMMO DOM',
-        adresseSociete: '483 Avenue Victor Coridun, 97200 Fort-de-France'
+        // Pré-rempli depuis les coordonnées de la charte ; le nom se saisit puis se mémorise.
+        nom: '', fonction: '',
+        email: C.coord.email || '', societe: C.coord.raisonSociale || C.enseigne,
+        adresseSociete: C.coord.adresse || ''
       }
     };
   }
@@ -145,7 +160,7 @@
   function atoutsFromScore(score) {
     var out = [];
     if (!score) return out;
-    if (score.verdict && score.total != null) out.push('Potentiel de marché jugé « ' + score.verdict + ' » (' + score.total + '/100, étude FIDI).');
+    if (score.verdict && score.total != null) out.push('Potentiel de marché jugé « ' + score.verdict + ' » (' + score.total + '/100, étude de marché).');
     var ax = score.axes || {};
     if (ax.attractivite && ax.attractivite.detail) out.push(ax.attractivite.detail + '.');
     if (ax.activite && ax.activite.detail) out.push(ax.activite.detail + '.');
@@ -437,7 +452,7 @@
     var d = state.data, b = d.bien;
     if (id === 'metadata') {
       return head('Référence et date', "Identifiants administratifs de l'avis") +
-        fld('Référence interne', 'metadata.ref', { tip: 'Format conseillé : FIDI-AV-AAAA-NNN' }) +
+        fld('Référence interne', 'metadata.ref', { tip: 'Format conseillé : AV-AAAA-NNN' }) +
         '<div class="av-grid-2">' + fld("Date d'établissement", 'metadata.date', { type: 'date' }) +
         fld("Lieu d'établissement", 'metadata.lieuEtablissement') + '</div>';
     }
@@ -579,7 +594,7 @@
       return head('Détermination de la valeur vénale', 'Méthodes combinées en une valeur retenue pondérée') +
         '<div class="av-grid-3">' +
         fld('€/m² ACM retenu', 'acm.prixM2Manuel', { type: 'number', tip: 'Vide = médiane comparables (' + (acmPlace ? fmt(acmPlace) + ' €' : '—') + ')', ph: acmPlace ? String(acmPlace) : '' }) +
-        fld('Taux de capitalisation (%)', 'calcul.tauxCapi', { type: 'number', step: '0.1', tip: '6 à 7 % typique Martinique' }) +
+        fld('Taux de capitalisation (%)', 'calcul.tauxCapi', { type: 'number', step: '0.1', tip: 'Souvent 5 à 7 % selon le marché local' }) +
         fld("Décote d'occupation (%)", 'calcul.decoteOccupation', { type: 'number', step: '1', tip: '0 libre — 5 à 15 % occupé' }) +
         '</div>' +
         '<div class="av-box"><div class="av-box-title">Méthodes & pondération</div>' +
@@ -699,7 +714,7 @@
     if (ph) ph.placeholder = fmt(c.voccHaut);
     if (state.preview) {
       var pv = document.getElementById('avPreview');
-      if (pv) pv.innerHTML = '<div class="av-preview-page"><div class="avis-doc">' + buildAvisDocHTML(state.data, c) + '</div></div>';
+      if (pv) pv.innerHTML = '<div class="av-preview-page"><div class="avis-doc">' + buildAvisDocHTML(state.data, c, true) + '</div></div>';
     }
   }
   function liveItem(k, v) { return '<div class="av-live-item"><span class="av-live-k">' + k + '</span><span class="av-live-v">' + v + '</span></div>'; }
@@ -722,7 +737,7 @@
       '<div class="modal fade" id="avisModal" tabindex="-1" aria-hidden="true">' +
       '<div class="modal-dialog modal-fullscreen modal-dialog-scrollable">' +
       '<div class="modal-content">' +
-      '<div class="modal-header"><div><h5 class="modal-title">Avis de valeur<small>FIDI · document professionnel</small></h5></div>' +
+      '<div class="modal-header"><div><h5 class="modal-title">Avis de valeur<small>' + esc(charte().enseigne || 'Document professionnel') + '</small></h5></div>' +
       '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button></div>' +
       '<div class="av-tabs">' + tabs + '</div>' +
       '<div class="modal-body"><div class="av-layout' + (state.preview ? ' av-with-preview' : '') + '" id="avLayout">' +
@@ -932,7 +947,7 @@
         '</div></div>';
     }).join('') : '<div class="av-tip" style="padding:1rem;text-align:center;">Aucun avis sauvegardé pour le moment.</div>';
     root.innerHTML = '<div class="modal fade" id="avisLibModal" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content">' +
-      '<div class="modal-header" style="background:#1a3a6e;color:#fff;"><h5 class="modal-title">Mes avis de valeur</h5>' +
+      '<div class="modal-header" style="background:var(--av-blue);color:#fff;"><h5 class="modal-title">Mes avis de valeur</h5>' +
       '<button type="button" class="btn-close" style="filter:invert(1)" data-bs-dismiss="modal"></button></div>' +
       '<div class="modal-body" id="avisLibBody">' + rows + '</div>' +
       '<div class="modal-footer"><button class="btn btn-sm btn-outline-primary" onclick="AvisValeur.open()">+ Nouvel avis</button></div>' +
@@ -985,7 +1000,7 @@
   }
   function exportPdf() {
     var pr = document.getElementById('avisPrintRoot');
-    pr.innerHTML = '<div class="avis-doc">' + buildAvisDocHTML(state.data, compute(state.data)) + '</div>';
+    pr.innerHTML = '<div class="avis-doc">' + buildAvisDocHTML(state.data, compute(state.data), true) + '</div>';
     var origTitle = document.title;
     document.title = 'Avis_de_valeur_' + (state.data.metadata.ref || 'rapport');
     document.body.classList.add('avis-print');
@@ -1019,7 +1034,9 @@
     if (value === '' || value === null || value === undefined) return '';
     return '<tr><td class="lbl">' + esc(label) + '</td><td>' + value + '</td></tr>';
   }
-  function buildAvisDocHTML(data, calc) {
+  // avecLogo : aperçu et impression uniquement — Word n'affiche pas les images intégrées en HTML.
+  function buildAvisDocHTML(data, calc, avecLogo) {
+    var C = charte();
     var b = data.bien, m = data.marche, sig = data.signataire;
     var occ = b.statut === 'occupe';
     var adresseComplete = [b.adresse, b.cp, b.commune].filter(Boolean).map(esc).join(' – ');
@@ -1038,10 +1055,12 @@
 
     var html = '';
     html += '<div class="header-bar"><table style="border:none;width:100%;"><tr style="border:none;">' +
-      '<td style="border:none;width:60%;padding:0;"><div class="left">' + esc(sig.societe || 'FIDI') + '</div>' +
+      '<td style="border:none;width:60%;padding:0;">' +
+      (avecLogo && C.logo ? '<img src="' + esc(C.logo) + '" alt="" style="max-height:44px;max-width:170px;margin-bottom:4px;display:block;"/>' : '') +
+      '<div class="left">' + esc(sig.societe || C.enseigne) + '</div>' +
       '<div style="color:#5c6470;font-size:9px;font-style:italic;">Avis de valeur immobilière</div>' +
-      '<div style="color:#5c6470;font-size:9px;">Martinique – étude de marché FIDI</div></td>' +
-      '<td style="border:none;width:40%;padding:0;text-align:right;"><div style="color:#1a3a6e;font-weight:bold;">' + esc(sig.nom) + '</div>' +
+      (sig.adresseSociete ? '<div style="color:#5c6470;font-size:9px;">' + esc(sig.adresseSociete) + '</div>' : '') + '</td>' +
+      '<td style="border:none;width:40%;padding:0;text-align:right;"><div style="color:' + C.p + ';font-weight:bold;">' + esc(sig.nom) + '</div>' +
       '<div>' + esc(sig.fonction) + '</div><div>' + esc(sig.email) + '</div></td></tr></table></div>';
 
     html += '<div class="title-block"><div class="t1">AVIS DE VALEUR</div>' +
@@ -1049,7 +1068,7 @@
       '<div class="t3">Réf. : ' + esc(data.metadata.ref) + '  –  Établi le ' + (formatDateFR(data.metadata.date) || '[date]') + '</div></div>';
 
     html += '<h1>1. Préambule et cadre de l\'avis</h1>' +
-      '<p>Le présent document constitue un <b>avis de valeur</b> établi par <b>' + esc(sig.societe) + '</b>, ' + (data.metadata.lieuEtablissement ? 'à ' + esc(data.metadata.lieuEtablissement) : 'en Martinique') + ', par ' + esc(sig.nom) + ', ' + esc(sig.fonction) + '. Il porte sur ' + (b.type ? 'un ' + esc(b.type.toLowerCase()) : 'le bien') + ' situé ' + (adresseComplete || '[adresse]') + '.</p>' +
+      '<p>Le présent document constitue un <b>avis de valeur</b> établi par <b>' + esc(sig.societe || C.enseigne || '[Société]') + '</b>' + (data.metadata.lieuEtablissement ? ', à ' + esc(data.metadata.lieuEtablissement) : '') + ', par ' + esc(sig.nom || '[Nom du signataire]') + (sig.fonction ? ', ' + esc(sig.fonction) : '') + '. Il porte sur ' + (b.type ? 'un ' + esc(b.type.toLowerCase()) : 'le bien') + ' situé ' + (adresseComplete || '[adresse]') + '.</p>' +
       '<p>Conformément aux usages de la profession et à la Charte de l\'Expertise en Évaluation Immobilière, le présent avis <b>ne constitue pas une expertise judiciaire ou réglementée</b>. Il est délivré à titre indicatif et matérialise une opinion motivée sur la valeur vénale du bien au jour de son établissement, sur la base des éléments communiqués et des données de marché disponibles.</p>' +
       (b.prixVente ? '<p style="font-style:italic;color:#5c6470;">Le bien faisant l\'objet du présent avis ' + (occ ? 'a été cédé' : 'est proposé') + ' pour un prix de ' + fmtE(b.prixVente) + ' net vendeur.</p>' : '');
 
@@ -1139,7 +1158,7 @@
 
     if (b.prixVente) {
       html += '<h2>Analyse de cohérence – prix de cession</h2>' +
-        '<p>Le bien ' + (occ ? 'a été cédé' : 'est proposé') + ' au prix de <b style="color:#1a3a6e;">' + fmtE(b.prixVente) + ' net vendeur</b>' + (b.surfaceCarrez ? ', soit environ <b>' + fmt(calc.prixM2) + ' €/m²</b>' : '') + '. Ce prix s\'inscrit <b>dans la fourchette retenue par notre avis (' + fmtE(calc.voccBas) + ' – ' + fmtE(calc.voccHaut) + ')</b>' + (occ && calc.rendementBrut ? ' et offre à l\'acquéreur un <b>rendement brut de ' + calc.rendementBrut.toFixed(2) + ' %</b>' : '') + '.</p>';
+        '<p>Le bien ' + (occ ? 'a été cédé' : 'est proposé') + ' au prix de <b style="color:' + C.p + ';">' + fmtE(b.prixVente) + ' net vendeur</b>' + (b.surfaceCarrez ? ', soit environ <b>' + fmt(calc.prixM2) + ' €/m²</b>' : '') + '. Ce prix s\'inscrit <b>dans la fourchette retenue par notre avis (' + fmtE(calc.voccBas) + ' – ' + fmtE(calc.voccHaut) + ')</b>' + (occ && calc.rendementBrut ? ' et offre à l\'acquéreur un <b>rendement brut de ' + calc.rendementBrut.toFixed(2) + ' %</b>' : '') + '.</p>';
     }
 
     if (atouts.length || vigilances.length) {
@@ -1154,7 +1173,7 @@
       '<table><tr><td class="synth-occ" style="width:50%;"><div style="text-transform:uppercase;font-size:9px;opacity:.85;">Valeur ' + (occ ? "en l'état d'occupation" : 'vénale') + '</div><div class="v">' + ((calc.voccBas && calc.voccHaut) ? fmt(calc.voccBas) + ' – ' + fmt(calc.voccHaut) + ' €' : '—') + '</div></td>' +
       (occ ? '<td class="synth-libre" style="width:50%;"><div style="text-transform:uppercase;font-size:9px;color:#1a2233;">Valeur bien libre (référence marché)</div><div class="v">' + ((calc.vlBas && calc.vlMoy) ? fmt(calc.vlBas) + ' – ' + fmt(calc.vlMoy) + ' €' : '—') + '</div></td>' : '') +
       '</tr></table>' +
-      '<p style="margin-top:12px;"><b style="color:#1a3a6e;">Conclusion :</b> ' + conclusionTexte + '</p>';
+      '<p style="margin-top:12px;"><b style="color:' + C.p + ';">Conclusion :</b> ' + conclusionTexte + '</p>';
 
     html += '<h1>8. Réserves et limites de l\'avis</h1><div class="reserves">' +
       String(data.reserves || '').split('\n\n').map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '</div>';
@@ -1168,7 +1187,9 @@
   }
 
   function buildWordDoc(data, calc) {
-    return '<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Avis de valeur ' + esc(data.metadata.ref) + '</title>' +
+    // La feuille de style est écrite avec les teintes de référence, puis passée à la charte active.
+    var C = charte();
+    var doc = '<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Avis de valeur ' + esc(data.metadata.ref) + '</title>' +
       '<xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml>' +
       '<style>@page{size:A4;margin:2cm;}body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#000;line-height:1.4;}' +
       'h1{color:#1a3a6e;font-size:14pt;border-bottom:2pt solid #b8860b;padding-bottom:4pt;margin-top:20pt;}' +
@@ -1181,8 +1202,9 @@
       '.synth-libre{background:#eaf0f8;padding:12pt;}.synth-libre .v{font-size:18pt;font-weight:bold;color:#1a3a6e;text-align:center;}' +
       '.header-bar{border-bottom:2pt solid #b8860b;padding-bottom:8pt;margin-bottom:16pt;}.header-bar .left{color:#1a3a6e;font-weight:bold;font-size:14pt;}' +
       '.atouts{background:#e8f5e9;padding:10pt;}.vigilance{background:#ffebee;padding:10pt;}.atouts .h{color:#198754;font-weight:bold;font-size:10pt;margin-bottom:6pt;}.vigilance .h{color:#b71c1c;font-weight:bold;font-size:10pt;margin-bottom:6pt;}' +
-      '.signature{text-align:right;margin-top:24pt;}.signature .name{color:#1a3a6e;font-weight:bold;font-size:12pt;}.reserves p{font-size:9pt;color:#5c6470;}.gold-row{background:#b8860b;color:#fff;font-weight:bold;}</style></head><body>' +
-      buildAvisDocHTML(data, calc) + '</body></html>';
+      '.signature{text-align:right;margin-top:24pt;}.signature .name{color:#1a3a6e;font-weight:bold;font-size:12pt;}.reserves p{font-size:9pt;color:#5c6470;}.gold-row{background:#b8860b;color:GOLDTXT;font-weight:bold;}</style></head><body>';
+    doc = doc.replace(/#1a3a6e/g, C.p).replace(/#b8860b/g, C.s).replace(/#eaf0f8/g, C.clair).replace('GOLDTXT', C.sTexte);
+    return doc + buildAvisDocHTML(data, calc) + '</body></html>';
   }
 
   // ── API publique ────────────────────────────────────────────

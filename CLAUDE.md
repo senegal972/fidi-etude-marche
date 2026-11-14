@@ -23,7 +23,8 @@ fidi-etude-marche/
 │   ├── entreprise.mjs            # GET  /api/entreprise — RNE/INPI
 │   ├── pappers.mjs               # GET  /api/pappers — santé financière
 │   ├── permis.mjs                # GET  /api/permis — SITADEL
-│   └── transactions.mjs          # GET  /api/transactions — DVF détail
+│   ├── transactions.mjs          # GET  /api/transactions — DVF détail
+│   └── marque.mjs                # GET/POST /api/marque — charte de marque du compte connecté
 ├── .claude/
 │   ├── settings.json             # Configuration Claude Code
 │   └── commands/                 # Commandes slash personnalisées
@@ -95,6 +96,12 @@ Retourne : loyer d'annonce €/m²/mois (appartement, T1-T2, T3+, maison) + rend
 Paramètre : `code_insee` (5 car.)  
 Retourne : niveau de vie médian, revenu déclaré médian, part de ménages imposés — source INSEE Filosofi 2021
 
+### `GET /api/marque` · `POST /api/marque`
+Authentification requise (cookie `optimmo_jwt` ou `Authorization: Bearer`).  
+`GET` retourne `{ compte: { prenom, nom }, marque }` (`marque` vaut `null` si aucune charte n'est enregistrée).  
+`POST` reçoit une charte `{ enseigne, produit, baseline, logo, couleurs, coordonnees }`, l'assainit et l'enregistre
+dans le store Blobs `optimmo-marques` (clé = identifiant du compte).
+
 ### `POST /api/avis-de-valeur`
 ```json
 { "adresse", "type_bien", "surface", "etat", "localisation", "prix_m2_reference",
@@ -124,17 +131,26 @@ l'écran de saisie ou de l'habillage passe par ces fichiers, pas par du code ajo
 - L'application est destinée à être commercialisée : **aucune enseigne, couleur ou coordonnée
   ne doit être écrite en dur** dans le HTML, le CSS ou le JS.
 - Priorité des réglages : valeurs par défaut de `marque.js` < `marque.json` (charte du déploiement)
-  < réglages de l'utilisateur (`localStorage`, clé `fidi_marque_perso`, panneau « Mise en page »).
+  < réglages de l'utilisateur faits dans le panneau « Mise en page ».
+- Rattachement au compte : si l'utilisateur est connecté à son espace, ses réglages sont lus et
+  enregistrés via `/api/marque` (`netlify/functions/marque.mjs`) et le suivent sur tous ses postes ;
+  la charte du compte remplace alors celle du navigateur. Sans connexion, ils restent dans
+  `localStorage` (clé `fidi_marque_perso`).
+- Les règles de validation existent en double — `assainir()` dans `marque.js` et `assainirMarque()`
+  dans `marque.mjs` : **toute évolution des champs de la charte se fait dans les deux**.
+- Avis de valeur : `avis-valeur.js` lit la charte par sa fonction `charte()` (couleurs, logo, enseigne,
+  coordonnées par défaut du signataire). Le logo n'est pas inséré dans l'export Word.
 - Couleurs : utiliser les variables CSS `--fidi-blue`, `--fidi-blue-light`, `--fidi-accent`,
   `--fidi-accent-hover`, `--fidi-on-accent`, `--fidi-gold`, `--fidi-on-gold`.
-  En JavaScript (Chart.js, Leaflet) : `Marque.couleur('principale'|'accent'|'secondaire')`
-  et `Marque.rgba('principale', 0.1)`.
+  En JavaScript (Chart.js, Leaflet) : `Marque.couleur('principale'|'accent'|'secondaire')`,
+  `Marque.rgba('principale', 0.1)`, `Marque.teinte('principale', 0.9)` (fond clair),
+  `Marque.encre('secondaire')` (texte lisible sur cette couleur).
 - Enseigne et coordonnées : `Marque.get()` → `{ enseigne, produit, baseline, logo, couleurs, coordonnees }`.
 - Impression / PDF : `marque.js` insère `#marquePrint` (en-tête) et `#marquePrintPied` (pied)
   dans `#results-panel` ; ils ne sont visibles qu'à l'impression.
 - `marque.json` est versionné dans un dépôt public : **ne pas y inscrire de coordonnées personnelles**.
-- Reste à faire : appliquer la charte au document généré par `avis-valeur.js` (couleurs encore en dur)
-  et rattacher la charte au compte utilisateur côté serveur (aujourd'hui : par navigateur).
+- Reste à faire : brouillons, études récentes, modèles de saisie et signataire de l'avis de valeur
+  sont encore stockés par navigateur ; la marque blanche n'est rattachée à aucune formule d'abonnement.
 
 ## Score de potentiel — Axes de notation
 

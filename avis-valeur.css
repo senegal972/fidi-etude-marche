@@ -130,7 +130,7 @@
 .avis-doc .title-block .t3{color:var(--av-grey);font-style:italic;font-size:10px;margin-top:4px;}
 .avis-doc .header-bar{border-bottom:2px solid var(--av-gold);padding-bottom:8px;margin-bottom:14px;}
 .avis-doc .header-bar .left{color:var(--av-blue);font-weight:bold;font-size:14px;}
-.avis-doc .gold-row{background:var(--av-gold);color:#fff;font-weight:bold;}
+.avis-doc .gold-row{background:var(--av-gold);color:var(--av-on-gold,#fff);font-weight:bold;}
 .avis-doc .atouts{background:#e8f5e9;padding:10px;}
 .avis-doc .vigilance{background:#ffebee;padding:10px;}
 .avis-doc .atouts .h{color:var(--av-green);font-weight:bold;font-size:10px;margin-bottom:6px;}

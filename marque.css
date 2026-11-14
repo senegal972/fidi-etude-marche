@@ -10,8 +10,9 @@
 .marque-panneau{width:min(420px,100vw)!important;}
 .marque-panneau .offcanvas-title{font-size:1.15rem;font-weight:800;color:var(--fidi-blue);}
 .marque-etat{font-size:.75rem;color:#6c757d;margin-top:.15rem;}
+.marque-compte{background:#f4f6f9;border-radius:10px;padding:.6rem .8rem;font-size:.78rem;color:#3a4553;margin:0 0 1.1rem;}
+.marque-compte.est-connecte{background:#e7f4ee;color:#14532d;}
 .marque-section{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#5b6573;margin:1.4rem 0 .6rem;padding-bottom:.35rem;border-bottom:1px solid #e6e9ee;}
-.marque-section:first-child{margin-top:0;}
 .marque-section small{text-transform:none;letter-spacing:0;font-weight:400;}
 .marque-label{display:block;font-size:.76rem;font-weight:600;color:#4a5462;margin-bottom:.2rem;}
 
