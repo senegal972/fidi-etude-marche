@@ -1,13 +1,13 @@
 {
-  "name": "FIDI · Étude de Marché Immobilier",
-  "short_name": "FIDI Marché",
+  "name": "Étude de Marché Immobilier",
+  "short_name": "Étude Marché",
   "description": "Évaluation du potentiel d'un bien immobilier à partir des données publiques data.gouv.fr (DVF, BDNB, BAN, Géorisques, INSEE).",
   "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#f0f2f5",
-  "theme_color": "#1a3a6e",
+  "theme_color": "#0C447C",
   "lang": "fr",
   "categories": ["business", "productivity", "finance"],
   "icons": [

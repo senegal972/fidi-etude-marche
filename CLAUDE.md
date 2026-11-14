@@ -7,6 +7,10 @@
 ```
 fidi-etude-marche/
 ├── index.html                    # SPA principale (HTML + JS inline)
+├── saisie.js / saisie.css        # Écran de saisie « Nouvelle étude » (2 colonnes, brouillon, modèles)
+├── marque.js / marque.css        # Module « Mise en page » (marque blanche : enseigne, logo, couleurs)
+├── marque.json                   # Charte par défaut du déploiement (un fichier par client)
+├── avis-valeur.js / .css         # Module Avis de valeur
 ├── manifest.webmanifest          # PWA manifest
 ├── favicon.svg                   # Icône
 ├── netlify.toml                  # Config Netlify (redirections, timeouts)
@@ -19,7 +23,8 @@ fidi-etude-marche/
 │   ├── entreprise.mjs            # GET  /api/entreprise — RNE/INPI
 │   ├── pappers.mjs               # GET  /api/pappers — santé financière
 │   ├── permis.mjs                # GET  /api/permis — SITADEL
-│   └── transactions.mjs          # GET  /api/transactions — DVF détail
+│   ├── transactions.mjs          # GET  /api/transactions — DVF détail
+│   └── marque.mjs                # GET/POST /api/marque — charte de marque du compte connecté
 ├── .claude/
 │   ├── settings.json             # Configuration Claude Code
 │   └── commands/                 # Commandes slash personnalisées
@@ -91,12 +96,61 @@ Retourne : loyer d'annonce €/m²/mois (appartement, T1-T2, T3+, maison) + rend
 Paramètre : `code_insee` (5 car.)  
 Retourne : niveau de vie médian, revenu déclaré médian, part de ménages imposés — source INSEE Filosofi 2021
 
+### `GET /api/marque` · `POST /api/marque`
+Authentification requise (cookie `optimmo_jwt` ou `Authorization: Bearer`).  
+`GET` retourne `{ compte: { prenom, nom }, marque }` (`marque` vaut `null` si aucune charte n'est enregistrée).  
+`POST` reçoit une charte `{ enseigne, produit, baseline, logo, couleurs, coordonnees }`, l'assainit et l'enregistre
+dans le store Blobs `optimmo-marques` (clé = identifiant du compte).
+
 ### `POST /api/avis-de-valeur`
 ```json
 { "adresse", "type_bien", "surface", "etat", "localisation", "prix_m2_reference",
   "comparables", "dpe", "risques", "services", "loyers", "revenus" }
 ```
 Retourne : `{ valeur: { valeur_venale, fourchette_basse, fourchette_haute, ajustements, capitalisation }, markdown }` — avis de valeur vénale complet (comparaison directe + contrôle par capitalisation)
+
+## Modules d'interface
+
+L'interface est découpée en modules autonomes chargés par `index.html`. **Toute évolution de
+l'écran de saisie ou de l'habillage passe par ces fichiers, pas par du code ajouté dans `index.html`.**
+
+### Écran de saisie — `saisie.js` / `saisie.css`
+- Deux colonnes : contenu de l'étude à gauche (bien, caractéristiques, vérifications),
+  options et récapitulatif en direct à droite.
+- Ne modifie pas `lancerAnalyse()`. **Les identifiants historiques sont un contrat à conserver** :
+  `inputAdresse`, `selectType`, `inputSurface`, `selectPerimetre`, `btnAnalyse`, `optEntreprise`,
+  `inputEntrepriseQ`, `optFinance`, `inputFinanceSiren`, `optPermis`, `btnGeoloc`, `autocompleteList`.
+- Familles de biens, libellés de surface et modèles prédéfinis : constantes `FAMILLES` et `MODELES_BASE`.
+- Sources affichées dans le récapitulatif : constante `SOURCES` — **à mettre à jour quand une source
+  de données est ajoutée** (commande `/add-datasource`).
+- Persistance `localStorage` : `fidi_em_brouillon`, `fidi_em_recentes`, `fidi_em_modeles`,
+  `fidi_em_seq_<année>` (numérotation des références `EM-AAAA-NNN`).
+- Le formulaire se replie en résumé quand `#results-panel` devient visible (MutationObserver).
+
+### Mise en page / marque blanche — `marque.js` / `marque.css` / `marque.json`
+- L'application est destinée à être commercialisée : **aucune enseigne, couleur ou coordonnée
+  ne doit être écrite en dur** dans le HTML, le CSS ou le JS.
+- Priorité des réglages : valeurs par défaut de `marque.js` < `marque.json` (charte du déploiement)
+  < réglages de l'utilisateur faits dans le panneau « Mise en page ».
+- Rattachement au compte : si l'utilisateur est connecté à son espace, ses réglages sont lus et
+  enregistrés via `/api/marque` (`netlify/functions/marque.mjs`) et le suivent sur tous ses postes ;
+  la charte du compte remplace alors celle du navigateur. Sans connexion, ils restent dans
+  `localStorage` (clé `fidi_marque_perso`).
+- Les règles de validation existent en double — `assainir()` dans `marque.js` et `assainirMarque()`
+  dans `marque.mjs` : **toute évolution des champs de la charte se fait dans les deux**.
+- Avis de valeur : `avis-valeur.js` lit la charte par sa fonction `charte()` (couleurs, logo, enseigne,
+  coordonnées par défaut du signataire). Le logo n'est pas inséré dans l'export Word.
+- Couleurs : utiliser les variables CSS `--fidi-blue`, `--fidi-blue-light`, `--fidi-accent`,
+  `--fidi-accent-hover`, `--fidi-on-accent`, `--fidi-gold`, `--fidi-on-gold`.
+  En JavaScript (Chart.js, Leaflet) : `Marque.couleur('principale'|'accent'|'secondaire')`,
+  `Marque.rgba('principale', 0.1)`, `Marque.teinte('principale', 0.9)` (fond clair),
+  `Marque.encre('secondaire')` (texte lisible sur cette couleur).
+- Enseigne et coordonnées : `Marque.get()` → `{ enseigne, produit, baseline, logo, couleurs, coordonnees }`.
+- Impression / PDF : `marque.js` insère `#marquePrint` (en-tête) et `#marquePrintPied` (pied)
+  dans `#results-panel` ; ils ne sont visibles qu'à l'impression.
+- `marque.json` est versionné dans un dépôt public : **ne pas y inscrire de coordonnées personnelles**.
+- Reste à faire : brouillons, études récentes, modèles de saisie et signataire de l'avis de valeur
+  sont encore stockés par navigateur ; la marque blanche n'est rattachée à aucune formule d'abonnement.
 
 ## Score de potentiel — Axes de notation
 
@@ -122,6 +176,9 @@ Retourne : `{ valeur: { valeur_venale, fourchette_basse, fourchette_haute, ajust
 - Timeout API : 8 000 ms par défaut, wrappé dans `fetchTimeout()`
 - CORS : headers `Access-Control-Allow-Origin: *` sur toutes les réponses
 - Pas de build step — le HTML est servi tel quel
+- Interface : un module = un couple `nom.js` + `nom.css` à la racine, en JavaScript sans framework,
+  encapsulé dans une IIFE ; pas de `alert()` pour les contrôles de saisie (message en ligne)
+- Tests statiques de l'interface : `tests/interface.test.mjs` (contrat des identifiants, charte)
 
 ### Variables d'environnement (Netlify)
 | Variable | Usage |
